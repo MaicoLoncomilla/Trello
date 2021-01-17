@@ -2,13 +2,13 @@ require('dotenv').config();
 const { Sequelize } = require('sequelize');
 const fs = require('fs');
 const path = require('path');
-const {
-  DB_USER, DB_PASSWORD, DB_HOST,
-} = process.env;
+const { DB_USER, DB_PASSWORD, DB_HOST, DB_NAME } = process.env;
 
-const sequelize = new Sequelize(`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/development`, {
-  logging: false, // set to console.log to see the raw SQL queries
-  native: false, // lets Sequelize know we can use pg-native for ~30% more speed
+const sequelize = new Sequelize(DB_NAME, DB_USER, DB_PASSWORD, {
+  host: DB_HOST,
+  dialect: "mysql",
+  logging: false,
+  native: false,
 });
 const basename = path.basename(__filename);
 
@@ -30,10 +30,41 @@ sequelize.models = Object.fromEntries(capsEntries);
 
 // En sequelize.models están todos los modelos importados como propiedades
 // Para relacionarlos hacemos un destructuring
-const { Product } = sequelize.models;
+const { Avatar, Done, Group, InProcess, InQueue, Review, TableList, User } = sequelize.models;
 
 // Aca vendrian las relaciones
-// Product.hasMany(Reviews);
+// User 1 <-----> N TableList
+User.hasMany(TableList)
+TableList.belongsTo(User)
+
+// Avatar 1 <-----> 1 User
+Avatar.hasOne(User)
+User.belongsTo(Avatar)
+
+// User N <-----> N Group (ver esto)
+User.belongsToMany(Group, { through: 'userGroup' })
+Group.belongsToMany(User, { through: 'userGroup' })
+
+// TableList 1 <-----> N Group
+TableList.hasOne(Group)
+Group.belongsToMany(TableList, { through: 'groupTableList' })
+
+// Listas
+// TableList 1 <-----> 1 InQueue
+TableList.hasMany(InQueue)
+InQueue.belongsTo(TableList)
+
+// TableList 1 <-----> N InProcess
+TableList.hasMany(InProcess)
+InProcess.belongsTo(TableList)
+
+// TableList 1 <-----> N Review
+TableList.hasMany(Review)
+Review.belongsTo(TableList)
+
+// TableList 1 <-----> N Done
+TableList.hasMany(Done)
+Done.belongsTo(TableList)
 
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');
