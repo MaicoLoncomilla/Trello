@@ -5,16 +5,17 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import { createStore, applyMiddleware } from 'redux';
-import thunk from 'redux-thunk';
-import reducer from './components/redux/reducer';
+import getStore from './redux/reducer'
+import { PersistGate } from 'redux-persist/integration/react'
 
-const store = createStore(reducer, applyMiddleware(thunk))
+const { store, persistor } = getStore()
 
 ReactDOM.render(
   <Provider store={store}>
     <Router>
-      <App />
+      <PersistGate persistor={persistor}>
+        <App />
+      </PersistGate>
     </Router>
   </Provider>,
   document.getElementById('root')

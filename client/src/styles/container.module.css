@@ -1,0 +1,108 @@
+/* ------ header ------*/
+.containerFlex{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 100%;
+    background-color: aliceblue;
+    height: 55px;
+    padding: 5px;
+}
+.containerIcon{
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 10px;
+    border-radius: 8px;
+    height: 100%;
+    cursor: pointer;
+}
+.containerIcon:hover{
+    background-color: #666;
+}
+.containerAvatar {
+    display: flex;
+    align-items: center;
+    border-radius: 8px;
+    padding: 5px;
+    cursor: pointer;
+}
+.containerAvatar:hover{
+    background-color: #666;
+}
+.containerAvatar h3{
+    margin: 0 10px;
+}
+/* ------ TableList Top ------*/
+.containerFlexTableList {
+    display: flex;
+    padding: 5px;
+    align-items: center;
+    justify-content: flex-start;
+    color: aliceblue;
+}
+.containerTitleDashboard{
+    display: flex;
+    justify-content: center;
+    padding: 5px 15px;
+    border-radius: 6px;
+    cursor: pointer;
+    margin: 5px;
+}
+.containerTitleDashboard p {
+    text-transform: capitalize;
+    font-weight: 600;
+    font-size: 20px;
+}
+.containerTitleDashboard:hover{
+    background-color: rgb(255, 255, 255, .5);
+}
+/* ------ TableList body ------*/
+
+.containerTableListBody{
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    max-height: 80vh;
+    width: 100%;
+    overflow-y: hidden;
+    overflow-x: auto;
+}
+
+/* ------ Columns body ------*/
+.containerColumns {
+    display: flex;
+    flex-direction: column;
+    background-color: #ebecf0;
+    border-radius: 2px;
+    padding: 5px 10px;
+    overflow: hidden;
+    margin: 0 5px;
+    min-width: 300px;
+    max-width: 300px;
+
+}
+.containerTitleVertIcon{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    padding: 0 5px;
+}
+.containerTask{
+    overflow-y: auto;
+
+}
+.containerTaskBody{
+    background-color: #fff;
+    padding: 10px 10px;
+    border-radius: 5px;
+    margin: 10px 5px;
+    -webkit-box-shadow: 0px .5px 0px .1px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px .5px 0px .1px rgba(0,0,0,0.75);
+    box-shadow: 0px .5px 0px .1px rgba(0,0,0,0.75);
+    cursor: pointer;
+}
+.containerTaskBody:hover{
+    background-color: #dbdcf0;
+}

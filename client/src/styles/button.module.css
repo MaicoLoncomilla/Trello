@@ -1,0 +1,60 @@
+/* ------ Columns body ------*/
+.buttonAddAnotherTask {
+    background-color: transparent;
+    outline: none;
+    cursor: pointer;
+    border: none;
+    padding: 5px 0px;
+    font-size: 14px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-weight: 500;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    margin: 5px 5px;
+}
+.buttonAddAnotherTask:hover{
+    background-color: rgba(0, 0, 0, .1);
+}
+.buttonSubmitAddTask{
+    background-color: #5aac44;
+    outline: none;
+    border: none;
+    line-height: 20px;
+    font-size: 14px;
+    font-weight: 400;
+    cursor: pointer;
+    padding: 6px 12px;
+    border-radius: 3px;
+    color: #fff;
+}
+.buttonSubmitAddTask:hover{
+    background-color: #61bd4f;
+}
+.buttonIconClose{
+    vertical-align: middle;
+    margin: 0 10px;
+    color: #6b778c;
+    cursor: pointer;
+}
+.buttonIconClose:hover{
+    color: #172b4d;
+}
+
+/* ------ TableList body ------*/
+.buttonAddColumn{
+    min-width: 300px;
+    margin-left: 5px;
+    line-height: 20px;
+    outline: none;
+    border: none;
+    color: #172b4d;
+    background-color: rgba(255, 255, 255, .7);
+    padding: 5px;
+    border-radius: 3px;
+    cursor: pointer;
+}
+.buttonAddColumn:hover{
+    background-color: rgba(255, 255, 255, .5);
+}

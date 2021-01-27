@@ -1,13 +1,12 @@
 const { DataTypes } = require('sequelize');
 
 module.exports = (sequelize) => {
-    sequelize.define('inQueue', {
-        name: {
+    sequelize.define('dashboard', {
+        title: {
             type: DataTypes.STRING,
-            allowNull: false
         },
         description: {
             type: DataTypes.STRING,
-        }
+        },
     })
 }

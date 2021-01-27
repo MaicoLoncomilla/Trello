@@ -3,12 +3,12 @@ const { DataTypes } = require('sequelize');
 module.exports = (sequelize) => {
 
   sequelize.define('user', {
-    name: {
+    firstName: {
       type: DataTypes.STRING,
       allowNull: false,
     },
     lastName: {
-      type: DataTypes.STRING, 
+      type: DataTypes.STRING,
       allowNull: false,
     },
     email: {
@@ -26,5 +26,14 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING(30),
       allowNull: false,
     },
+    avatarUri: {
+      type: DataTypes.VIRTUAL(DataTypes.STRING, ['fileName']),
+      get() {
+        return `/image/${this.get('fileName')}`;
+      },
+      set() {
+        throw new Error(`Do not try to set the 'url' value!`);
+      }
+    }
   });
 };
