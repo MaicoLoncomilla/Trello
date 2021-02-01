@@ -1,39 +1,40 @@
 const server = require('express').Router();
 const dashboard = require('../controllers/dashboard');
+const user = require('../controllers/user')
 
-server.get('/:email', (req, res, next) => {
-    const { email } = req.params;
-    if (!email) {
-        return res.status(400).send('You need an Email!')
+server.get('/:id', (req, res, next) => {
+    const { id } = req.params;
+    if (!id) {
+        return res.status(400).send('You need an id to get all dashboard')
     }
-    dashboard.read(email)
+    user.getById(id)
         .then(r => res.send(r))
         .catch(next)
 })
 
 server.post('/', (req, res, next) => {
-    const { id, title, description } = req.body;
+    const { title, description, idUser } = req.body;
     if (!title || !description) {
         return res.status(400).send('You need a title and description to create a new dashboard')
     }
-    dashboard.create(id, title, description)
+    dashboard.create(title, description, idUser)
         .then(r => res.send(r))
         .catch(next)
 })
 
 server.put('/', (req, res, next) => {
-    const { id, title, description } = req.body;
+    const { id, title, description, idUser } = req.body;
     if (!title || !description) {
         return res.status(400).send('You need an Title and description to modify Dashboard')
     }
-    dashboard.modify(id, title, description)
+    dashboard.modify(id, title, description, idUser)
         .then(r => res.send(r))
         .catch(next)
 })
 
-server.delete('/', (req, res, next) => {
-    const { id } = req.body;
-    dashboard.delete(id)
+server.delete('/:id/:idUser', (req, res, next) => {
+    const { id, idUser } = req.params;
+    dashboard.delete(id, idUser)
         .then(r => res.send(r))
         .catch(next)
 })

@@ -4,9 +4,14 @@ module.exports = {
 
     read: function (id) {
         return Column.findAll({
-            attributes: ['id', 'description', 'title', 'dashboardId'],
-            order: ['id'],
+            attributes: ['id', 'title', 'description', 'dashboardId'],
             where: { dashboardId: id },
+            order: ['id'],
+            include: [{
+                model: Task,
+                attributes: ['id', 'title', 'description','columnId'],
+                order: ['id']
+            }]
         })
     },
     create: function (title, description, id) {
@@ -19,18 +24,19 @@ module.exports = {
             .then(() => this.read(id))
     },
 
-    modify: function (id, title, description) {
+    modify: function (id, title, idDashboard) {
         return Column.findOne({
             where: { id: id }
         })
-            .then(column => column.update({ title: title, description: description }))
-            .then(() => this.read(id))
+            .then(column => column.update({ title: title }))
+            .then(() => this.read(idDashboard))
     },
 
-    delete: function (id) {
-        return Column.destroy({
-            where: { id: id }
+    delete: function (id, idDashboard) {
+        return Task.destroy({
+            where: { columnId: id }
         })
-            .then(() => this.read(id))
+            .then(() => Column.destroy({ where: { id: id } }))
+            .then(() => this.read(idDashboard))
     }
 }

@@ -16,15 +16,18 @@ server.post('/', (req, res, next) => {
 })
 
 server.put('/', (req, res, next) => {
-    const { id, title, description } = req.body;
-    column.modify(id, title, description )
+    const { id, title, idDashboard } = req.body;
+    if(!title){
+        return res.status(400).send('The column need a title')
+    }
+    column.modify(id, title, idDashboard)
         .then(r => res.send(r))
         .catch(next)
 })
 
-server.delete('/', (req, res, next) => {
-    const { id } = req.body;
-    column.delete(id)
+server.delete('/:id/:idDashboard', (req, res, next) => {
+    const { id, idDashboard } = req.params;
+    column.delete(id, idDashboard)
         .then(r => res.send(r))
         .catch(next)
 })

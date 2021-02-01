@@ -79,8 +79,8 @@
     padding: 5px 10px;
     overflow: hidden;
     margin: 0 5px;
-    min-width: 300px;
-    max-width: 300px;
+    min-width: 272px;
+    margin-bottom: 20px;
 
 }
 .containerTitleVertIcon{
@@ -88,6 +88,7 @@
     width: 100%;
     justify-content: space-between;
     padding: 0 5px;
+    position: relative;
 }
 .containerTask{
     overflow-y: auto;
@@ -105,4 +106,37 @@
 }
 .containerTaskBody:hover{
     background-color: #dbdcf0;
+}
+
+.containerButtonP{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 240px;
+    cursor: pointer;
+}
+.containerButtonP input {
+    width: 100%;
+}
+.containerButtonP p{
+    padding-left: 5px;
+}
+.containerButtonIcon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    cursor: pointer;
+    border-radius: 2px;
+}
+.containerButtonIcon:hover, .containerButtonP:hover{
+    background-color: #dbdcf0;
+} 
+.containerActiveVertIcon {
+    position: absolute;
+    right: 0;
+    background-color: #666;
+    top: 30px;
+    z-index: 1;
+    padding: 5px;
 }

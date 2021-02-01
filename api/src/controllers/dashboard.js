@@ -1,35 +1,51 @@
-const { Dashboard, User } = require('../db');
+const { Dashboard, User, Column, Task } = require('../db');
+const user = require('./user')
 
 module.exports = {
 
-    read: function(id){
-        return Dashboard.findAll({
-            where: { email: email },
-            attributes:['id', 'title', 'description'],
-        })
+    create: function(title, description, idUser) {
+        return Promise.all([
+            User.findOne({
+                where: { id: idUser}
+            }),
+            Dashboard.create({
+                title: title,
+                description: description,
+            })
+        ]) 
+        .then(([user, dashboard]) => user.addDashboard(dashboard, { through: { state: 'owner' }}))
+        .then(() => user.getById(idUser))
     },
 
-    create: function(id, title, description) {
-        return Dashboard.create({
-            title: title,
-            description: description
-        })
-        .then(() => this.read(id))
-    },
-
-    modify: function(id, title, description){
+    modify: function(id, title, description, idUser){
         return Dashboard.findOne({
-            where: { id: id}
+            where: { id: id }
         })
         .then(dashboard => dashboard.update({ title, description}))
-        .then(() => this.read(id))
+        .then(() => user.getById(idUser))
     },
 
-    delete: function(id, email){
+    delete: function(id, idUser){
+        // Aqui hay que eliminar las Task, Columnas y luego el Dashboard, para que no queden datos inutiles en la base de datos.
         return Dashboard.destroy({
             where: { id: id}
         })
-        .then(() => this.read(id))
+        .then(() => user.getById(idUser))
     }
 
 }
+
+// .then(user => {
+//     if (user) throw `User ${email} already exists`
+//     return Promise.all([
+//         User.create({
+//             email, password, firstName, lastName,
+//         }),
+//         Dashboard.create({
+//             title: 'title',
+//             description: 'description'
+//         }),
+//     ])
+// })
+// .then(([user, dashboard]) => user.addDashboard(dashboard, { through: { state: 'owner' }}))
+// .then(([{userId}]) => this.getById(userId))

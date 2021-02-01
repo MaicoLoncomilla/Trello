@@ -15,7 +15,6 @@ import CloseIcon from '@material-ui/icons/Close';
 export default function TableList(){
     const user = useSelector(state => state.user)
     const column = useSelector(state => state.column)
-    const task = useSelector(state => state.task)
     const [ activeInput, setActiveInput ] = useState(false)
     const [ state, setState ] = useState({
         title: "",
@@ -42,10 +41,8 @@ export default function TableList(){
     useEffect(() => {
         if(user.id){
             dispatch(api.getColumn(user.dashboards[0].id))
-            dispatch(api.getTask(user.dashboards[0].id))
         }
     },[])
-
     return(
         <>
             {!user.firstName && <Redirect to="/login"/>}
@@ -61,10 +58,11 @@ export default function TableList(){
                 { column?.map((el, index) =>
                     <Columns
                         key={index}
-                        id={index}
+                        id={el.id}
+                        index={index}
                         title={el.title}
-                        description={el.description}
-                        task={task[index]?.tasks}
+                        task={el.tasks.sort((a,b) => a.id - b.id)}
+                        dashboardId={el.dashboardId}
                     />)}
 
                 {activeInput ?
@@ -79,11 +77,6 @@ export default function TableList(){
                             onChange={(e) => onChangeText("title", e.target.value)}
                             value={state.title}
                         />
-                        {/* <textarea
-                            value={state.description}
-                            placeholder="Enter list description..."
-                            onChange={(e) => onChangeText("description", e.target.value)}
-                        /> */}
                         <div>
                             <button
                                 className={sButton.buttonSubmitAddTask}

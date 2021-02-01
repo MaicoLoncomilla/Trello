@@ -7,7 +7,8 @@ server.get('/:id', (req, res, next) => {
     if(!id){
         return res.status(400).send('You need an ID')
     }
-    task.read(id)
+    column.read(id)
+    // task.read(id)
     .then(r => res.send(r))
     .catch(next)
 })
@@ -22,23 +23,22 @@ server.post('/', (req, res, next) => {
         .catch(next)
 })
 
-server.put('/:id', (req, res, next) => {
-    const { id } = req.params
-    const { title, description } = req.body
-    if(!id){
-        return res.status(400).send('You need an Id')
+server.put('/', (req, res, next) => {
+    const { title, description, id, idDashboard } = req.body
+    if(!title){
+        return res.status(400).send('The task need a title')
     }
-    task.update(id, title, description)
+    task.update(id, title, description, idDashboard)
     .then(r => res.send(r))
     .catch(next)
 })
 
-server.delete('/:id', (req, res, next) => {
-    const { id } = req.params
+server.delete('/:id/:idDashboard', (req, res, next) => {
+    const { id, idDashboard } = req.params
     if(!id){
         return res.status(400).send('You need an Id')
     }
-    task.delete(id)
+    task.delete(id, idDashboard)
     .then(r => res.send(r))
     .catch(next)
 })

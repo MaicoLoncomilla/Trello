@@ -1,14 +1,16 @@
 const { Task, Column } = require('../db.js')
+const column = require('./column')
 module.exports = {
 
-    read: function (idDashboard) {
+    read: function (id) {
         return Column.findAll({
             attributes: ['id', 'title', 'description', 'dashboardId'],
-            where: { dashboardId: idDashboard },
+            where: { dashboardId: id },
             order: ['id'],
             include: [{
                 model: Task,
-                attributes: ['id', 'title', 'description','columnId']
+                attributes: ['id', 'title', 'description','columnId'],
+                order: ['id']
             }]
         })
     },
@@ -19,21 +21,21 @@ module.exports = {
                 description: 'description',
                 columnId: id
             })
-            .then(() => this.read(idDashboard))
+            .then(() => column.read(idDashboard))
     },
-    update: function (id, title, description) {
+    update: function (id, title, description, idDashboard) {
         return Task.findOne({
             where: {
                 id: id
             }
         })
             .then(task => task.update({ title, description }))
-            .then(() => this.read(id))
+            .then(() => column.read(idDashboard))
     },
-    delete: function (id) {
+    delete: function (id, idDashboard) {
         return Task.destroy({
             where: { id: id }
         })
-            .then(() => this.read(id))
+            .then(() => column.read(idDashboard))
     }
 }

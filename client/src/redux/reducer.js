@@ -1,17 +1,20 @@
 import actionCreator from './action-creator';
+import actions from './actions'
 import thunk from 'redux-thunk';
 import { createStore, applyMiddleware } from 'redux';
 import { persistStore, persistReducer } from 'redux-persist'
 import { createLogger } from 'redux-logger';
 import storage from 'redux-persist/lib/storage';
 
-const { USER, DASHBOARD, COLUMN, TASK } = actionCreator;
+const { USER, DASHBOARD, COLUMN } = actionCreator;
+const { BUTTONTASKACTIVE, BUTTONNEWPROJECT } = actions
 
 const initialState = {
     user: false,
     dashboard: [],
     column: [],
-    task: []
+    buttonTaskActive: false,
+    buttonNewProject: false
 }
 
 const reducer = (state = initialState, action) => {
@@ -32,10 +35,15 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 column: action.payload
             }
-        case TASK: 
+        case BUTTONTASKACTIVE:
             return {
                 ...state,
-                task: action.payload
+                buttonTaskActive: action.payload
+            }
+        case BUTTONNEWPROJECT:
+            return {
+                ...state,
+                buttonNewProject: action.payload
             }
         default:
             return {...state}

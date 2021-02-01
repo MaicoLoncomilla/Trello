@@ -16,11 +16,39 @@ const actionCreator = {
             this._dispatchPromise(promise, this.USER, dispatch)
         }
     },
-    DASHBOARD: 'DASHBOARD',
-    getDashboard: function(email){
+    addImgUser: function(data, id) {
         return dispatch => {
-            const promise = axios.get(`${process.env.REACT_APP_API_URL}/dashboard/${email}`)
-            this._dispatchPromise(promise, this.DASHBOARD, dispatch)
+            const promise = axios.post(`${process.env.REACT_APP_API_URL}/image/${id}`, data)
+            this._dispatchPromise(promise, this.USER, dispatch)
+        }
+    },
+
+    DASHBOARD: 'DASHBOARD',
+    getDashboard: function(id){
+        return dispatch => {
+            const promise = axios.get(`${process.env.REACT_APP_API_URL}/dashboard/${id}`)
+            this._dispatchPromise(promise, this.USER, dispatch)
+        }
+    },
+
+    newDashboard: function(data){
+        return dispatch => {
+            const promise = axios.post(`${process.env.REACT_APP_API_URL}/dashboard/`, data)
+            this._dispatchPromise(promise, this.USER, dispatch)
+        }
+    },
+
+    modifyDashboard: function(data){
+        return dispatch =>{
+            const promise = axios.put(`${process.env.REACT_APP_API_URL}/dashboard/`, data)
+            this._dispatchPromise(promise, this.USER, dispatch)
+        }
+    },
+
+    deleteDashboard: function({id, idUser}){
+        return dispatch => {
+            const promise = axios.delete(`${process.env.REACT_APP_API_URL}/dashboard/${id}/${idUser}`)
+            this._dispatchPromise(promise, this.USER, dispatch)
         }
     },
 
@@ -39,19 +67,40 @@ const actionCreator = {
         }
     },
 
-    TASK: 'TASK',
+    modifyColumn: function(data) {
+        return dispatch => {
+            const promise = axios.put(`${process.env.REACT_APP_API_URL}/column/`, data)
+            this._dispatchPromise(promise, this.COLUMN, dispatch)
+        }
+    },
+    deleteColumn: function({id, idDashboard}){
+        return dispatch => {
+            const promise = axios.delete(`${process.env.REACT_APP_API_URL}/column/${id}/${idDashboard}`)
+            this._dispatchPromise(promise, this.COLUMN, dispatch)
+        }
+    },
+
     newTask: function(data){
         return dispatch => {
             const promise = axios.post(`${process.env.REACT_APP_API_URL}/task/`, data)
-            this._dispatchPromise(promise, this.TASK, dispatch)
+            this._dispatchPromise(promise, this.COLUMN, dispatch)
         }
     },
-    getTask: function(id){
+
+    modifyTask: function(data){
         return dispatch => {
-            const promise = axios.get(`${process.env.REACT_APP_API_URL}/task/${id}`)
-            this._dispatchPromise(promise, this.TASK, dispatch)
+            const promise = axios.put(`${process.env.REACT_APP_API_URL}/task/`, data)
+            this._dispatchPromise(promise, this.COLUMN, dispatch)
         }
     },
+
+    deleteTask: function({id, idDashboard}) {
+        return dispatch => {
+            const promise = axios.delete(`${process.env.REACT_APP_API_URL}/task/${id}/${idDashboard}`)
+            this._dispatchPromise(promise, this.COLUMN, dispatch)
+        }
+    },
+    
     _dispatchPromise: function(promise, type, dispatch){
         return promise
         .then(({data}) => {

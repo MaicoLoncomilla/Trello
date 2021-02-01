@@ -1,12 +1,19 @@
 import React from 'react';
-import Header from './header/Header';
+import { useSelector } from 'react-redux';
+import NewProject from './projects/newProject/NewProject';
+import ModifyTask from './tableList/columns/modifyTask/ModifyTask';
 import TableList from './tableList/TableList';
 
-export default function Main(){
+export default function Main() {
+
+    const { active } = useSelector(state => state.buttonTaskActive)
+    const buttonNewProject = useSelector(state => state.buttonNewProject)
+
     return (
         <div>
-            <Header/>
-            <TableList/>
+            <TableList />
+            {active && <ModifyTask />}
+            {buttonNewProject && <NewProject/>}
         </div>
     )
 }

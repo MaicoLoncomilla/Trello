@@ -1,4 +1,4 @@
-const { Task, Column, User, Dashboard, UserRol } = require('../db.js')
+const { Task, Column, User, Dashboard, UserRol, Image } = require('../db.js')
 
 module.exports = {
     
@@ -12,14 +12,9 @@ module.exports = {
                 through: {
                     attributes: ['state']
                 },
-                // include: {
-                //     model: Column,
-                //     attributes: ['id', 'title', 'description', 'dashboardId'],
-                //     include: {
-                //         model: Task,
-                //         attributes: ['id', 'title', 'description']
-                //     }
-                // }
+            },{
+                model: Image,
+                attributes: ['url']
             }]
         })
             .then(user => this.matchPassword(user, password))
@@ -33,6 +28,17 @@ module.exports = {
         const sesion = {...user.dataValues}
         delete sesion.password
         return sesion
+    },
+
+    setImage: function (id, img) {
+        let userPromise = User.findByPk(id);
+        let imagePromise = Image.findOrCreate({
+            where: { fileName: img.filename }
+        })
+            .then(r => r[0])
+        return Promise.all([userPromise, imagePromise])
+            .then(([user, image]) => user.setImage(image))
+            .then(() => (this.getById(id)))
     },
 
     register: function (email, password, firstName, lastName) {
@@ -70,6 +76,9 @@ module.exports = {
                 through: {
                     attributes: ['state']
                 }
+            },{
+                model: Image,
+                attributes: ['url']
             }]
         })
     }
