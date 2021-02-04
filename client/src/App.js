@@ -8,7 +8,8 @@ import Main from './components/main/Main';
 import Header from './components/main/header/Header';
 import ListProjects from './components/main/projects/listProjects/ListProjects';
 
-function App() {
+export default function App() {
+  
   return (
     <div className="App">
       <Switch>
@@ -27,5 +28,3 @@ function App() {
     </div>
   );
 }
-
-export default App;

@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import api from '../../../../redux/action-creator';
 import actions from '../../../../redux/actions';
-import ModifyProject from '../modifyProject/ModifyProject';
 import NewProject from '../newProject/NewProject';
 import DeleteIcon from '@material-ui/icons/Delete';
 import BuildIcon from '@material-ui/icons/Build';
@@ -12,7 +11,6 @@ import sContainer from '../../../../styles/container.module.css';
 import sButton from '../../../../styles/button.module.css';
 import sText from '../../../../styles/text.module.css';
 import Modify from '../../modifyTaskOrProject/Modify';
-import { useRadioGroup } from '@material-ui/core';
 
 export default function ListProjects() {
 

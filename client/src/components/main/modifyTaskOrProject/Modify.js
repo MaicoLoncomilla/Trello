@@ -25,7 +25,7 @@ export default function Modify() {
         idUser: user.id
     })
 
-    const onHandleCloseButtonTask = () => {
+    const onHandleClose = () => {
         if(task){
             dispatch({
                 type: BUTTONTASKACTIVE,
@@ -59,7 +59,7 @@ export default function Modify() {
         }
 
     }
-    const onHandleDeleteTask = () => {
+    const onHandleDelete = () => {
         const taskToDelete = {
             id: task?.id,
             idDashboard: column[0]?.dashboardId
@@ -99,7 +99,7 @@ export default function Modify() {
             <div className={sSection.containerTask}>
                 <div
                     className={sSection.containerButtonClose}
-                    onClick={() => onHandleCloseButtonTask()}>
+                    onClick={() => onHandleClose()}>
                     <CloseIcon />
                 </div>
                 <input
@@ -121,7 +121,7 @@ export default function Modify() {
                     onClick={() => onHandleSaveChange()}>Save Changes</button>
                     <button 
                     className={sButton.buttonCloseActive}
-                    onClick={() => onHandleDeleteTask()}>Delete Task</button>
+                    onClick={() => onHandleDelete()}>Delete Task</button>
                 </div>
             </div>
         </section>
