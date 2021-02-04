@@ -3,50 +3,61 @@ import { Avatar } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import api from '../../../redux/action-creator';
-import dataURLtoFile from '../../../utils/dataURLtoFile'
+import dataURLtoFile from '../../../utils/dataURLtoFile';
+import PhotoCameraIcon from '@material-ui/icons/PhotoCamera';
+
+import sContainer from '../../../styles/container.module.css';
+import sText from '../../../styles/text.module.css';
 
 export default function UserProfile(){
 
     const user = useSelector(state => state.user)
     const image = user.image && `${process.env.REACT_APP_API_URL}${user.image.url}`
     const [ img, setImg ] = useState(false)
+    const [ imgUpload, setImgUpload ] = useState(true)
     const dispatch = useDispatch()
-    const selectImg = e => {
+    const selectImg = () => {
         let input = document.getElementById("file")
         let fReader = new FileReader();
         fReader.onloadend = event => setImg({ src: event.target.result, name: input.files[0].name })
-        fReader.readAsDataURL(input.files[0]);
+        if(input.files[0]){
+            console.log("entro")
+            fReader.readAsDataURL(input.files[0]);
+            setImgUpload(true)
+        }
     }
-    const onSubmit = e => {
+
+    const onSubmit = () => {
         if (img) {
             var formData = new FormData();
             formData.append("image", dataURLtoFile(img.src), img.name)
             dispatch(api.addImgUser(formData, user.id))
+            setImgUpload(false)
         }
     }
+    img && imgUpload && onSubmit()
 
     return (
         <>
             {!user.firstName && <Redirect to="/login" />}
-            <div>
-                <Avatar src={image}/>
-                <h2>{user.firstName} {user.lastName}</h2>
-                <p>{user.email}</p>
+            <div className={sContainer.containerUserProfile}>
+                <div className={sContainer.containerAvatar}>
+                    <Avatar
+                    className={sContainer.avatarUserProfile}
+                    src={image} />
+                    <input
+                        onChange={selectImg}
+                        accept="image/*"
+                        id="file"
+                        type="file"
+                    />
+                    <label htmlFor="file"><PhotoCameraIcon fontSize="large"/></label>
+                </div>
+                <div className={sContainer.containerUserProfileUserName}>
+                    <h2 className={sText.textUserName}>{user.firstName} {user.lastName}</h2>
+                    <p className={sText.textEmail}>{user.email}</p>
+                </div>
             </div>
-            <input
-                onChange={selectImg}
-                accept="image/*"
-                id="file"
-                type="file"
-            />
-            <div >
-                <label htmlFor="file">
-                    <label >
-                        hola
-                    </label>
-                </label>
-            </div>
-            <button onClick={() => onSubmit()}> asd</button>
         </>
     )
 }

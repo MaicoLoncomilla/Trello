@@ -17,15 +17,16 @@ export default function Columns({ title, id, task, dashboardId, index }){
     const [ changePToInput, setChangePToInput ] = useState(false)
     const [ activeVertIcon, setActiveVertIcon ] = useState(false)
     const column = useSelector(state => state.column)
-    const [ state, setState ] = useState({
-        title: "",
-        id: column[index].id,
-        idDashboard: column[index].dashboardId
-    })
+
     const [ titleColumn, setTitleColumn ] = useState({
         title: title,
         id: id,
         idDashboard: dashboardId
+    })
+    const [ state, setState ] = useState({
+        title: "",
+        id: column[index].id,
+        idDashboard: column[index].dashboardId
     })
 
     const { BUTTONTASKACTIVE } = actions
@@ -72,15 +73,20 @@ export default function Columns({ title, id, task, dashboardId, index }){
                 <div className={sContainer.containerButtonP} onClick={() => setChangePToInput(!changePToInput)}>
                     <p>{title}</p>
                 </div>
-                <div className={sContainer.containerButtonIcon} onClick={() => setActiveVertIcon(!activeVertIcon)}>
-                    <MoreVertIcon/>
+                <div
+                    style={{ cursor: "pointer" }}
+                    onClick={() => setActiveVertIcon(!activeVertIcon)}>
+                    <MoreVertIcon />
                 </div>
-                {/* mover a un dispatch y sacarlo de este componente */}
                 {activeVertIcon &&
-                <div className={sContainer.containerActiveVertIcon}>
-                    <button onClick={() => onHandleActiveVertIcon()}>Edit Column</button>
-                    <button onClick={() => onHandleDeleteColumn()}>Delete Column</button>
-                </div>}
+                    <div className={sContainer.containerActiveVertIcon}>
+                        <button
+                            className={sButton.buttonVerticalIcons}
+                            onClick={() => onHandleActiveVertIcon()}>Edit Column</button>
+                        <button
+                            className={sButton.buttonVerticalIcons}
+                            onClick={() => onHandleDeleteColumn()}>Delete Column</button>
+                    </div>}
             </>
         )
     }
@@ -92,8 +98,12 @@ export default function Columns({ title, id, task, dashboardId, index }){
         return (
             <>
                 <div className={sContainer.containerButtonP}>
-                    <CloseIcon
-                        onClick={() => onHandleCloseContainerInputWithIcon()} />
+                    <div
+                        onClick={() => onHandleCloseContainerInputWithIcon()}
+                        className={sButton.buttonClose}>
+                        <CloseIcon
+                        />
+                    </div>
                     <input
                         autoFocus
                         value={titleColumn.title}
@@ -101,7 +111,7 @@ export default function Columns({ title, id, task, dashboardId, index }){
                     />
                 </div>
                 <div
-                    className={sContainer.containerButtonIcon}
+                    className={sButton.buttonModify}
                     onClick={() => onHandleModifyColumn()}>
                     <CheckIcon />
                 </div>
@@ -138,21 +148,20 @@ export default function Columns({ title, id, task, dashboardId, index }){
                     />
                     <div>
                         <button
-                            className={sButton.buttonSubmitAddTask}
-                            type="submit">Add Card</button>
+                            className={sButton.buttonGreen}
+                            type="submit">Add New Task</button>
                         <CloseIcon
-                            className={sButton.buttonIconClose}
+                            className={sButton.buttonIcon}
                             onClick={() => setActiveInput(!activeInput)}
                         />
                     </div>
                 </form>
                 :
                 <button
-                    className={sButton.buttonAddAnotherTask}
-                    onClick={() => setActiveInput(!activeInput)}
-                >
-                    <AddIcon />
-                    {task ? ' Add another card' : ' Add a card'}
+                    className={sButton.buttonAddTask}
+                    onClick={() => setActiveInput(!activeInput)}>
+                    <AddIcon fontSize="small"/>
+                    Add New Task
                 </button>
             }
         </div>

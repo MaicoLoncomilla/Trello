@@ -26,26 +26,20 @@ module.exports = {
     },
 
     delete: function(id, idUser){
-        // Aqui hay que eliminar las Task, Columnas y luego el Dashboard, para que no queden datos inutiles en la base de datos.
-        return Dashboard.destroy({
-            where: { id: id}
+        return Column.findAll({
+            where: { dashboardId: id }
         })
-        .then(() => user.getById(idUser))
+            .then(column => {
+                column.map(el => Task.destroy({ where: { columnId: el.id } }))
+            })
+            .then(() => {
+                Column.destroy({
+                    where: { dashboardId: id }
+                })
+                return Dashboard.destroy({
+                    where: { id: id }
+                })
+            })
+            .then(() => user.getById(idUser))
     }
-
 }
-
-// .then(user => {
-//     if (user) throw `User ${email} already exists`
-//     return Promise.all([
-//         User.create({
-//             email, password, firstName, lastName,
-//         }),
-//         Dashboard.create({
-//             title: 'title',
-//             description: 'description'
-//         }),
-//     ])
-// })
-// .then(([user, dashboard]) => user.addDashboard(dashboard, { through: { state: 'owner' }}))
-// .then(([{userId}]) => this.getById(userId))

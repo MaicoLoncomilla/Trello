@@ -1,8 +1,10 @@
 /* ------ TableList body ------*/
 .inputFormAddColumn{
     width: 100%;
-    /* outline: none; */
     border: none;
+    font-size: 16px;
+    overflow-wrap: break-word;
+    height: 30px;
     padding: 5px;
     margin: 10px 0px;
 }
@@ -10,17 +12,39 @@
 /* ------ Column body ------*/
 .textareaAddTask{
     width: 100%;
-    height: 54px;
-    resize: none;
-    outline: none;
+    height: 80px;
+    max-width: 100%;
+    min-width: 100%;
+    max-height: 130px;
+    min-height: 80px;
     border: none;
     padding: 5px;
-    border-radius: 5px;
+    border-radius: 2px;
     margin-bottom: 10px;
     overflow-wrap: break-word;
-    line-height: 20px;
-    color: #172b4d;
-    -webkit-box-shadow: 0px .5px 0px .1px rgba(0,0,0,0.75);
-    -moz-box-shadow: 0px .5px 0px .1px rgba(0,0,0,0.75);
-    box-shadow: 0px .5px 0px .1px rgba(0,0,0,0.75);
+    line-height: 1.5;
+    font-size: 16px;
+    color: var(--colorText);
+}
+
+/* ------ Modify Task ------*/
+
+.inputModifyTask {
+    height: 35px;
+    font-size: 16px;
+    padding: 5px;
+    color: var(--colorText);
+    overflow-wrap: break-word;
+    margin: 10px 0;
+}
+.textAreaModifyTask {
+    min-height: 70px;
+    max-height: 200px;
+    max-width: 100%;
+    min-width: 100%;
+    padding: 5px;
+    font-size: 16px;
+    line-height: 1.5;
+    color: var(--colorText);
+    overflow-wrap: break-word;
 }

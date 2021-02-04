@@ -1,8 +1,8 @@
 /* ------ TableList body ------*/
 .formAddColumn{
-    background-color: #ebecf0;
-    min-width: 272px;
-    padding: 5px;
+    background-color: var(--backgroundColumn);
+    min-width: 320px;
+    padding: 5px 10px;
     border-radius: 2px;
     margin-left: 5px;
 }
@@ -14,5 +14,4 @@
     flex-direction: column;
     padding: 0px 5px;
     margin: 5px 0px;
-    
 }

@@ -1,8 +1,125 @@
+.containerFlex{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    width: 100%;
+    background-color: var(--backgroundHeader);
+    height: 55px;
+    padding: 5px;
+}
+.containerIcon{
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 10px;
+    border-radius: 8px;
+    height: 100%;
+    cursor: pointer;
+    color: var(--colorText);
+}
+.containerAvatar {
+    display: flex;
+    align-items: center;
+    border-radius: 8px;
+    padding: 5px;
+    cursor: pointer;
+}
+.containerIcon:hover, 
+.containerAvatar:hover,
+.containerLinkMap:hover,
+.containerLogOut:hover{
+    background-color: var(--backgroundHover);
+    color: var(--colorTextHover);
+}
+
+.containerAvatar h3{
+    margin: 0 10px;
+}
+
+.containerTitleDashboard{
+    display: flex;
+    justify-content: center;
+    padding: 5px 15px;
+    border-radius: 6px;
+    cursor: pointer;
+    margin: 5px;
+}
+.containerTitleDashboard p {
+    text-transform: capitalize;
+    font-weight: 600;
+    font-size: 20px;
+    color: var(--ColorTitleColumn);
+}
+/* .containerTitleDashboard:hover{
+    background-color: var(--backgroundHover);
+    color: var(--colorTextHover);
+} */
+.containerAvatarName {
+    display: flex;
+    align-items: center;
+}
+
+/* Menu desplegable */
 .containerMenuActive {
     position: absolute;
     z-index: 1;
-    background-color: #fff;
+    background-color: var(--backgroundHeader);
     border-radius: 3px;
     top: 60px;
+    right: 5px;
+    max-width: 320px;
+    width: 100%;
+    padding: 5px 10px;
+}
+.containerMenuActiveFlex{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    color: var(--colorText);
+    margin-bottom: 5px;
+}
+.containerFullNameEmail{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 5px;
+}
+.containerLinks{
+    display: flex;
+    flex-direction: column;
+    padding: 5px 0;
+    border-top: 1px solid var(--colorText);
+    border-bottom: 1px solid var(--colorText);
+    margin-bottom: 15px;
+}
+.containerLinkMap {
+    margin-bottom: 5px;
     padding: 5px;
+    border-radius: 3px;
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+.containerIconAndP{
+    display: flex;
+    align-items: center;
+}
+.containerIconAndP p {
+    margin-left: 5px;
+}
+.containerLogOut{
+    display: flex;
+    color: var(--colorText);
+    padding: 5px 5px;
+    cursor: pointer;
+    margin-bottom: 10px;
+    border-radius: 3px;
+}
+.containerLogOut p {
+    margin-left: 5px;
 }

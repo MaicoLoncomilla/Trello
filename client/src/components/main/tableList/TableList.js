@@ -9,12 +9,15 @@ import sForm from '../../../styles/form.module.css';
 import sButton from '../../../styles/button.module.css';
 import sInput from '../../../styles/input.module.css';
 
-import DescriptionIcon from '@material-ui/icons/Description';
 import CloseIcon from '@material-ui/icons/Close';
+import AddIcon from '@material-ui/icons/Add';
+import { Avatar } from '@material-ui/core';
 
 export default function TableList(){
     const user = useSelector(state => state.user)
+    const image = user.image && `${process.env.REACT_APP_API_URL}${user.image.url}`
     const column = useSelector(state => state.column)
+    const dashboard = useSelector(state => state.dashboard)
     const [ activeInput, setActiveInput ] = useState(false)
     const [ state, setState ] = useState({
         title: "",
@@ -34,25 +37,22 @@ export default function TableList(){
         if(!state.title){
             return alert('The list should have a title')
         }
-        let id = user.dashboards[0].id
+        const id = dashboard ? dashboard.id : user.dashboards[0].id
         dispatch(api.newColumn(state, id))
         onHandleInputAddTask()
     }
     useEffect(() => {
         if(user.id){
-            dispatch(api.getColumn(user.dashboards[0].id))
+            let id = dashboard ? dashboard.id : user.dashboards[0].id
+            dispatch(api.getColumn(id))
         }
     },[])
     return(
         <>
             {!user.firstName && <Redirect to="/login"/>}
             <div className={sContainer.containerFlexTableList}>
-                <div className={sContainer.containerTitleDashboard}>
-                    <p>{user && user.dashboards[0]?.title}</p>
-                </div>
-                <DescriptionIcon />
-                <span>|</span>
-                <p>Avatares del equipo</p>
+                <p>Members:</p>
+                <Avatar src={image}/>
             </div>
             <div className={sContainer.containerTableListBody}>
                 { column?.map((el, index) =>
@@ -79,18 +79,21 @@ export default function TableList(){
                         />
                         <div>
                             <button
-                                className={sButton.buttonSubmitAddTask}
+                                className={sButton.buttonGreen}
                                 type="submit">Add List</button>
                             <CloseIcon
-                                className={sButton.buttonIconClose}
+                                className={sButton.buttonIcon}
                                 onClick={() => onHandleInputAddTask()}
                             />
                         </div>
                     </form>
                     :
-                    <button 
-                    className={sButton.buttonAddColumn}
-                    onClick={() => onHandleInputAddTask()}>+ Add another List</button>
+                    <button
+                        className={sButton.buttonBlueColumn}
+                        onClick={() => onHandleInputAddTask()}>
+                        <AddIcon fontSize="small"/>
+                        Add another List
+                    </button>
                 }
             </div>
         </>

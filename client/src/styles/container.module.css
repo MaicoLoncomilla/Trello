@@ -1,111 +1,85 @@
-/* ------ header ------*/
-.containerFlex{
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    width: 100%;
-    background-color: aliceblue;
-    height: 55px;
-    padding: 5px;
+/* Container main */
+.containerMain{
+    -webkit-box-shadow: inset 0px 0px 15px 3px var(--backgroundColorBoxShadow);
+    -moz-box-shadow: inset 0px 0px 15px 3px var(--backgroundColorBoxShadow);
+    box-shadow: inset 0px 0px 15px 3px var(--backgroundColorBoxShadow);
+    height: calc(100vh - 55px);
+    position: relative;
 }
-.containerIcon{
-    padding: 5px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-right: 10px;
-    border-radius: 8px;
-    height: 100%;
-    cursor: pointer;
-}
-.containerIcon:hover{
-    background-color: #666;
-}
-.containerAvatar {
-    display: flex;
-    align-items: center;
-    border-radius: 8px;
-    padding: 5px;
-    cursor: pointer;
-}
-.containerAvatar:hover{
-    background-color: #666;
-}
-.containerAvatar h3{
-    margin: 0 10px;
-}
+
 /* ------ TableList Top ------*/
 .containerFlexTableList {
     display: flex;
     padding: 5px;
     align-items: center;
     justify-content: flex-start;
-    color: aliceblue;
+    color: var(--colorText);
+    margin-bottom: 10px;
 }
-.containerTitleDashboard{
-    display: flex;
-    justify-content: center;
-    padding: 5px 15px;
-    border-radius: 6px;
-    cursor: pointer;
-    margin: 5px;
-}
-.containerTitleDashboard p {
-    text-transform: capitalize;
-    font-weight: 600;
+.containerFlexTableList p {
+    margin: 0 10px;
     font-size: 20px;
+    color: var(--colorText);
+    font-weight: 500;
 }
-.containerTitleDashboard:hover{
-    background-color: rgb(255, 255, 255, .5);
-}
+
 /* ------ TableList body ------*/
 
 .containerTableListBody{
     display: flex;
     justify-content: flex-start;
     align-items: flex-start;
-    max-height: 80vh;
     width: 100%;
     overflow-y: hidden;
     overflow-x: auto;
+    height: calc(100vh - 130px);
 }
 
 /* ------ Columns body ------*/
 .containerColumns {
     display: flex;
     flex-direction: column;
-    background-color: #ebecf0;
+    background-color: var(--backgroundColumn); 
     border-radius: 2px;
     padding: 5px 10px;
     overflow: hidden;
-    margin: 0 5px;
-    min-width: 272px;
+    margin: 0 15px;
+    min-width: 320px;
     margin-bottom: 20px;
+    -webkit-box-shadow: 0px 0px 10px 3px var(--backgroundColorBoxShadow);
+    -moz-box-shadow: 0px 0px 10px 3px var(--backgroundColorBoxShadow);
+    box-shadow: 0px 0px 10px 3px var(--backgroundColorBoxShadow);
 
 }
 .containerTitleVertIcon{
     display: flex;
     width: 100%;
     justify-content: space-between;
+    align-items: center;
     padding: 0 5px;
     position: relative;
+    font-size: 18px;
+    font-weight: 600;
+    height: 35px;
 }
 .containerTask{
     overflow-y: auto;
-
 }
 .containerTaskBody{
-    background-color: #fff;
+    background-color: var(--backgroundTask);
     padding: 10px 10px;
-    border-radius: 5px;
+    border-radius: 2px;
     margin: 10px 5px;
-    -webkit-box-shadow: 0px .5px 0px .1px rgba(0,0,0,0.75);
-    -moz-box-shadow: 0px .5px 0px .1px rgba(0,0,0,0.75);
-    box-shadow: 0px .5px 0px .1px rgba(0,0,0,0.75);
+    -webkit-box-shadow: 0px 0px 2px 1px var(--backgroundColorBoxShadow);
+    -moz-box-shadow: 0px 0px 2px 1px var(--backgroundColorBoxShadow);
+    box-shadow: 0px 0px 2px 1px var(--backgroundColorBoxShadow);
     cursor: pointer;
 }
-.containerTaskBody:hover{
-    background-color: #dbdcf0;
+.containerTaskBody p {
+    color: var(--colorText);
+    overflow-wrap: break-word;
+    font-size: 17px;
+    font-weight: 400;
 }
 
 .containerButtonP{
@@ -113,30 +87,144 @@
     justify-content: flex-start;
     align-items: center;
     width: 240px;
+    height: 100%;
     cursor: pointer;
 }
 .containerButtonP input {
     width: 100%;
+    height: 100%;
+    font-size: 17px;
+    font-weight: 600;
+    border: none;
+    background-color: transparent;
+    color: var(--ColorTitleColumn);
 }
 .containerButtonP p{
     padding-left: 5px;
+    color: var(--ColorTitleColumn);
 }
-.containerButtonIcon {
+.containerButtonCheck,
+.containerButtonClose {
     display: flex;
+    height: 100%;
     align-items: center;
     justify-content: center;
     width: 32px;
     cursor: pointer;
     border-radius: 2px;
 }
-.containerButtonIcon:hover, .containerButtonP:hover{
-    background-color: #dbdcf0;
+.containerButtonCheck:hover{
+    background-color: var(--backgroundColorButtonCheck);
+    color: var(--colorTextHover);
 } 
+.containerButtonClose:hover{
+    background-color: var(--backgroundColorButtonClose);
+    color: var(--colorTextHover);
+}
+
 .containerActiveVertIcon {
     position: absolute;
-    right: 0;
-    background-color: #666;
-    top: 30px;
+    right: 25px;
+    top: 0px;
     z-index: 1;
     padding: 5px;
+    display: flex;
+    flex-direction: column;
+    background-color: #ebecf0;
+    border: 1px solid #666;
+    border-radius: 2px;
+    width: 200px;
+    box-shadow: 2px 8px 20px 0 rgba(0,0, 0, 0.15);
 }
+
+/* --------------- Componente List Project --------------- */
+.containerListProject{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    background-color: var(--backgroundColumn);
+    height: calc(100vh - 55px);
+}
+.container{
+    max-width: 1200px;
+    width: 100%;
+    min-width: 500px;
+    margin:  0 auto;
+    display: flex;
+    flex-direction: column;
+}
+.containerListAndNewProject{
+    padding: 5px;
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    background-color: var(--backgroundColumn);
+    margin-top: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--ColorTitleColumn);
+    margin-bottom: 20px;
+}
+.containerListAndNewProject p {
+    font-size: 20px;
+    color: var(--ColorTitleColumn);
+    font-weight: 600;
+}
+
+.containerListProjectMap{
+    width: 100%;
+}
+.listProjectMap{
+    padding: 5px 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid var(--ColorTitleColumn);
+}
+
+/* --------------- Componente UserProfile --------------- */
+.containerUserProfile {
+    display: flex;
+    width: max-content;
+    padding: 30px;
+    background-color: var(--backgroundColumn);
+    margin: 0 auto;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    border-radius: 5px;
+    margin-top: 10px;
+    -webkit-box-shadow: 0px 0px 3px 2px var(--backgroundColorBoxShadow);
+    -moz-box-shadow: 0px 0px 3px 2px var(--backgroundColorBoxShadow);
+    box-shadow: 0px 0px 3px 2px var(--backgroundColorBoxShadow);
+}
+.containerAvatar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    margin: 0 15px;
+}
+.containerAvatar input {
+    display: none;
+}
+.containerAvatar label {
+    position: absolute;
+    bottom: -10px;
+    right: 15px;
+    color: var(--ColorTitleColumn);
+    cursor: pointer;
+}
+.avatarUserProfile {
+    min-width: 150px;
+    min-height: 150px;
+}
+.containerUserProfileUserName {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+

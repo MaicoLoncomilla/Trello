@@ -36,9 +36,12 @@ export default function NewProject(){
         <div>
             <button onClick={() => onHandleCloseNewProject()}>X</button>
             <input
+            placeholder="Title"
+            maxLength={50}
             onChange={(e) => onHandleChangeText("title", e.target.value)}
             />
             <textarea
+            placeholder="Description"
             onChange={(e) => onHandleChangeText("description", e.target.value)}
             />
             <button onClick={() => onHandleNewProject()}>

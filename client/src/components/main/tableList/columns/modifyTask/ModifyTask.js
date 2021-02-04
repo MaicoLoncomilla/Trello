@@ -4,6 +4,10 @@ import api from '../../../../../redux/action-creator';
 import actions from '../../../../../redux/actions'
 import { useDispatch, useSelector } from 'react-redux';
 
+import sSection from '../../../../../styles/section.module.css';
+import sInput from '../../../../../styles/input.module.css';
+import sButton from '../../../../../styles/button.module.css';
+
 export default function ModifyTask() {
 
     const { BUTTONTASKACTIVE } = actions
@@ -48,18 +52,35 @@ export default function ModifyTask() {
         })
     }
     return (
-        <section>
-            <button onClick={() => onHandleCloseButtonTask()}><CloseIcon /></button>
-            <input
-                onChange={(e) => onHandleChangeText("title", e.target.value)}
-                value={state.title}
-            />
-            <textarea
-                onChange={(e) => onHandleChangeText("description", e.target.value)}
-                value={state.description}
-            />
-            <button onClick={() => onHandleSaveChange()}>Save Changes</button>
-            <button onClick={() => onHandleDeleteTask()}>Delete Task</button>
+        <section className={sSection.containerModifyTask}>
+            <div className={sSection.containerTask}>
+                <div
+                    className={sSection.containerButtonClose}
+                    onClick={() => onHandleCloseButtonTask()}>
+                    <CloseIcon />
+                </div>
+                <input
+                    placeholder="Title"
+                    className={sInput.inputModifyTask}
+                    onChange={(e) => onHandleChangeText("title", e.target.value)}
+                    value={state.title}
+                />
+                <textarea
+                    placeholder="Description"
+                    maxLength={1000}
+                    className={sInput.textAreaModifyTask}
+                    onChange={(e) => onHandleChangeText("description", e.target.value)}
+                    value={state.description}
+                />
+                <div className={sSection.containerButtonModifyTask}>
+                    <button 
+                    className={sButton.buttonSaveChange}
+                    onClick={() => onHandleSaveChange()}>Save Changes</button>
+                    <button 
+                    className={sButton.buttonDeleteTask}
+                    onClick={() => onHandleDeleteTask()}>Delete Task</button>
+                </div>
+            </div>
         </section>
     )
 }

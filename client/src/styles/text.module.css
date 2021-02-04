@@ -1,0 +1,26 @@
+/* --------------- Text List Proyect --------------- */
+.pSelected,
+.pNoSelected {
+    font-size: 18px;
+    margin-bottom: 5px;
+    margin-left: 5px;
+    color: var(--colorText);
+}
+.pNoSelected {
+    font-style: italic;
+}
+
+/* --------------- User Profile --------------- */
+
+.textUserName {
+    font-size: 25px;
+    font-weight: 400px;
+    color: var(--colorText);
+    text-transform: capitalize;
+    margin: 10px;
+}
+.textEmail {
+    font-size: 17px;
+    font-weight: 400;
+    color: var(--colorText);
+}

@@ -104,7 +104,7 @@ const actionCreator = {
     _dispatchPromise: function(promise, type, dispatch){
         return promise
         .then(({data}) => {
-            console.log(data)
+            // console.log(data)
             dispatch({type: type, payload: data})
         })
         .catch(err => {
