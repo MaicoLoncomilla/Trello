@@ -25,6 +25,13 @@ server.put('/', (req, res, next) => {
         .catch(next)
 })
 
+server.put('/reordertask/', (req, res ,next) => {
+    const { id, columnId } = req.body
+    column.reorderTaskInColumn(id, columnId)
+    .then(r => res.send(r))
+    .catch(next)
+})
+
 server.delete('/:id/:idDashboard', (req, res, next) => {
     const { id, idDashboard } = req.params;
     column.delete(id, idDashboard)

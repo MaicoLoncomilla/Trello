@@ -40,7 +40,7 @@ export default function ListProjects() {
                         position = index
                     }
                 })
-                if(position == 0){
+                if(position === 0){
                     dispatch({ type: DASHBOARD, payload: user.dashboards[++position] })
                     dispatch(api.getColumn(user.dashboards[position].id))
                 }else{

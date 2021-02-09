@@ -1,7 +1,14 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
-import api from '../../../redux/action-creator'
+import api from '../../../redux/action-creator';
+import MailOutlineIcon from '@material-ui/icons/MailOutline';
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+
+import sContainer from '../../../styles/container.module.css';
+import sForm from '../../../styles/form.module.css';
+import sInput from '../../../styles/input.module.css';
+import sButton from '../../../styles/button.module.css';
 
 export default function Login(){
 
@@ -23,24 +30,40 @@ export default function Login(){
         }
         dispatch(api.login(state))
     }
+    const Input = (name, placeholder, pass) => {
+        return (
+            <input
+                className={sInput.inputsLogin}
+                onChange={(e) => onChangeText(name, e.target.value)}
+                placeholder={placeholder}
+                type={pass ? pass : null}
+            />
+        )
+    }
     
     return (
         <>
-        {user && user.firstName && <Redirect to="/"/>}
-        <div>
-            <form onSubmit={(e) => onHandleLogin(e)}>
-                <input
-                    placeholder="Email"
-                    onChange={(e) => onChangeText("email", e.target.value)}
-                />
-                <input
-                    placeholder="Password"
-                    onChange={(e) => onChangeText("password", e.target.value)}
-                />
-                <button type="submit">Ingresar</button>
-            </form>
-            <Link to="/register"><p>Create a new account</p></Link>
-        </div>
+            {user.id && <Redirect to="/" />}
+            <div className={sContainer.containerLogin}>
+                <form onSubmit={(e) => onHandleLogin(e)} className={sForm.formLogin}>
+                    <div className={sContainer.containerIconInput}>
+                        <MailOutlineIcon style={{ color: "#54adec" }} />
+                        {Input('email', "Email")}
+                    </div>
+                    <div className={sContainer.containerIconInput}>
+                        <LockOutlinedIcon style={{ color: "#54adec" }} />
+                        {Input('password', 'Password', 'password')}
+                    </div>
+                    <button
+                        className={sButton.buttonBlue}
+                        type="submit">Ingresar</button>
+                </form>
+                <Link
+                    style={{ textAlign: "center", margin: 10 }}
+                    className={sButton.link}
+                    to="/register">Create a new account
+                </Link>
+            </div>
         </>
     )
 }

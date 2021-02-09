@@ -4,13 +4,13 @@ module.exports = {
 
     read: function (id) {
         return Column.findAll({
-            attributes: ['id', 'title', 'description', 'dashboardId'],
+            attributes: ['id', 'title', 'description', 'dashboardId', 'columnPriority'],
             where: { dashboardId: id },
             order: ['id'],
             include: [{
                 model: Task,
-                attributes: ['id', 'title', 'description','columnId'],
-                order: ['id']
+                attributes: ['id', 'title', 'description','columnId', 'taskPriority'],
+                order: ['taskPriority']
             }]
         })
     },
@@ -31,6 +31,16 @@ module.exports = {
         })
             .then(task => task.update({ title, description }))
             .then(() => column.read(idDashboard))
+    },
+    reorderUpdate: function (idDashboard, tasks) {
+        tasks.map((el, index) => {
+            let taskPriority = el.taskPriority
+            return Task.findOne({
+                where: { id: el.id }
+            })
+                .then(task => task.update({ taskPriority }))
+        })
+        return this.read(idDashboard)
     },
     delete: function (id, idDashboard) {
         return Task.destroy({

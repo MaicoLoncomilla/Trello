@@ -79,7 +79,13 @@ const actionCreator = {
             this._dispatchPromise(promise, this.COLUMN, dispatch)
         }
     },
-
+    reorderTaskInColumn: function(data){
+        return dispatch => {
+            const promise = axios.put(`${process.env.REACT_APP_API_URL}/column/reordertask/`, data)
+            this._dispatchPromise(promise, false, dispatch)
+        }
+    },
+    // -------------- Task -----------------
     newTask: function(data){
         return dispatch => {
             const promise = axios.post(`${process.env.REACT_APP_API_URL}/task/`, data)
@@ -98,6 +104,13 @@ const actionCreator = {
         return dispatch => {
             const promise = axios.delete(`${process.env.REACT_APP_API_URL}/task/${id}/${idDashboard}`)
             this._dispatchPromise(promise, this.COLUMN, dispatch)
+        }
+    },
+
+    reorderTask: function(data) {
+        return dispatch => {
+            const promise = axios.put(`${process.env.REACT_APP_API_URL}/task/reorder/`, data)
+            this._dispatchPromise(promise, false, dispatch)
         }
     },
     

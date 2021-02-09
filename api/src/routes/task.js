@@ -33,6 +33,13 @@ server.put('/', (req, res, next) => {
     .catch(next)
 })
 
+server.put('/reorder/', (req, res, next) => {
+    const { idDashboard, tasks } = req.body;
+    task.reorderUpdate(idDashboard, tasks)
+    .then(r => res.send(r))
+    .catch(next)
+})
+
 server.delete('/:id/:idDashboard', (req, res, next) => {
     const { id, idDashboard } = req.params
     if(!id){

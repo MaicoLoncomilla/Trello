@@ -14,7 +14,6 @@ import { Avatar } from '@material-ui/core';
 
 import sHeader from '../../../styles/header.module.css';
 import sButton from '../../../styles/button.module.css';
-import sContainer from '../../../styles/container.module.css';
 
 export default function Header(){
 
@@ -22,15 +21,14 @@ export default function Header(){
     const dashboard = useSelector(state => state.dashboard)
     const [ menuActive, setMenuActive ] = useState(false)
     const image = user.image && `${process.env.REACT_APP_API_URL}${user.image.url}`
-    const { USER } = api
+    const { USER, COLUMN, DASHBOARD } = api
 
     const dispatch = useDispatch()
 
     const onHandleLogOut = () => {
-        dispatch({
-            type: USER,
-            payload: false
-        })
+        dispatch({ type: COLUMN, payload: [] })
+        dispatch({ type: USER, payload: false })
+        dispatch({ type: DASHBOARD, payload: false })
     }
     const arrayMenu = [{
         icon: <HomeIcon/>,

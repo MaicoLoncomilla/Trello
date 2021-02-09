@@ -8,5 +8,8 @@ module.exports = (sequelize) => {
         description: {
             type: DataTypes.STRING
         },
+        taskPriority: {
+            type: DataTypes.INTEGER
+        }
     })
 }

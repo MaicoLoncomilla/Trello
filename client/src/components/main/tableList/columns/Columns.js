@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import api from '../../../../redux/action-creator';
-import actions from '../../../../redux/actions'
+import actions from '../../../../redux/actions';
+import { Droppable, Draggable } from 'react-beautiful-dnd';
 import sContainer from '../../../../styles/container.module.css';
 import sButton from '../../../../styles/button.module.css';
 import sForm from '../../../../styles/form.module.css';
@@ -25,8 +26,8 @@ export default function Columns({ title, id, task, dashboardId, index }){
     })
     const [ state, setState ] = useState({
         title: "",
-        id: column[index].id,
-        idDashboard: column[index].dashboardId
+        id: column[index]?.id,
+        idDashboard: column[index]?.dashboardId
     })
 
     const { BUTTONTASKACTIVE } = actions
@@ -120,23 +121,37 @@ export default function Columns({ title, id, task, dashboardId, index }){
     }
 
     return (
-        <div className={sContainer.containerColumns}>
-            <div className={sContainer.containerTitleVertIcon}>
-                {changePToInput ? containerInputWithIcon()
-                    : containerPWithIcon()}
-            </div>
-            <div className={sContainer.containerTask}>
-                {task?.map((el, index) =>
-                    <div 
-                        key={index}
-                        className={sContainer.containerTaskBody}
-                        onClick={() => onHandleButtonTask(el)}>
-                        <p>{el.title}</p>
+        <div className={sContainer.containerColumns}  key={id}>
+            <Droppable droppableId={String(index)} key={id}>
+                {(provided) => (
+                    <div {...provided.droppableProps} ref={provided.innerRef}>
+                        <div className={sContainer.containerTitleVertIcon}>
+                            {changePToInput ? containerInputWithIcon()
+                                : containerPWithIcon()}
+                        </div>
+                        {task?.map((el, index) =>
+                            <Draggable draggableId={String(el.id)} index={index} key={el.id}>
+                                {(provided => (
+                                    <div
+                                        ref={provided.innerRef}
+                                        {...provided.draggableProps}
+                                        {...provided.dragHandleProps}
+                                        style={provided.draggableProps.style}
+                                        key={el.id}
+                                        className={sContainer.containerTaskBody}
+                                        onClick={() => onHandleButtonTask(el)}>
+                                        <p>{el.title}</p>
+                                    </div>
+                                ))}
+                            </Draggable>
+                        )}
+                        {provided.placeholder}
                     </div>
                 )}
-            </div>
+            </Droppable>
+
             {activeInput ?
-                <form 
+                <form
                     onSubmit={(e) => onHandleInputAddTask(e)}
                     className={sForm.formAddTask}>
                     <textarea
@@ -160,10 +175,11 @@ export default function Columns({ title, id, task, dashboardId, index }){
                 <button
                     className={sButton.buttonAddTask}
                     onClick={() => setActiveInput(!activeInput)}>
-                    <AddIcon fontSize="small"/>
+                    <AddIcon fontSize="small" />
                     Add New Task
                 </button>
             }
         </div>
+
     )
 }

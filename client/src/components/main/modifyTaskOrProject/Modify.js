@@ -80,14 +80,14 @@ export default function Modify() {
                         position = index
                     }
                 })
-                if(position == 0){
+                if(position === 0){
                     dispatch({ type: DASHBOARD, payload: user.dashboards[++position] })
                     dispatch(api.getColumn(user.dashboards[position].id))
                 }else{
                     dispatch({ type: DASHBOARD, payload: user.dashboards[0] })
                     dispatch(api.getColumn(user.dashboards[0].id))
                 }
-                dispatch({ type: BUTTONMODIFYPROJECT, payload: false })
+                return dispatch({ type: BUTTONMODIFYPROJECT, payload: false })
             }else {
                 return alert("No puedes eliminar el ultimo proyecto")
             }
