@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import api from '../../../../redux/action-creator';
 import actions from '../../../../redux/actions';
@@ -20,13 +20,11 @@ export default function Columns({ title, id, task, dashboardId, index }){
     const [ changePToInput, setChangePToInput ] = useState(false)
     const [ activeVertIcon, setActiveVertIcon ] = useState(false)
     const column = useSelector(state => state.column)
-
     const [ titleColumn, setTitleColumn ] = useState({
         title: title,
         id: id,
         idDashboard: dashboardId
     })
-    // Falta generar un taskPriority cada vez que creas una tarjeta. 
     const [ state, setState ] = useState({
         title: "",
         id: column[index]?.id,
@@ -41,7 +39,6 @@ export default function Columns({ title, id, task, dashboardId, index }){
         if(!state.title){
             return alert('You need a title')
         }
-        console.log(state)
         dispatch(api.newTask(state))
         setActiveInput(!activeInput)
     }
@@ -126,9 +123,16 @@ export default function Columns({ title, id, task, dashboardId, index }){
 
     return (
         <div className={sContainer.containerColumns}  key={id}>
-            <Droppable droppableId={String(index)} key={id}>
-                {(provided) => (
-                    <div {...provided.droppableProps} ref={provided.innerRef}>
+            <Droppable droppableId={`${String(index)} ${id}`} key={id}>
+                {(provided, snapshot) => (
+                    <div {...provided.droppableProps} ref={provided.innerRef} 
+                    style={{
+                        background: snapshot.isDraggingOver
+                          ? "lightblue"
+                          : "lightgrey",
+                        
+                      }}
+                    >
                         <div className={sContainer.containerTitleVertIcon}>
                             {changePToInput ? containerInputWithIcon()
                                 : containerPWithIcon()}

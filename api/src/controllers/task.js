@@ -14,14 +14,21 @@ module.exports = {
             }]
         })
     },
-    create: function (title, id, idDashboard, taskPriority) {
+    create: function (title, id, idDashboard) {
         
             return Task.create({
                 title: title,
                 description: 'description',
                 columnId: id,
-                taskPriority: taskPriority
             })
+            .then(({dataValues}) => {
+                return Task.findOne({
+                    where: {
+                        id: dataValues.id
+                    }
+                })
+            })
+            .then(task => task.update({ taskPriority: task.id}))
             .then(() => column.read(idDashboard))
     },
     update: function (id, title, description, idDashboard) {

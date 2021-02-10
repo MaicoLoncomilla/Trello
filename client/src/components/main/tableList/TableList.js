@@ -53,59 +53,79 @@ export default function TableList(){
                 destination.index === source.index){
                 return
             }
+            console.log(destination.index)
             if(source.droppableId !== destination.droppableId){
     
-                const sourceColumn = column[source.droppableId]
-                const destinationColumn = column[destination.droppableId]
+                const sourceColumn = column[source.droppableId.split(" ")[0]]
+                const destinationColumn = column[destination.droppableId.split(" ")[0]]
                 const sourceTasks = [...sourceColumn.tasks]
                 const destinationTasks = [...destinationColumn.tasks]
     
                 const [removed] = sourceTasks.splice(source.index, 1);
                 removed.columnId = destinationColumn.id
-                dispatch(api.reorderTaskInColumn(removed))
                 destinationTasks.splice(destination.index, 0, removed)
     
-                if (column[source.droppableId].taskPriority !== destinationTasks[0].taskPriority) {
+                if (column[source.droppableId.split(" ")[0]].taskPriority !== destinationTasks[0].taskPriority) {
                     destinationTasks.map((el, index) =>
                         el.taskPriority = index + 1
                     )
                 }
-                setColumnState(Object.values({
-                    ...columnState,
-                    [source.droppableId]: {
+                // setColumnState(Object.values({
+                //     ...columnState,
+                //     [source.droppableId.split(" ")[0]]: {
+                //         ...sourceColumn,
+                //         tasks: sourceTasks
+                //     },
+                //     [destination.droppableId.split(" ")[0]]: {
+                //         ...destinationColumn,
+                //         tasks: destinationTasks
+                //     }
+                // }))
+                dispatch({ type: COLUMN, payload: Object.values({
+                    ...column,
+                    [source.droppableId.split(" ")[0]]: {
                         ...sourceColumn,
                         tasks: sourceTasks
                     },
-                    [destination.droppableId]: {
+                    [destination.droppableId.split(" ")[0]]: {
                         ...destinationColumn,
                         tasks: destinationTasks
                     }
-                }))
-                dispatch({ type: COLUMN, payload: columnState })
+                })})
+                // dispatch({ type: COLUMN, payload: columnState })
+                dispatch(api.reorderTaskInColumn(removed))
                 
             }else {
-                const newColumn = columnState[source.droppableId];
+                const newColumn = column[source.droppableId.split(" ")[0]];
                 const copiedTasks = [...newColumn.tasks]
                 const [removed] = copiedTasks.splice(source.index, 1)
                 copiedTasks.splice(destination.index, 0, removed)
     
-                if (columnState[source.droppableId].taskPriority !== copiedTasks[0].taskPriority) {
+                if (column[source.droppableId.split(" ")[0]].taskPriority !== copiedTasks[0].taskPriority) {
                     copiedTasks.map((el, index) =>
                         el.taskPriority = index + 1
                     )
                 }
-                setColumnState(Object.values({
-                    ...columnState,
-                    [source.droppableId]: {
-                        ...newColumn,
-                        tasks: copiedTasks
-                    }
-                }))   
+                // setColumnState(Object.values({
+                //     ...columnState,
+                //     [source.droppableId.split(" ")[0]]: {
+                //         ...newColumn,
+                //         tasks: copiedTasks
+                //     }
+                // }))  
+                 
                 const data = {
                     tasks : copiedTasks,
                     idDashboard: column[0].dashboardId
                 }
-                dispatch({ type: COLUMN, payload: columnState })
+                // dispatch({ type: COLUMN, payload: columnState })
+                dispatch({type: COLUMN, payload: Object.values({
+                    ...column,
+                    [source.droppableId.split(" ")[0]]: {
+                        ...newColumn,
+                        tasks: copiedTasks
+                    }
+                })})
                 dispatch(api.reorderTask(data))
             }
         }
@@ -135,17 +155,18 @@ export default function TableList(){
             </div>
             <div className={sContainer.containerTableListBody}>
                 <DragDropContext onDragEnd={result => onDragEnd(result)}>
-                    {column.map((el, index) => 
+                    {column.map((el, index) =>
                         <Columns
                             key={index}
                             id={el.id}
                             index={index}
                             title={el.title}
-                            task={el.tasks[index]?.taskPriority ? el.tasks.sort((a, b) => 
-                                a.taskPriority - b.taskPriority) : el.tasks}
-                            // task={el.tasks.sort((a, b) => a.id - b.id)}
+                            task={el.tasks && el.tasks.sort((a,b) => a.taskPriority - b.taskPriority)}
+                            // task={el.tasks[index]?.taskPriority ? el.tasks.sort((a, b) =>
+                            //     a.taskPriority - b.taskPriority) : el.tasks.sort((a,b) => a.id - b.id)}
                             dashboardId={el.dashboardId}
                         />
+
                     )}
                 </DragDropContext>
                 {activeInput ?
