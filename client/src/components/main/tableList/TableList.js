@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { Redirect } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import api from '../../../redux/action-creator';
-import actions from '../../../redux/actions';
-import Columns from './columns/Columns';
 import { DragDropContext } from 'react-beautiful-dnd';
+import Columns from './columns/Columns';
 
 import sContainer from '../../../styles/container.module.css';
 import sForm from '../../../styles/form.module.css';
@@ -20,7 +19,6 @@ export default function TableList(){
     const image = user.image && `${process.env.REACT_APP_API_URL}${user.image.url}`
     const column = useSelector(state => state.column)
     const [ columnState, setColumnState ] = useState(column)
-    // const columnState = column
     const { COLUMN, DASHBOARD } = api
     const dashboard = useSelector(state => state.dashboard)
     const [ activeInput, setActiveInput ] = useState(false)
@@ -116,9 +114,9 @@ export default function TableList(){
         if (user.id) {
             let id = dashboard ? dashboard.id : user.dashboards[0].id
             dispatch(api.getColumn(id))
-        }
-        if(!dashboard) {
-            dispatch({ type: DASHBOARD, payload: user.dashboards[0] })
+            if(!dashboard) {
+                dispatch({ type: DASHBOARD, payload: user.dashboards[0] })
+            }
         }
     }, [user])
 

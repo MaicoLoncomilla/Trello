@@ -1,7 +1,13 @@
 import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import actions from '../../../../redux/actions';
 import api from '../../../../redux/action-creator';
-import { useDispatch, useSelector } from 'react-redux';
+
+import CloseIcon from '@material-ui/icons/Close';
+
+import sSection from '../../../../styles/section.module.css';
+import sInput from '../../../../styles/input.module.css';
+import sButton from '../../../../styles/button.module.css';
 
 export default function NewProject(){
 
@@ -33,20 +39,32 @@ export default function NewProject(){
     }
 
     return (
-        <div>
-            <button onClick={() => onHandleCloseNewProject()}>X</button>
-            <input
-            placeholder="Title"
-            maxLength={50}
-            onChange={(e) => onHandleChangeText("title", e.target.value)}
-            />
-            <textarea
-            placeholder="Description"
-            onChange={(e) => onHandleChangeText("description", e.target.value)}
-            />
-            <button onClick={() => onHandleNewProject()}>
-                New Project
-            </button>
+        <div className={sSection.containerModifyTask}>
+            <div className={sSection.containerTask}>
+                <div
+                    className={sSection.containerButtonClose}
+                    onClick={() => onHandleCloseNewProject()}>
+                    <CloseIcon />
+                </div>
+                <input
+                    placeholder="Title"
+                    className={sInput.inputModifyTask}
+                    onChange={(e) => onHandleChangeText("title", e.target.value)}
+                    maxLength={30}
+                />
+                <textarea
+                    placeholder="Description"
+                    maxLength={1000}
+                    className={sInput.textAreaModifyTask}
+                    onChange={(e) => onHandleChangeText("description", e.target.value)}
+                />
+                <div className={sSection.containerButtonModifyTask}>
+
+                    <button className={sButton.buttonGreen} onClick={() => onHandleNewProject()}>
+                        New Project
+                    </button>
+                </div>
+            </div>
         </div>
     )
 }

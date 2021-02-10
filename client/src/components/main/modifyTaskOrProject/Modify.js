@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import CloseIcon from '@material-ui/icons/Close';
 import api from '../../../redux/action-creator';
 import actions from '../../../redux/actions'
 import { useDispatch, useSelector } from 'react-redux';
+
+import CloseIcon from '@material-ui/icons/Close';
 
 import sSection from '../../../styles/section.module.css';
 import sInput from '../../../styles/input.module.css';
@@ -116,12 +117,12 @@ export default function Modify() {
                     value={state.description}
                 />
                 <div className={sSection.containerButtonModifyTask}>
-                    <button 
-                    className={sButton.buttonGreen}
-                    onClick={() => onHandleSaveChange()}>Save Changes</button>
-                    <button 
-                    className={sButton.buttonCloseActive}
-                    onClick={() => onHandleDelete()}>Delete Task</button>
+                    <button
+                        className={sButton.buttonGreen}
+                        onClick={() => onHandleSaveChange()}>Save Changes</button>
+                    <button
+                        className={sButton.buttonCloseActive}
+                        onClick={() => onHandleDelete()}>Delete Task</button>
                 </div>
             </div>
         </section>

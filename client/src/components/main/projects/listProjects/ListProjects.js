@@ -4,13 +4,15 @@ import { Redirect } from 'react-router-dom';
 import api from '../../../../redux/action-creator';
 import actions from '../../../../redux/actions';
 import NewProject from '../newProject/NewProject';
-import DeleteIcon from '@material-ui/icons/Delete';
-import BuildIcon from '@material-ui/icons/Build';
 
 import sContainer from '../../../../styles/container.module.css';
 import sButton from '../../../../styles/button.module.css';
 import sText from '../../../../styles/text.module.css';
 import Modify from '../../modifyTaskOrProject/Modify';
+
+import DeleteIcon from '@material-ui/icons/Delete';
+import BuildIcon from '@material-ui/icons/Build';
+
 
 export default function ListProjects() {
 

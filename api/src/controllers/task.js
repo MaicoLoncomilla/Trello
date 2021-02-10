@@ -14,12 +14,13 @@ module.exports = {
             }]
         })
     },
-    create: function (title, id, idDashboard) {
-
+    create: function (title, id, idDashboard, taskPriority) {
+        
             return Task.create({
                 title: title,
                 description: 'description',
-                columnId: id
+                columnId: id,
+                taskPriority: taskPriority
             })
             .then(() => column.read(idDashboard))
     },

@@ -3,10 +3,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import api from '../../../../redux/action-creator';
 import actions from '../../../../redux/actions';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
+
 import sContainer from '../../../../styles/container.module.css';
 import sButton from '../../../../styles/button.module.css';
 import sForm from '../../../../styles/form.module.css';
 import sInput from '../../../../styles/input.module.css';
+
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import AddIcon from '@material-ui/icons/Add';
 import CloseIcon from '@material-ui/icons/Close';
@@ -24,10 +26,11 @@ export default function Columns({ title, id, task, dashboardId, index }){
         id: id,
         idDashboard: dashboardId
     })
+    // Falta generar un taskPriority cada vez que creas una tarjeta. 
     const [ state, setState ] = useState({
         title: "",
         id: column[index]?.id,
-        idDashboard: column[index]?.dashboardId
+        idDashboard: column[index]?.dashboardId,
     })
 
     const { BUTTONTASKACTIVE } = actions
@@ -38,6 +41,7 @@ export default function Columns({ title, id, task, dashboardId, index }){
         if(!state.title){
             return alert('You need a title')
         }
+        console.log(state)
         dispatch(api.newTask(state))
         setActiveInput(!activeInput)
     }

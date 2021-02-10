@@ -8,17 +8,16 @@ server.get('/:id', (req, res, next) => {
         return res.status(400).send('You need an ID')
     }
     column.read(id)
-    // task.read(id)
     .then(r => res.send(r))
     .catch(next)
 })
 
 server.post('/', (req, res, next) => {
-    const { title, id, idDashboard } = req.body
+    const { title, id, idDashboard, taskPriority } = req.body
     if (!title) {
         return res.status(400).send('You need a title for you task')
     }
-    task.create(title, id, idDashboard)
+    task.create(title, id, idDashboard, taskPriority)
         .then(r => res.send(r))
         .catch(next)
 })
