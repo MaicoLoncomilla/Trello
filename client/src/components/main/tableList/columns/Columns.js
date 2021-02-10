@@ -125,14 +125,7 @@ export default function Columns({ title, id, task, dashboardId, index }){
         <div className={sContainer.containerColumns}  key={id}>
             <Droppable droppableId={`${String(index)} ${id}`} key={id}>
                 {(provided, snapshot) => (
-                    <div {...provided.droppableProps} ref={provided.innerRef} 
-                    style={{
-                        background: snapshot.isDraggingOver
-                          ? "lightblue"
-                          : "lightgrey",
-                        
-                      }}
-                    >
+                    <div {...provided.droppableProps} ref={provided.innerRef}>
                         <div className={sContainer.containerTitleVertIcon}>
                             {changePToInput ? containerInputWithIcon()
                                 : containerPWithIcon()}
