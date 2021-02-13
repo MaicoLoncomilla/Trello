@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+
 import api from '../../../redux/action-creator';
+import useClickOutside from '../../../utils/functions/useClickOutside'; 
 
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
@@ -43,12 +45,14 @@ export default function Header(){
         title: "Profile",
         to: "/userProfile"
     }]
+   
+    let domnNode = useClickOutside(() => {
+        setMenuActive(false)
+    })
     return (
-        <div className={sHeader.containerFlex}>
+        <div className={sHeader.containerFlex}  ref={domnNode}>
             <Link className={sButton.link} to="/">
                 <div className={sHeader.containerTitleDashboard}>
-                    {/* {dashboard && <p>{dashboard.title}</p>} */}
-                    {/* {!dashboard && <p>{user.dashboards[0].title}</p>} */}
                     <p>{dashboard ? dashboard.title : user.id ? user.dashboards[0].title : false}
                     </p>
                 </div>

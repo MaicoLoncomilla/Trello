@@ -18,15 +18,10 @@ export default function TableList(){
     const user = useSelector(state => state.user)
     const image = user.image && `${process.env.REACT_APP_API_URL}${user.image.url}`
     const column = useSelector(state => state.column)
-    const [ columnState, setColumnState ] = useState(column)
     const { COLUMN, DASHBOARD } = api
     const dashboard = useSelector(state => state.dashboard)
     const [ activeInput, setActiveInput ] = useState(false)
-    const [ state, setState ] = useState({
-        title: "",
-        description: "",
-    })
-    
+    const [ state, setState ] = useState({})
     
     const dispatch = useDispatch()
     const onChangeText = (name, value) => {
@@ -43,6 +38,7 @@ export default function TableList(){
         }
         const id = dashboard ? dashboard.id : user.dashboards[0].id
         dispatch(api.newColumn(state, id))
+        setState({})
         onHandleInputAddTask()
     }
     const onDragEnd = (result) => {
@@ -52,7 +48,6 @@ export default function TableList(){
             destination.index === source.index) {
             return
         }
-        console.log(destination.index)
         if (source.droppableId !== destination.droppableId) {
 
             const sourceColumn = column[source.droppableId.split(" ")[0]]
@@ -122,11 +117,6 @@ export default function TableList(){
             }
         }
     }, [user])
-
-    useEffect(() => {
-        setColumnState(column)
-    }, [column])
-
     
     return (
         <>
@@ -134,7 +124,7 @@ export default function TableList(){
 
             <div className={sContainer.containerFlexTableList}>
                 <p>Members:</p>
-                <Avatar src={image} />
+                <Avatar style={{width: 32, height: 32}} src={image}/>
             </div>
             <div className={sContainer.containerTableListBody}>
                 <DragDropContext onDragEnd={result => onDragEnd(result)}>
@@ -164,7 +154,8 @@ export default function TableList(){
                         <div>
                             <button
                                 className={sButton.buttonGreen}
-                                type="submit">Add List</button>
+                                type="submit">Add List
+                            </button>
                             <CloseIcon
                                 className={sButton.buttonIcon}
                                 onClick={() => onHandleInputAddTask()}

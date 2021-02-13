@@ -3,7 +3,7 @@ import api from '../../../redux/action-creator';
 import actions from '../../../redux/actions'
 import { useDispatch, useSelector } from 'react-redux';
 
-import CloseIcon from '@material-ui/icons/Close';
+import { DivCloseIcon } from '../../../utils/components/Div';
 
 import sSection from '../../../styles/section.module.css';
 import sInput from '../../../styles/input.module.css';
@@ -18,6 +18,7 @@ export default function Modify() {
     const { task } = useSelector(state => state.buttonTaskActive)
     const column = useSelector(state => state.column)
     const user = useSelector(state => state.user)
+    
     const [state, setState] = useState({
         title: task ? task.title: dashboardToModify.title,
         description: task ? task.description : dashboardToModify.description,
@@ -98,11 +99,7 @@ export default function Modify() {
     return (
         <section className={sSection.containerModifyTask}>
             <div className={sSection.containerTask}>
-                <div
-                    className={sSection.containerButtonClose}
-                    onClick={() => onHandleClose()}>
-                    <CloseIcon />
-                </div>
+                <DivCloseIcon onClick={onHandleClose}/>
                 <input
                     placeholder="Title"
                     className={sInput.inputModifyTask}

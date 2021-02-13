@@ -3,11 +3,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import actions from '../../../../redux/actions';
 import api from '../../../../redux/action-creator';
 
+import { Input, TextArea } from '../../../../utils/components/Input';
+import { Button } from '../../../../utils/components/Button';
+
 import CloseIcon from '@material-ui/icons/Close';
 
 import sSection from '../../../../styles/section.module.css';
-import sInput from '../../../../styles/input.module.css';
-import sButton from '../../../../styles/button.module.css';
 
 export default function NewProject(){
 
@@ -46,23 +47,27 @@ export default function NewProject(){
                     onClick={() => onHandleCloseNewProject()}>
                     <CloseIcon />
                 </div>
-                <input
-                    placeholder="Title"
-                    className={sInput.inputModifyTask}
-                    onChange={(e) => onHandleChangeText("title", e.target.value)}
-                    maxLength={30}
+                <Input
+                    s={"inputModifyTask"}
+                    placeholder={"Title"}
+                    onChangeText={onHandleChangeText}
+                    number={30}
+                    name={"title"}
+                    type={"text"}
                 />
-                <textarea
-                    placeholder="Description"
-                    maxLength={1000}
-                    className={sInput.textAreaModifyTask}
-                    onChange={(e) => onHandleChangeText("description", e.target.value)}
+                <TextArea
+                    placeholder={"Description"}
+                    number={1000}
+                    name={"description"}
+                    onChangeText={onHandleChangeText}
                 />
                 <div className={sSection.containerButtonModifyTask}>
-
-                    <button className={sButton.buttonGreen} onClick={() => onHandleNewProject()}>
-                        New Project
-                    </button>
+                    <Button
+                        s={'buttonGreen'}
+                        label={"New Project"}
+                        onClick={onHandleNewProject}
+                        type={"button"}
+                    />
                 </div>
             </div>
         </div>

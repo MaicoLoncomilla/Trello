@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
-import { Avatar } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
+
 import api from '../../../redux/action-creator';
-import dataURLtoFile from '../../../utils/dataURLtoFile';
+import dataURLtoFile from '../../../utils/functions/dataURLtoFile';
+
+import { Avatar } from '@material-ui/core';
 import PhotoCameraIcon from '@material-ui/icons/PhotoCamera';
 
 import sContainer from '../../../styles/container.module.css';
@@ -16,6 +18,7 @@ export default function UserProfile(){
     const [ img, setImg ] = useState(false)
     const [ imgUpload, setImgUpload ] = useState(true)
     const dispatch = useDispatch()
+
     const selectImg = () => {
         let input = document.getElementById("file")
         let fReader = new FileReader();

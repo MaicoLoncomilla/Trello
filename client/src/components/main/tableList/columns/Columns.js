@@ -13,6 +13,7 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 import AddIcon from '@material-ui/icons/Add';
 import CloseIcon from '@material-ui/icons/Close';
 import CheckIcon from '@material-ui/icons/Check';
+import Task from '../task/Task';
 
 export default function Columns({ title, id, task, dashboardId, index }){
 
@@ -31,7 +32,7 @@ export default function Columns({ title, id, task, dashboardId, index }){
         idDashboard: column[index]?.dashboardId,
     })
 
-    const { BUTTONTASKACTIVE } = actions
+    const { DISPLAYTASK } = actions
     const dispatch = useDispatch()
 
     const onHandleInputAddTask = (e) => {
@@ -48,8 +49,8 @@ export default function Columns({ title, id, task, dashboardId, index }){
     }
     const onHandleButtonTask = (el) => {
         dispatch({
-            type: BUTTONTASKACTIVE,
-            payload: { active: true, task: el }
+            type: DISPLAYTASK,
+            payload: { displayTaskActive: true, task: el }
         })
     }
 
@@ -141,7 +142,7 @@ export default function Columns({ title, id, task, dashboardId, index }){
                                         key={el.id}
                                         className={sContainer.containerTaskBody}
                                         onClick={() => onHandleButtonTask(el)}>
-                                        <p>{el.title}</p>
+                                        <Task el={el} />
                                     </div>
                                 ))}
                             </Draggable>
@@ -157,7 +158,7 @@ export default function Columns({ title, id, task, dashboardId, index }){
                     className={sForm.formAddTask}>
                     <textarea
                         autoFocus
-                        maxLength={255}
+                        maxLength={50}
                         className={sInput.textareaAddTask}
                         placeholder="Enter a title for this card..."
                         onChange={(e) => onChangeText("title", e.target.value)}

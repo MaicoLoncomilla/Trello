@@ -255,3 +255,87 @@
     padding: 5px 15px;
     border-radius: 3px;
 }
+
+/* --------------- Componente DisplayTask --------------- */
+.containerTitleTask {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+.containerInput {
+    box-sizing: content-box;
+    margin-left: 15px;
+    width: 100%;
+}
+.containerIconH4 {
+    display: flex;
+    align-items: center;
+    color: var(--colorTextH4); 
+}
+
+.containerTitleTask p {
+    font-size: 14px;
+    margin-left: 40px;
+    color: var(--colorText);
+}
+
+.containerMembers {
+    margin-top: 20px;
+    margin-left: 40px;
+    color: var(--colorText);
+}
+.containerMembers h3 {
+    font-weight: 600;
+    font-size: 13px;
+    color: #5e6c84;
+}
+
+.containerDescripcion {
+    display: flex;
+    flex-direction: column;
+}
+.containerDescripcionIconH3 {
+    display: flex;
+    color: var(--colorTextH4);
+    margin-top: 20px;
+}
+.containerDescripcionIconH3 h3{
+    font-size: 16px;
+    margin-left: 15px;
+
+}
+.containerP {
+    margin-left: 40px;
+    background-color: red;
+    margin-top: 10px;
+    border-radius: 3px;
+    background-color: rgba(9, 30, 66, .04);
+    padding: 8px 12px;
+}
+.containerP p {
+    min-height: 40px;
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 400;
+    cursor: pointer;
+}
+.containerFlex {
+    display: flex;
+    flex-direction: column;
+}
+.containerAddActivity{
+    display: flex;
+    align-items: center;
+    margin-top: 15px;
+}
+.containerAddActivity p{
+    padding: 8px 12px;
+    background-color: #fff;
+    border-radius: 3px;
+    margin-left: 7px;
+    -webkit-box-shadow: 0px 0px 1px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 0px 1px 0px rgba(0,0,0,0.75);
+    box-shadow: 0px 0px 1px 0px rgba(0,0,0,0.75);
+    font-size: 14px;
+    cursor: pointer;
+}
