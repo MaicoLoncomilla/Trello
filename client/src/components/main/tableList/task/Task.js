@@ -1,10 +1,15 @@
 import React from 'react';
+import { TextArea } from '../../../../utils/components/Input';
 
-export default function Task({ el }){
-    
+export default function Task({ el }) {
+
     return (
-        <div>
-            <p>{el.title}</p>
-        </div>
+        <TextArea
+            s={'textAreaTask'}
+            value={el.title}
+            status={true}
+            number={500}
+            statusRead={true}
+        />
     )
 }

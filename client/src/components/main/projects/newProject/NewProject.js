@@ -54,8 +54,10 @@ export default function NewProject(){
                     number={30}
                     name={"title"}
                     type={"text"}
+                    autoFocus={true}
                 />
                 <TextArea
+                    s={"textAreaModifyTask"}
                     placeholder={"Description"}
                     number={1000}
                     name={"description"}

@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { Input } from '../../../../../utils/components/Input';
+import { TextArea } from '../../../../../utils/components/Input';
 import api from '../../../../../redux/action-creator';
 
 import AssignmentOutlinedIcon from '@material-ui/icons/AssignmentOutlined';
@@ -34,8 +34,10 @@ export function DivTitleColumn( { task , column }) {
             if(!inputRef.current.contains(e.target)) {
                 setActiveInput(false)
                 if(dispatchInput) {
-                    dispatch(api.modifyTask(state))
-                    setDispatchInput(false)
+                    if(state.title !== task.title){
+                        dispatch(api.modifyTask(state))
+                        setDispatchInput(false)
+                    }
                 }
             }
         } 
@@ -50,10 +52,10 @@ export function DivTitleColumn( { task , column }) {
             <div className={sContainer.containerIconH4} >
                 <AssignmentOutlinedIcon />
                 <div ref={inputRef} className={sContainer.containerInput}>
-                    <Input
-                        s={"inputDisplayTask"}
+                    <TextArea
+                        s={"textAreaDisplayTask"}
                         placeholder={"Enter a title for this card..."}
-                        number={50}
+                        number={500}
                         value={state.title}
                         onChangeText={onChangeText}
                         type={"text"}

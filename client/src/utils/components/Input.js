@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 
 import sInput from '../../styles/input.module.css';
+import setInputHeight from '../../utils/functions/serInputHeight';
 
 export function Input({ placeholder, type, onChangeText, name, s, number, value, autoFocus, status }) {
     
@@ -24,13 +25,29 @@ export function Input({ placeholder, type, onChangeText, name, s, number, value,
 }
 
 
-export function TextArea({ placeholder, onChangeText, name, number}){
+export function TextArea({ placeholder, onChangeText, name, number, s, value, autoFocus, status, statusRead }){
+
+    let ref = useRef()
+    useEffect(() => {
+        setInputHeight(ref.current, '33px')
+    },[value])
+
     return (
         <textarea
+            className={
+                (s === 'textAreaModifyTask' && sInput.textAreaModifyTask ) ||
+                (s === 'textAreaDisplayTask' && sInput.textAreaDisplayTask) ||
+                (s === 'textAreaTask' && sInput.textAreaTask) ||
+                (s === 'textareaAddTask' && sInput.textareaAddTask)
+            }
             placeholder={placeholder}
             onChange={(e) => onChangeText(name, e.target.value)}
             maxLength={number}
-            className={sInput.textAreaModifyTask}
+            value={value}
+            autoFocus={autoFocus}
+            disabled={status}
+            ref={ref}
+            readOnly={statusRead}
         />
     )
 }

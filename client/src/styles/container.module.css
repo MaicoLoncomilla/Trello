@@ -76,12 +76,6 @@
     cursor: pointer;
     max-width: 100%;
 }
-.containerTaskBody p {
-    color: var(--colorText);
-    overflow-wrap: break-word;
-    font-size: 17px;
-    font-weight: 400;
-}
 
 .containerButtonP{
     display: flex;
@@ -265,11 +259,12 @@
 .containerInput {
     box-sizing: content-box;
     margin-left: 15px;
+    margin-top: -4px;
     width: 100%;
 }
 .containerIconH4 {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     color: var(--colorTextH4); 
 }
 

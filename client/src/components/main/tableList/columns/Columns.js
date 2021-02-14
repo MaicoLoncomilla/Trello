@@ -1,31 +1,25 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Droppable, Draggable } from 'react-beautiful-dnd';
+
 import api from '../../../../redux/action-creator';
 import actions from '../../../../redux/actions';
-import { Droppable, Draggable } from 'react-beautiful-dnd';
 
 import sContainer from '../../../../styles/container.module.css';
 import sButton from '../../../../styles/button.module.css';
 import sForm from '../../../../styles/form.module.css';
 import sInput from '../../../../styles/input.module.css';
 
-import MoreVertIcon from '@material-ui/icons/MoreVert';
 import AddIcon from '@material-ui/icons/Add';
 import CloseIcon from '@material-ui/icons/Close';
-import CheckIcon from '@material-ui/icons/Check';
 import Task from '../task/Task';
+import TitleColumn from './components/TitleColumn';
+import { TextArea } from '../../../../utils/components/Input';
 
 export default function Columns({ title, id, task, dashboardId, index }){
 
-    const [ activeInput, setActiveInput ] = useState(false)
-    const [ changePToInput, setChangePToInput ] = useState(false)
-    const [ activeVertIcon, setActiveVertIcon ] = useState(false)
-    const column = useSelector(state => state.column)
-    const [ titleColumn, setTitleColumn ] = useState({
-        title: title,
-        id: id,
-        idDashboard: dashboardId
-    })
+    const [ activeFormColumn, setActiveFormColumn ] = useState(false)
+    const column = useSelector(state => state .column)
     const [ state, setState ] = useState({
         title: "",
         id: column[index]?.id,
@@ -41,7 +35,8 @@ export default function Columns({ title, id, task, dashboardId, index }){
             return alert('You need a title')
         }
         dispatch(api.newTask(state))
-        setActiveInput(!activeInput)
+        setState({...state, title: ""})
+        setActiveFormColumn(!activeFormColumn)
     }
 
     const onChangeText = (name, value) => {
@@ -54,82 +49,13 @@ export default function Columns({ title, id, task, dashboardId, index }){
         })
     }
 
-    const onHandleCloseContainerInputWithIcon = () => {
-        setChangePToInput(!changePToInput)
-        setTitleColumn({ ...titleColumn, title: title })
-    }
-    const onHandleActiveVertIcon = () => {
-        setActiveVertIcon(!activeVertIcon)
-        setChangePToInput(!changePToInput)
-    }
-    const onHandleDeleteColumn = () => {
-        const data = {
-            id: column[index].id,
-            idDashboard: column[index].dashboardId
-        }
-        setActiveVertIcon(!activeVertIcon)
-        dispatch(api.deleteColumn(data))
-    }
-    const containerPWithIcon = () => {
-        return (
-            <>
-                <div className={sContainer.containerButtonP} onClick={() => setChangePToInput(!changePToInput)}>
-                    <p>{title}</p>
-                </div>
-                <div
-                    style={{ cursor: "pointer" }}
-                    onClick={() => setActiveVertIcon(!activeVertIcon)}>
-                    <MoreVertIcon />
-                </div>
-                {activeVertIcon &&
-                    <div className={sContainer.containerActiveVertIcon}>
-                        <button
-                            className={sButton.buttonVerticalIcons}
-                            onClick={() => onHandleActiveVertIcon()}>Edit Column</button>
-                        <button
-                            className={sButton.buttonVerticalIcons}
-                            onClick={() => onHandleDeleteColumn()}>Delete Column</button>
-                    </div>}
-            </>
-        )
-    }
-    const containerInputWithIcon = () => {
-        const onHandleModifyColumn = () => {
-            setChangePToInput(!changePToInput)
-            dispatch(api.modifyColumn(titleColumn))
-        }
-        return (
-            <>
-                <div className={sContainer.containerButtonP}>
-                    <div
-                        onClick={() => onHandleCloseContainerInputWithIcon()}
-                        className={sButton.buttonClose}>
-                        <CloseIcon
-                        />
-                    </div>
-                    <input
-                        autoFocus
-                        value={titleColumn.title}
-                        onChange={(e) => setTitleColumn({ ...titleColumn, title: e.target.value })}
-                    />
-                </div>
-                <div
-                    className={sButton.buttonModify}
-                    onClick={() => onHandleModifyColumn()}>
-                    <CheckIcon />
-                </div>
-            </>
-        )
-    }
-
     return (
-        <div className={sContainer.containerColumns}  key={id}>
+        <div className={sContainer.containerColumns} key={id}>
             <Droppable droppableId={`${String(index)} ${id}`} key={id}>
                 {(provided, snapshot) => (
                     <div {...provided.droppableProps} ref={provided.innerRef}>
                         <div className={sContainer.containerTitleVertIcon}>
-                            {changePToInput ? containerInputWithIcon()
-                                : containerPWithIcon()}
+                            <TitleColumn title={title} id={id} idDashboard={dashboardId} index={index} />
                         </div>
                         {task?.map((el, index) =>
                             <Draggable draggableId={String(el.id)} index={index} key={el.id}>
@@ -152,16 +78,18 @@ export default function Columns({ title, id, task, dashboardId, index }){
                 )}
             </Droppable>
 
-            {activeInput ?
+            {activeFormColumn ?
                 <form
                     onSubmit={(e) => onHandleInputAddTask(e)}
                     className={sForm.formAddTask}>
-                    <textarea
-                        autoFocus
-                        maxLength={50}
-                        className={sInput.textareaAddTask}
-                        placeholder="Enter a title for this card..."
-                        onChange={(e) => onChangeText("title", e.target.value)}
+                    <TextArea
+                        autoFocus={true}
+                        number={500}
+                        s={"textareaAddTask"}
+                        placeholder={"Enter a title for this card..."}
+                        name={"title"}
+                        onChangeText={onChangeText}
+                        value={state.title}
                     />
                     <div>
                         <button
@@ -169,14 +97,14 @@ export default function Columns({ title, id, task, dashboardId, index }){
                             type="submit">Add New Task</button>
                         <CloseIcon
                             className={sButton.buttonIcon}
-                            onClick={() => setActiveInput(!activeInput)}
+                            onClick={() => setActiveFormColumn(!activeFormColumn)}
                         />
                     </div>
                 </form>
                 :
                 <button
                     className={sButton.buttonAddTask}
-                    onClick={() => setActiveInput(!activeInput)}>
+                    onClick={() => setActiveFormColumn(!activeFormColumn)}>
                     <AddIcon fontSize="small" />
                     Add New Task
                 </button>
