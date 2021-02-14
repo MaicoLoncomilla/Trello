@@ -44,7 +44,8 @@
     padding: 5px 10px;
     overflow: hidden;
     margin: 0 15px;
-    min-width: 320px;
+    min-width: 272px;
+    max-width: 272px;
     margin-bottom: 20px;
     -webkit-box-shadow: 0px 0px 10px 3px var(--backgroundColorBoxShadow);
     -moz-box-shadow: 0px 0px 10px 3px var(--backgroundColorBoxShadow);
@@ -55,12 +56,10 @@
     display: flex;
     width: 100%;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
     padding: 0 5px;
     position: relative;
-    font-size: 18px;
-    font-weight: 600;
-    height: 35px;
+    height: 100%;
 }
 .containerTask{
     overflow-y: auto;
@@ -77,27 +76,14 @@
     max-width: 100%;
 }
 
-.containerButtonP{
+.containerTextarea{
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    width: 240px;
-    height: 100%;
+    width: 100%;
     cursor: pointer;
 }
-.containerButtonP input {
-    width: 100%;
-    height: 100%;
-    font-size: 17px;
-    font-weight: 600;
-    border: none;
-    background-color: transparent;
-    color: var(--ColorTitleColumn);
-}
-.containerButtonP p{
-    padding-left: 5px;
-    color: var(--ColorTitleColumn);
-}
+
 .containerButtonCheck,
 .containerButtonClose {
     display: flex;

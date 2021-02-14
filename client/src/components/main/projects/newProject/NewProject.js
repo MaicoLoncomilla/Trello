@@ -5,6 +5,7 @@ import api from '../../../../redux/action-creator';
 
 import { Input, TextArea } from '../../../../utils/components/Input';
 import { Button } from '../../../../utils/components/Button';
+import useClickOutside from '../../../../utils/functions/useClickOutside';
 
 import CloseIcon from '@material-ui/icons/Close';
 
@@ -21,10 +22,7 @@ export default function NewProject(){
         idUser: user.id
     })
     const onHandleCloseNewProject = () =>{
-        dispatch({
-            type: BUTTONNEWPROJECT,
-            payload: false
-        })
+        dispatch({ type: BUTTONNEWPROJECT, payload: false })
     }
 
     const onHandleChangeText = (name, value) => {
@@ -39,9 +37,12 @@ export default function NewProject(){
         onHandleCloseNewProject()
     }
 
+    let domnNode = useClickOutside(() => {
+        dispatch({ type: BUTTONNEWPROJECT, payload: false })
+    })
     return (
         <div className={sSection.containerModifyTask}>
-            <div className={sSection.containerTask}>
+            <div className={sSection.containerTask} ref={domnNode}>
                 <div
                     className={sSection.containerButtonClose}
                     onClick={() => onHandleCloseNewProject()}>

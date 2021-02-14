@@ -27,7 +27,6 @@ export default function ListProjects() {
     return (
         <>
             {!user.firstName && <Redirect to="/login" />}
-
             <div className={sContainer.containerListProject}>
                 <div className={sContainer.container}>
                     <div className={sContainer.containerListAndNewProject}>

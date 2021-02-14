@@ -2,7 +2,8 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import api from '../../../../../redux/action-creator';
-import { Input } from '../../../../../utils/components/Input';
+import { TextArea } from '../../../../../utils/components/Input';
+import useClickOutside from '../../../../../utils/functions/useClickOutside';
 
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 
@@ -41,10 +42,12 @@ export default function TitleColumn({ title, id, idDashboard, index }) {
             }
             if(!inputRef.current.contains(e.target)) {
                 setActiveInput(false)
-                if(dispatchInput) {
+                if(!titleColumn.title) return alert('Column Need a title')
+                if(dispatchInput && title !== titleColumn.title) {
                     dispatch(api.modifyColumn(titleColumn))
                     setDispatchInput(false)
                 }
+
             }
         } 
         document.addEventListener('mousedown', handler);
@@ -52,34 +55,41 @@ export default function TitleColumn({ title, id, idDashboard, index }) {
             document.removeEventListener('mousedown', handler)
         }
     });
+    let domnNode = useClickOutside(() => {
+        setActiveVertIcon(false)
+    })
 
     return (
         < >
-            <div className={sContainer.containerButtonP}ref={inputRef} >
-                <Input
-                    s={"inputDisplayTask"}
-                    placeholder={"Enter list title..."}
-                    number={25}
-                    value={titleColumn.title}
-                    onChangeText={onChangeTextColumn}
-                    type={"text"}
-                    name={"title"}
-                    autoFocus={true}
-                    status={activeInput ? false : true}
-                />
+            <div className={sContainer.containerTitleVertIcon} ref={domnNode}>
+                <div className={sContainer.containerTextarea} ref={inputRef}>
+                    <TextArea
+                        s={"textAreaAddColumn"}
+                        placeholder={"Enter list title..."}
+                        number={255}
+                        value={titleColumn.title}
+                        onChangeText={onChangeTextColumn}
+                        type={"text"}
+                        name={"title"}
+                        autoFocus={true}
+                        status={activeInput ? false : true}
+                    />
+                </div>
+                <div
+                    
+                    style={{ cursor: "pointer", marginTop: 10 }}
+                    onClick={() => setActiveVertIcon(!activeVertIcon)}>
+                    <MoreVertIcon />
+                </div>
+                {activeVertIcon &&
+                    <div className={sContainer.containerActiveVertIcon}>
+                        <button
+                            className={sButton.buttonVerticalIcons}
+                            onClick={() => onHandleDeleteColumn()}>Delete Column
+                        </button>
+                    </div>}
             </div>
-            <div
-                style={{ cursor: "pointer" }}
-                onClick={() => setActiveVertIcon(!activeVertIcon)}>
-                <MoreVertIcon />
-            </div>
-            {activeVertIcon &&
-                <div className={sContainer.containerActiveVertIcon}>
-                    <button
-                        className={sButton.buttonVerticalIcons}
-                        onClick={() => onHandleDeleteColumn()}>Delete Column
-                </button>
-                </div>}
+
         </>
     )
 }

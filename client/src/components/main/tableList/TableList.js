@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import api from '../../../redux/action-creator';
 import { DragDropContext } from 'react-beautiful-dnd';
+
+import api from '../../../redux/action-creator';
 import Columns from './columns/Columns';
+import useClickOutside from '../../../utils/functions/useClickOutside';
 
 import sContainer from '../../../styles/container.module.css';
 import sForm from '../../../styles/form.module.css';
@@ -13,6 +15,7 @@ import sInput from '../../../styles/input.module.css';
 import CloseIcon from '@material-ui/icons/Close';
 import AddIcon from '@material-ui/icons/Add';
 import { Avatar } from '@material-ui/core';
+import { TextArea } from '../../../utils/components/Input';
 
 export default function TableList(){
     const user = useSelector(state => state.user)
@@ -117,6 +120,10 @@ export default function TableList(){
             }
         }
     }, [user])
+
+    let domnNode = useClickOutside(() => {
+        setActiveInput(false)
+    })
     
     return (
         <>
@@ -124,9 +131,9 @@ export default function TableList(){
 
             <div className={sContainer.containerFlexTableList}>
                 <p>Members:</p>
-                <Avatar style={{width: 32, height: 32}} src={image}/>
+                <Avatar style={{ width: 32, height: 32 }} src={image} />
             </div>
-            <div className={sContainer.containerTableListBody}>
+            <div className={sContainer.containerTableListBody} >
                 <DragDropContext onDragEnd={result => onDragEnd(result)}>
                     {column.map((el, index) =>
                         <Columns
@@ -134,42 +141,46 @@ export default function TableList(){
                             id={el.id}
                             index={index}
                             title={el.title}
-                            task={el.tasks && el.tasks.sort((a,b) => a.taskPriority - b.taskPriority)}
+                            task={el.tasks && el.tasks.sort((a, b) => a.taskPriority - b.taskPriority)}
                             dashboardId={el.dashboardId}
                         />
                     )}
                 </DragDropContext>
-                {activeInput ?
-                    <form
-                        className={sForm.formAddColumn}
-                        onSubmit={(e) => onHandleSubmit(e)}>
-                        <input
-                            className={sInput.inputFormAddColumn}
-                            autoFocus={true}
-                            placeholder="Enter list title..."
-                            maxLength={50}
-                            onChange={(e) => onChangeText("title", e.target.value)}
-                            value={state.title}
-                        />
-                        <div>
-                            <button
-                                className={sButton.buttonGreen}
-                                type="submit">Add List
-                            </button>
-                            <CloseIcon
-                                className={sButton.buttonIcon}
-                                onClick={() => onHandleInputAddTask()}
+                <div ref={domnNode}>
+                    {activeInput ?
+                        <form
+                            className={sForm.formAddColumn}
+                            onSubmit={(e) => onHandleSubmit(e)}>
+                            <TextArea
+                                s={"textAreaAddColumn"}
+                                autoFocus={true}
+                                placeholder={"Enter list title..."}
+                                number={255}
+                                onChangeText={onChangeText}
+                                value={state.title}
+                                name={'title'}
                             />
-                        </div>
-                    </form>
-                    :
-                    <button
-                        className={sButton.buttonBlueColumn}
-                        onClick={() => onHandleInputAddTask()}>
-                        <AddIcon fontSize="small" />
-                        Add another List
-                    </button>
-                }
+                            <div>
+                                <button
+                                    className={sButton.buttonGreen}
+                                    type="submit">Add List
+                                </button>
+                                <CloseIcon
+                                    className={sButton.buttonIcon}
+                                    onClick={() => onHandleInputAddTask()}
+                                />
+                            </div>
+                        </form>
+                        :
+                        <button
+                            style={{marginRight: 20}}
+                            className={sButton.buttonBlueColumn}
+                            onClick={() => onHandleInputAddTask()}>
+                            <AddIcon fontSize="small" />
+                            Add another List
+                        </button>
+                    }
+                </div>
             </div>
         </>
     )

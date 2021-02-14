@@ -4,6 +4,7 @@ import actions from '../../../redux/actions'
 import { useDispatch, useSelector } from 'react-redux';
 
 import { DivCloseIcon } from '../../../utils/components/Div';
+import useClickOutside from '../../../utils/functions/useClickOutside';
 
 import sSection from '../../../styles/section.module.css';
 import sInput from '../../../styles/input.module.css';
@@ -34,10 +35,7 @@ export default function Modify() {
                 payload: false
             })
         }else {
-            dispatch({
-                type: BUTTONMODIFYPROJECT,
-                payload: false
-            })
+            dispatch({ type: BUTTONMODIFYPROJECT, payload: false })
         }
     }
     const onHandleChangeText = (name, value) => {
@@ -96,9 +94,12 @@ export default function Modify() {
         }
 
     }
+    let domnNode = useClickOutside(() => {
+        dispatch({ type: BUTTONMODIFYPROJECT, payload: false })
+    })
     return (
         <section className={sSection.containerModifyTask}>
-            <div className={sSection.containerTask}>
+            <div className={sSection.containerTask} ref={domnNode}>
                 <DivCloseIcon onClick={onHandleClose}/>
                 <input
                     placeholder="Title"

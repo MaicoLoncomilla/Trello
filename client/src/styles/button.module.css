@@ -53,6 +53,7 @@
     font-style: italic;
     margin-top: 10px;
     margin-bottom: 10px;
+    width: 100%;
 }
 .buttonAddTask:hover {
     background-color: var(--ColorTitleColumn);
@@ -102,7 +103,8 @@
 /* --------------- Button Blue Column --------------- */
 .buttonBlueColumn {
     border: 1px solid var(--ColorTitleColumn);
-    min-width: 320px;
+    min-width: 272px;
+    max-width: 272px;
     margin-left: 5px;
     background-color: var(--backgroundColumn);
     font-style: italic;

@@ -5,7 +5,7 @@ import setInputHeight from '../../utils/functions/serInputHeight';
 
 export function Input({ placeholder, type, onChangeText, name, s, number, value, autoFocus, status }) {
     
-    
+
     return (
         <input
         className={
@@ -38,6 +38,7 @@ export function TextArea({ placeholder, onChangeText, name, number, s, value, au
                 (s === 'textAreaModifyTask' && sInput.textAreaModifyTask ) ||
                 (s === 'textAreaDisplayTask' && sInput.textAreaDisplayTask) ||
                 (s === 'textAreaTask' && sInput.textAreaTask) ||
+                (s === 'textAreaAddColumn' && sInput.textAreaAddColumn) ||
                 (s === 'textareaAddTask' && sInput.textareaAddTask)
             }
             placeholder={placeholder}
