@@ -53,8 +53,8 @@ module.exports = {
                         email, password, firstName, lastName,
                     }),
                     Dashboard.create({
-                        title: 'title',
-                        description: 'description'
+                        title: 'Title',
+                        description: 'Description'
                     }),
                 ])
             })

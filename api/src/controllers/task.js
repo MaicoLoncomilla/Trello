@@ -1,4 +1,4 @@
-const { Task, Column } = require('../db.js')
+const { Task, Column, Comment } = require('../db.js')
 const column = require('./column')
 module.exports = {
 
@@ -10,7 +10,11 @@ module.exports = {
             include: [{
                 model: Task,
                 attributes: ['id', 'title', 'description','columnId', 'taskPriority'],
-                order: ['taskPriority']
+                order: ['taskPriority'],
+                include: {
+                    model: Comment,
+                    attributes: ['id', 'comment']
+                }
             }]
         })
     },
@@ -18,7 +22,7 @@ module.exports = {
         
             return Task.create({
                 title: title,
-                description: 'description',
+                description: '',
                 columnId: id,
             })
             .then(({dataValues}) => {

@@ -33,6 +33,13 @@ export default function NewProject(){
         if(!state.title){
             return alert("Dashboard need a title")
         }
+        const newProject = {
+            description: state.description,
+            id: user.dashboards.length + 1,
+            title: state.title,
+            userRol: { state: "owner"}
+        }
+        user.dashboards.push(newProject)
         dispatch(api.newDashboard(state))
         onHandleCloseNewProject()
     }
@@ -61,6 +68,7 @@ export default function NewProject(){
                     s={"textAreaModifyTask"}
                     placeholder={"Description"}
                     number={1000}
+                    value={state.description}
                     name={"description"}
                     onChangeText={onHandleChangeText}
                 />

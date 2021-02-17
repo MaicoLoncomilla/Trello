@@ -20,8 +20,17 @@
   --backgroundColorButtonClose: #f28a83;
   --backgroundColorBoxShadow: #c8c8c8;
  
+  --backgroundColorTaskBody: #f4f5f7;
+  --colorHoverTask: #091e42;
+  --borderColorHoverTask: rgba(9, 30, 66, .25);
+
+  --backgroundTrack: #dadbe2;
+  --backgroundThumb: #bfc4ce;
+
 }
 .App{
   background-color: #e6e6e6;
-  height: 100vh;
+  width: 100%;
+  min-height: 100vh;
 }
+

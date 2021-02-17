@@ -7,36 +7,27 @@ import { DivCloseIcon } from '../../../utils/components/Div';
 import useClickOutside from '../../../utils/functions/useClickOutside';
 
 import sSection from '../../../styles/section.module.css';
-import sInput from '../../../styles/input.module.css';
 import sButton from '../../../styles/button.module.css';
+import { Input, TextArea } from '../../../utils/components/Input';
 
 export default function Modify() {
 
-    const { BUTTONTASKACTIVE, BUTTONMODIFYPROJECT } = actions;
-    const { DASHBOARD } = api
+    const { BUTTONMODIFYPROJECT } = actions;
+    const { DASHBOARD, USER } = api
     const dispatch = useDispatch()
     const { dashboardToModify } = useSelector(state => state.buttonModifyProject)
-    const { task } = useSelector(state => state.buttonTaskActive)
-    const column = useSelector(state => state.column)
     const user = useSelector(state => state.user)
-    
+    const index = user.dashboards.findIndex(el => el.id === dashboardToModify.id)
+    console.log(index)
     const [state, setState] = useState({
-        title: task ? task.title: dashboardToModify.title,
-        description: task ? task.description : dashboardToModify.description,
-        id: task ? task.id : dashboardToModify.id,
-        idDashboard: column ? column[0]?.dashboardId: false,
+        title: dashboardToModify.title,
+        description: dashboardToModify.description,
+        id: dashboardToModify.id,
         idUser: user.id
     })
 
     const onHandleClose = () => {
-        if(task){
-            dispatch({
-                type: BUTTONTASKACTIVE,
-                payload: false
-            })
-        }else {
-            dispatch({ type: BUTTONMODIFYPROJECT, payload: false })
-        }
+        dispatch({ type: BUTTONMODIFYPROJECT, payload: false })
     }
     const onHandleChangeText = (name, value) => {
         setState({ ...state, [name]: value })
@@ -44,55 +35,30 @@ export default function Modify() {
 
     const onHandleSaveChange = () => {
         if (!state.title) {
-            return alert('The task need a title')
+            return alert('Project need a title')
         }
-        if (task) {
-            dispatch(api.modifyTask(state))
-            dispatch({
-                type: BUTTONTASKACTIVE,
-                payload: false
-            })
-        } else {
-            dispatch(api.modifyDashboard(state))
-            dispatch({ type: DASHBOARD, payload: state })
-            dispatch({ type: BUTTONMODIFYPROJECT, payload: false })
-        }
-
+        user.dashboards[index].title = state.title
+        user.dashboards[index].description = state.description
+        dispatch(api.modifyDashboard(state))
+        dispatch({ type: DASHBOARD, payload: state })
+        dispatch({ type: BUTTONMODIFYPROJECT, payload: false })
     }
     const onHandleDelete = () => {
-        const taskToDelete = {
-            id: task?.id,
-            idDashboard: column[0]?.dashboardId
-        }
-        if (task) {
-            dispatch(api.deleteTask(taskToDelete))
-            dispatch({
-                type: BUTTONTASKACTIVE,
-                payload: false
-            })
-        } else {
-            const data = { id: dashboardToModify.id, idUser: user.id }
-            if(user.dashboards.length > 1){
-                dispatch(api.deleteDashboard(data))
-                let position = 0;
-                user.dashboards.map((el, index) => {
-                    if(el.id === dashboardToModify.id){
-                        position = index
-                    }
-                })
-                if(position === 0){
-                    dispatch({ type: DASHBOARD, payload: user.dashboards[++position] })
-                    dispatch(api.getColumn(user.dashboards[position].id))
-                }else{
-                    dispatch({ type: DASHBOARD, payload: user.dashboards[0] })
-                    dispatch(api.getColumn(user.dashboards[0].id))
-                }
-                return dispatch({ type: BUTTONMODIFYPROJECT, payload: false })
-            }else {
-                return alert("No puedes eliminar el ultimo proyecto")
-            }
-        }
+        const data = { id: dashboardToModify.id, idUser: user.id }
+        if (user.dashboards.length > 1) {
 
+            let position = user.dashboards.findIndex(el => el.id === dashboardToModify.id)
+            dispatch(api.deleteDashboard(data))
+
+            user.dashboards.splice(position, 1)
+            dispatch({ type: USER, payload: user })
+
+            dispatch({ type: DASHBOARD, payload: user.dashboards[position === 0 ? position ++ : 0] })
+            dispatch(api.getColumn(user.dashboards[position === 0 ? position : 0].id))
+            return dispatch({ type: BUTTONMODIFYPROJECT, payload: false })
+        } else {
+            return alert("No puedes eliminar el ultimo proyecto")
+        }
     }
     let domnNode = useClickOutside(() => {
         dispatch({ type: BUTTONMODIFYPROJECT, payload: false })
@@ -101,18 +67,21 @@ export default function Modify() {
         <section className={sSection.containerModifyTask}>
             <div className={sSection.containerTask} ref={domnNode}>
                 <DivCloseIcon onClick={onHandleClose}/>
-                <input
-                    placeholder="Title"
-                    className={sInput.inputModifyTask}
-                    onChange={(e) => onHandleChangeText("title", e.target.value)}
+                <Input
+                    placeholder={"Title"}
+                    s={"inputModifyTask"}
+                    onChangeText={onHandleChangeText}
+                    name={"title"}
                     value={state.title}
+                    autoFocus={true}
                 />
-                <textarea
-                    placeholder="Description"
-                    maxLength={1000}
-                    className={sInput.textAreaModifyTask}
-                    onChange={(e) => onHandleChangeText("description", e.target.value)}
+                <TextArea
+                    s={"textAreaModifyTask"}
+                    placeholder={"Description..."}
                     value={state.description}
+                    number={255}
+                    onChangeText={onHandleChangeText}
+                    name={"description"}
                 />
                 <div className={sSection.containerButtonModifyTask}>
                     <button
@@ -120,7 +89,7 @@ export default function Modify() {
                         onClick={() => onHandleSaveChange()}>Save Changes</button>
                     <button
                         className={sButton.buttonCloseActive}
-                        onClick={() => onHandleDelete()}>Delete Task</button>
+                        onClick={() => onHandleDelete()}>Delete Proyect</button>
                 </div>
             </div>
         </section>

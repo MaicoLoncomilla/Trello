@@ -1,22 +1,26 @@
 /*    Modify Task      */
-
 .containerModifyTask {
     display: flex;
-    width: 100%;
-    height: 100%;
-    backdrop-filter: blur(5px) brightness(70%);
-    flex-direction: column;
     justify-content: center;
     position: absolute;
+    width: 100%;
+    backdrop-filter: blur(5px) brightness(70%);
+    background-color: rgba(0, 0, 0, .64);
     z-index: 1;
     top: 0;
+    left: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+    min-height: 100vh;
 }
+
 .containerTask{
     display: flex;
     flex-direction: column;
     max-width: 600px;
+    height: max-content;
     width: 100%;
-    margin: 0 auto;
+    margin: 48px 0 80px;
     background-color: var(--backgroundColumn);
     padding: 5px;
     border-radius: 5px;
@@ -43,12 +47,17 @@
 
 /* --------------- Display Task --------------- */
 .containerDisplayTask {
+    position: relative;
     display: flex;
     flex-direction: column;
     max-width: 768px;
     width: 100%;
-    margin: 0 auto;
+    height: 100%;
+    margin: 48px 0 80px;
     background-color: var(--backgroundColumn);
     padding: 10px 15px;
     border-radius: 5px;
+    overflow: hidden;
+    z-index: 1;
+    align-self: flex-start;
 }

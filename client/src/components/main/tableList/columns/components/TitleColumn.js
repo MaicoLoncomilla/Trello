@@ -14,7 +14,9 @@ export default function TitleColumn({ title, id, idDashboard, index }) {
     const [ activeInput, setActiveInput ] = useState(false);
     const [ dispatchInput, setDispatchInput ] = useState(false)
     const [ activeVertIcon, setActiveVertIcon ] = useState(false)
+    const { COLUMN } = api
     const column = useSelector(state => state.column)
+    const columnCopy = useSelector(state => state.columnCopy)
     const dispatch = useDispatch()
     const [ titleColumn, setTitleColumn ] = useState({
         title: title,
@@ -26,9 +28,11 @@ export default function TitleColumn({ title, id, idDashboard, index }) {
     }
     const onHandleDeleteColumn = () => {
         const data = {
-            id: column[index].id,
-            idDashboard: column[index].dashboardId
+            id: columnCopy[index]?.id,
+            idDashboard: columnCopy[index]?.dashboardId
         }
+        column.splice(index, 1)
+        dispatch({ type: COLUMN, payload: Object.values(column) })
         setActiveVertIcon(!activeVertIcon)
         dispatch(api.deleteColumn(data))
     }
@@ -44,7 +48,16 @@ export default function TitleColumn({ title, id, idDashboard, index }) {
                 setActiveInput(false)
                 if(!titleColumn.title) return alert('Column Need a title')
                 if(dispatchInput && title !== titleColumn.title) {
-                    dispatch(api.modifyColumn(titleColumn))
+                    
+                    column[index].title = titleColumn.title
+                    dispatch({ type: COLUMN, payload: column })
+
+                    const data = {
+                        title: titleColumn.title,
+                        id: columnCopy[index]?.id,
+                        idDashboard: columnCopy[index]?.dashboardId
+                    }
+                    dispatch(api.modifyColumn(data))
                     setDispatchInput(false)
                 }
 

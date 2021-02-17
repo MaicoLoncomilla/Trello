@@ -2,6 +2,7 @@ const { Router } = require('express');
 const router = Router();
 
 router.use('/dashboard', require('./dashboard'))
+router.use('/comment', require('./comment'))
 router.use('/column', require('./column'))
 router.use('/image', require('./image'))
 router.use('/user', require('./user'))

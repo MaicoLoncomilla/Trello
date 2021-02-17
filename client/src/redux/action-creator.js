@@ -6,7 +6,6 @@ const actionCreator = {
     login: function (data) {
         return dispatch => {
             const promise = axios.post(`${process.env.REACT_APP_API_URL}/user/login`, data)
-
             this._dispatchPromise(promise, this.USER, dispatch)
         }
     },
@@ -51,18 +50,19 @@ const actionCreator = {
             this._dispatchPromise(promise, this.USER, dispatch)
         }
     },
-
+    COLUMNCOPY: 'COLUMNCOPY',
     COLUMN: 'COLUMN',
     newColumn: function(data, id) {
         const dataColumn = { id: id, title: data.title, description: data.description}
         return dispatch => {
             const promise = axios.post(`${process.env.REACT_APP_API_URL}/column/`, dataColumn)
-            this._dispatchPromise(promise, this.COLUMN, dispatch)
+            this._dispatchPromise(promise, this.COLUMNCOPY, dispatch)
         }
     },
     getColumn: function(id){
         return dispatch => {
             const promise = axios.get(`${process.env.REACT_APP_API_URL}/column/${id}`)
+            this._dispatchPromise(promise, this.COLUMNCOPY, dispatch)
             this._dispatchPromise(promise, this.COLUMN, dispatch)
         }
     },
@@ -70,13 +70,13 @@ const actionCreator = {
     modifyColumn: function(data) {
         return dispatch => {
             const promise = axios.put(`${process.env.REACT_APP_API_URL}/column/`, data)
-            this._dispatchPromise(promise, this.COLUMN, dispatch)
+            this._dispatchPromise(promise, this.COLUMNCOPY, dispatch)
         }
     },
     deleteColumn: function({id, idDashboard}){
         return dispatch => {
             const promise = axios.delete(`${process.env.REACT_APP_API_URL}/column/${id}/${idDashboard}`)
-            this._dispatchPromise(promise, this.COLUMN, dispatch)
+            this._dispatchPromise(promise, this.COLUMNCOPY, dispatch)
         }
     },
     reorderTaskInColumn: function(data){
@@ -89,21 +89,21 @@ const actionCreator = {
     newTask: function(data){
         return dispatch => {
             const promise = axios.post(`${process.env.REACT_APP_API_URL}/task/`, data)
-            this._dispatchPromise(promise, this.COLUMN, dispatch)
+            this._dispatchPromise(promise, this.COLUMNCOPY, dispatch)
         }
     },
 
     modifyTask: function(data){
         return dispatch => {
             const promise = axios.put(`${process.env.REACT_APP_API_URL}/task/`, data)
-            this._dispatchPromise(promise, this.COLUMN, dispatch)
+            this._dispatchPromise(promise, this.COLUMNCOPY, dispatch)
         }
     },
 
     deleteTask: function({id, idDashboard}) {
         return dispatch => {
             const promise = axios.delete(`${process.env.REACT_APP_API_URL}/task/${id}/${idDashboard}`)
-            this._dispatchPromise(promise, this.COLUMN, dispatch)
+            this._dispatchPromise(promise, this.COLUMNCOPY, dispatch)
         }
     },
 
@@ -111,6 +111,28 @@ const actionCreator = {
         return dispatch => {
             const promise = axios.put(`${process.env.REACT_APP_API_URL}/task/reorder/`, data)
             this._dispatchPromise(promise, false, dispatch)
+        }
+    },
+
+    // -------------- Commentary -----------------
+    createComment: function(data){
+        return dispatch => {
+            const promise = axios.create(`${process.env.REACT_APP_API_URL}/comment`, data)
+            this._dispatchPromise(promise, this.COLUMNCOPY, dispatch)
+        }
+    },
+
+    modifyComment: function(data){
+        return dispatch => {
+            const promise = axios.put(`${process.env.REACT_APP_API_URL}/comment`, data)
+            this._dispatchPromise(promise, this.COLUMNCOPY, dispatch)
+        }
+    },
+
+    deleteComment: function({ id, idDashboard }){
+        return dispatch => {
+            const promise = axios.delete(`${process.env.REACT_APP_API_URL}/comment/${id}/${idDashboard}`)
+            this._dispatchPromise(promise, this.COLUMNCOPY, dispatch)
         }
     },
     

@@ -3,8 +3,10 @@
     -webkit-box-shadow: inset 0px 0px 15px 3px var(--backgroundColorBoxShadow);
     -moz-box-shadow: inset 0px 0px 15px 3px var(--backgroundColorBoxShadow);
     box-shadow: inset 0px 0px 15px 3px var(--backgroundColorBoxShadow);
-    height: calc(100vh - 55px);
-    position: relative;
+    height: calc(100% - 55px);
+    background-color: #e6e6e6;
+    position: fixed;
+    width: 100%;
 }
 
 /* ------ TableList Top ------*/
@@ -32,7 +34,19 @@
     width: 100%;
     overflow-y: hidden;
     overflow-x: auto;
-    height: calc(100vh - 130px);
+    height: calc(98% - 55px);
+}
+
+.containerTableListBody::-webkit-scrollbar {
+    height: 12px;
+}
+.containerTableListBody::-webkit-scrollbar-track{
+    background-color: var(--backgroundTrack);
+    border-radius: 5px;
+}
+.containerTableListBody::-webkit-scrollbar-thumb{
+    background-color: var(--backgroundThumb);
+    border-radius: 5px;
 }
 
 /* ------ Columns body ------*/
@@ -43,6 +57,7 @@
     border-radius: 2px;
     padding: 5px 10px;
     overflow: hidden;
+    max-height: 80vh;
     margin: 0 15px;
     min-width: 272px;
     max-width: 272px;
@@ -52,28 +67,48 @@
     box-shadow: 0px 0px 10px 3px var(--backgroundColorBoxShadow);
 
 }
+
 .containerTitleVertIcon{
     display: flex;
     width: 100%;
-    justify-content: space-between;
     align-items: flex-start;
     padding: 0 5px;
     position: relative;
-    height: 100%;
 }
 .containerTask{
     overflow-y: auto;
+}
+.containerOverFlowTask{
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+.containerOverFlowTask::-webkit-scrollbar {
+    width: 8px;
+}
+.containerOverFlowTask::-webkit-scrollbar-track{
+    background-color: var(--backgroundTrack);
+    border-radius: 5px;
+}
+.containerOverFlowTask::-webkit-scrollbar-thumb{
+    background-color: var(--backgroundThumb);
+    border-radius: 5px;
 }
 .containerTaskBody{
     background-color: var(--backgroundTask);
     padding: 10px 10px;
     border-radius: 2px;
-    margin: 10px 5px;
+    margin: 0px 5px;
+    margin-bottom: 10px;
     -webkit-box-shadow: 0px 0px 2px 1px var(--backgroundColorBoxShadow);
     -moz-box-shadow: 0px 0px 2px 1px var(--backgroundColorBoxShadow);
     box-shadow: 0px 0px 2px 1px var(--backgroundColorBoxShadow);
-    cursor: pointer;
     max-width: 100%;
+}
+.containerTaskBody:hover{
+    background-color: var(--backgroundColorTaskBody);
+    border-color: var(--borderColorHoverTask);
+    color: var(--colorHoverTask);
+    cursor: pointer;
 }
 
 .containerTextarea{
