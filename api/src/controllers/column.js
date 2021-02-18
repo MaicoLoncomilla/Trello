@@ -2,38 +2,39 @@ const { Task, Column, Comment } = require('../db.js')
 
 module.exports = {
 
-    read: function (id) {
+    read: function (dashboardId) {
         return Column.findAll({
-            attributes: ['id', 'title', 'description', 'dashboardId', 'columnPriority'],
-            where: { dashboardId: id },
-            order: ['id'],
+            attributes: ['id', 'title', 'dashboardId', 'columnPriority','uuid'],
+            where: { dashboardId: dashboardId },
+            order: ["id"],
             include: [{
                 model: Task,
-                attributes: ['id', 'title', 'description','columnId', 'taskPriority'],
-                order: ['id'],
-                include: {
+                attributes: ['id', 'title', 'description','columnId', 'taskPriority', 'uuid'],
+                order: ["id"],
+                include: [{
                     model: Comment,
-                    attributes: ['id', 'comment']
-                }
+                    attributes: ['id', 'comment', 'taskId'],
+                    order: ["id"],
+                }]
             }]
         })
     },
-    create: function (title, description, id) {
+    create: function (title, uuid, dashboardId) {
 
         return Column.create({
             title: title,
-            description: description,
-            dashboardId: id
+            uuid: uuid,
+            dashboardId: dashboardId
         })
-            .then(() => this.read(id))
+            .then(() => this.read(dashboardId))
     },
 
-    modify: function (id, title, idDashboard) {
+    modify: function (id, title, dashboardId) {
         return Column.findOne({
             where: { id: id }
         })
             .then(column => column.update({ title: title }))
-            .then(() => this.read(idDashboard))
+            .then(() => this.read(dashboardId))
     },
     reorderTaskInColumn: function (id, columnId) {
         return Task.findOne({
@@ -44,11 +45,11 @@ module.exports = {
             .then(task => task.update({ columnId }))
     },
 
-    delete: function (id, idDashboard) {
+    delete: function (id, dashboardId) {
         return Task.destroy({
             where: { columnId: id }
         })
             .then(() => Column.destroy({ where: { id: id } }))
-            .then(() => this.read(idDashboard))
+            .then(() => this.read(dashboardId))
     }
 }

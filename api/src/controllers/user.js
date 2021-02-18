@@ -1,5 +1,6 @@
-const { Task, Column, User, Dashboard, UserRol, Image } = require('../db.js')
-
+const { Task, Column, User, Dashboard, UserRol, Image } = require('../db.js');
+const { v4 } = require('uuid')
+const uuidv4 = v4;
 module.exports = {
     
     login: function (email, password) {
@@ -8,7 +9,7 @@ module.exports = {
             where: { email: email },
             include: [{
                 model: Dashboard,
-                attributes: ['id', 'title', 'description'],
+                attributes: ['id', 'title', 'description', 'uuid'],
                 through: {
                     attributes: ['state']
                 },
@@ -54,7 +55,8 @@ module.exports = {
                     }),
                     Dashboard.create({
                         title: 'Title',
-                        description: 'Description'
+                        description: 'Description',
+                        uuid: uuidv4()
                     }),
                 ])
             })
@@ -72,7 +74,7 @@ module.exports = {
             where: { id: id },
             include: [{
                 model: Dashboard,
-                attributes: ['id', 'title', 'description'],
+                attributes: ['id', 'title', 'description', 'uuid'],
                 through: {
                     attributes: ['state']
                 }

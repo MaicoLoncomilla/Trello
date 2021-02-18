@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
-import axios from 'axios';
+import { v4 as uuidv4 } from 'uuid';
 
 import api from '../../../../redux/action-creator';
 import actions from '../../../../redux/actions';
@@ -17,13 +17,12 @@ import Task from '../task/Task';
 import TitleColumn from './components/TitleColumn';
 import { TextArea } from '../../../../utils/components/Input';
 
-export default function Columns({ title, id, task, dashboardId, index }){
+export default function Columns({ title, id, task, dashboardId, index, uuid }){
 
     const [ activeFormColumn, setActiveFormColumn ] = useState(false)
     const column = useSelector(state => state.column)
-    const columnCopy = useSelector(state => state.columnCopy)
     const [ state, setState ] = useState({})
-    const { COLUMN, COLUMNCOPY } = api
+    const { COLUMN } = api
     const { DISPLAYTASK } = actions
     const dispatch = useDispatch()
     const onHandleInputAddTask = (e) => {
@@ -33,54 +32,27 @@ export default function Columns({ title, id, task, dashboardId, index }){
             return alert('You need a title')
         }
         let newState = {
-            id: task.length ? task[task.length - 1].id + 1 : 1,
+            uuid: uuidv4(),
             title: state.title,
             columnId: column[index]?.id,
             comments: [],
-            description: ""
+            description: "",
+            dashboardId: column[index]?.dashboardId, 
         }
         let taskArray = column[index].tasks
         taskArray.push(newState)
 
-        const data = {
-            title: state.title,
-            id: columnCopy[index]?.id,
-            idDashboard: columnCopy[index]?.dashboardId,
-        }
-        if (task.length > 1) {
-            dispatch({
-                type: COLUMN,
-                payload: Object.values({
-                    ...column,
-                    [index]: {
-                        ...column[index],
-                        tasks: taskArray,
-                    }
-                })
+        dispatch({
+            type: COLUMN,
+            payload: Object.values({
+                ...column,
+                [index]: {
+                    ...column[index],
+                    tasks: taskArray,
+                }
             })
-            dispatch(api.newTask(data))
-        } else {
-            dispatch({
-                type: COLUMN,
-                payload: Object.values({
-                    ...column,
-                    [index]: {
-                        ...column[index],
-                        tasks: taskArray,
-                    }
-                })
-            })
-            axios.post(`${process.env.REACT_APP_API_URL}/task/`, data)
-                .then(({ data }) => {
-                    dispatch({
-                        type: COLUMNCOPY,
-                        payload: data
-                    })
-                    column[index].tasks[0].id = data[index].tasks[0].id
-                    dispatch({ type: COLUMN, payload: column })
-                })
-
-        }
+        })
+        dispatch(api.newTask(newState))
         setActiveFormColumn(!activeFormColumn)
         setState({ ...state, title: "" })
     }
@@ -99,21 +71,21 @@ export default function Columns({ title, id, task, dashboardId, index }){
     })
 
     return (
-        <div className={sContainer.containerColumns} key={id}>
-            <TitleColumn title={title} id={id} idDashboard={dashboardId} index={index} />
-            <Droppable droppableId={`${String(index)} ${id}`} key={id} >
+        <div className={sContainer.containerColumns}>
+            <TitleColumn title={title} id={id} dashboardId={dashboardId} index={index} />
+            <Droppable droppableId={`${String(index)} ${id}`} key={uuid}>
                 {(provided) => (
                     <div {...provided.droppableProps} ref={provided.innerRef} className={sContainer.containerOverFlowTask}>
                         <div style={{ height: 5 }}></div>
                         {task?.map((el, index) =>
-                            <Draggable draggableId={String(el.id)} index={index} key={el.id} >
+                            <Draggable draggableId={String(el.uuid)} index={index} key={el.uuid} >
                                 {(provided => (
                                     <div
                                         ref={provided.innerRef}
                                         {...provided.draggableProps}
                                         {...provided.dragHandleProps}
                                         style={provided.draggableProps.style}
-                                        key={el.id}
+                                        key={el.uuid}
                                         className={sContainer.containerTaskBody}
                                         onClick={() => onHandleButtonTask(el)}>
                                         <Task el={el} />

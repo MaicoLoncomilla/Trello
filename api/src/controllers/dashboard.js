@@ -3,7 +3,7 @@ const user = require('./user')
 
 module.exports = {
 
-    create: function(title, description, idUser) {
+    create: function(title, description, idUser, uuid) {
         return Promise.all([
             User.findOne({
                 where: { id: idUser}
@@ -11,33 +11,34 @@ module.exports = {
             Dashboard.create({
                 title: title,
                 description: description,
+                uuid: uuid
             })
         ]) 
         .then(([user, dashboard]) => user.addDashboard(dashboard, { through: { state: 'owner' }}))
         .then(() => user.getById(idUser))
     },
 
-    modify: function(id, title, description, idUser){
+    modify: function(uuid, title, description, idUser){
         return Dashboard.findOne({
-            where: { id: id }
+            where: { uuid: uuid }
         })
         .then(dashboard => dashboard.update({ title, description}))
         .then(() => user.getById(idUser))
     },
 
-    delete: function(id, idUser){
+    delete: function(uuid, idUser){
         return Column.findAll({
-            where: { dashboardId: id }
+            where: { dashboardId: uuid }
         })
             .then(column => {
                 column.map(el => Task.destroy({ where: { columnId: el.id } }))
             })
             .then(() => {
                 Column.destroy({
-                    where: { dashboardId: id }
+                    where: { dashboardId: uuid }
                 })
                 return Dashboard.destroy({
-                    where: { id: id }
+                    where: { uuid: uuid }
                 })
             })
             .then(() => user.getById(idUser))

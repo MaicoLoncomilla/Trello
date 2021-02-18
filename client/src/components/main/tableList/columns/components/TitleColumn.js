@@ -10,26 +10,25 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 import sContainer from '../../../../../styles/container.module.css'
 import sButton from '../../../../../styles/button.module.css'
 
-export default function TitleColumn({ title, id, idDashboard, index }) {
+export default function TitleColumn({ title, id, dashboardId, index }) {
     const [ activeInput, setActiveInput ] = useState(false);
     const [ dispatchInput, setDispatchInput ] = useState(false)
     const [ activeVertIcon, setActiveVertIcon ] = useState(false)
     const { COLUMN } = api
     const column = useSelector(state => state.column)
-    const columnCopy = useSelector(state => state.columnCopy)
     const dispatch = useDispatch()
     const [ titleColumn, setTitleColumn ] = useState({
         title: title,
         id: id,
-        idDashboard: idDashboard
+        dashboardId: dashboardId
     })
     const onChangeTextColumn = (name, value) => {
         setTitleColumn({ ...titleColumn, [name]: value })
     }
     const onHandleDeleteColumn = () => {
         const data = {
-            id: columnCopy[index]?.id,
-            idDashboard: columnCopy[index]?.dashboardId
+            id: id,
+            dashboardId: dashboardId
         }
         column.splice(index, 1)
         dispatch({ type: COLUMN, payload: Object.values(column) })
@@ -48,16 +47,10 @@ export default function TitleColumn({ title, id, idDashboard, index }) {
                 setActiveInput(false)
                 if(!titleColumn.title) return alert('Column Need a title')
                 if(dispatchInput && title !== titleColumn.title) {
-                    
                     column[index].title = titleColumn.title
-                    dispatch({ type: COLUMN, payload: column })
-
-                    const data = {
-                        title: titleColumn.title,
-                        id: columnCopy[index]?.id,
-                        idDashboard: columnCopy[index]?.dashboardId
-                    }
-                    dispatch(api.modifyColumn(data))
+                    dispatch({ type: COLUMN, payload: Object.values(column)})
+                    
+                    dispatch(api.modifyColumn(titleColumn))
                     setDispatchInput(false)
                 }
 

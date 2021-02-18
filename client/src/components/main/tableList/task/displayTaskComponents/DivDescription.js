@@ -19,7 +19,7 @@ export default function DivDescription({ task, index, indexTask }) {
         title: task.title,
         description: task.description,
         id: task.id,
-        idDashboard: columnSelected?.dashboardId
+        dashboardId: columnSelected?.dashboardId
     })
 
     const onChangeText = (name, value) => {

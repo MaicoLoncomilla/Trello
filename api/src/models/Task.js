@@ -10,6 +10,9 @@ module.exports = (sequelize) => {
         },
         taskPriority: {
             type: DataTypes.INTEGER
+        },
+        uuid: {
+            type: DataTypes.STRING
         }
     })
 }

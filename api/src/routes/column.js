@@ -9,18 +9,18 @@ server.get('/:id', (req, res, next) => {
 })
 
 server.post('/', (req, res, next) => {
-    const { title, description, id } = req.body;
-    column.create(title, description, id)
+    const { title, uuid, dashboardId } = req.body;
+    column.create(title, uuid, dashboardId)
         .then(r => res.send(r))
         .catch(next)
 })
 
 server.put('/', (req, res, next) => {
-    const { id, title, idDashboard } = req.body;
+    const { id, title, dashboardId } = req.body;
     if(!title){
         return res.status(400).send('The column need a title')
     }
-    column.modify(id, title, idDashboard)
+    column.modify(id, title, dashboardId)
         .then(r => res.send(r))
         .catch(next)
 })
@@ -32,9 +32,9 @@ server.put('/reordertask/', (req, res ,next) => {
     .catch(next)
 })
 
-server.delete('/:id/:idDashboard', (req, res, next) => {
-    const { id, idDashboard } = req.params;
-    column.delete(id, idDashboard)
+server.delete('/:id/:dashboardId', (req, res, next) => {
+    const { id, dashboardId } = req.params;
+    column.delete(id, dashboardId)
         .then(r => res.send(r))
         .catch(next)
 })

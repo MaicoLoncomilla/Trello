@@ -1,26 +1,25 @@
-const { Comment } = require('../db');
-const column = require('./column');
+const { Comment } = require('../db.js');
+const column = require('../controllers/column');
 
 module.exports = {
 
-    create: function (commentary, idDashboard) {
-        return Comment.create({ commentary })
-            .then(() => column.read(idDashboard))
+    create: function (comment, dashboardId, taskId, uuid) {
+        return Comment.create({ comment ,taskId, uuid })
+            .then(() => column.read(dashboardId))
     },
 
-    modify: function (commentary, id, idDashboard) {
+    modify: function (comment, id, dashboardId) {
         return Comment.findOne({
             where: { id: id }
         })
-            .then(comment => comment.update(commentary))
-            .then(() => column.read(idDashboard))
+            .then(commentary => commentary.update(comment))
+            .then(() => column.read(dashboardId))
     },
 
-    delete: function (id, idDashboard) {
+    delete: function (id, dashboardId) {
         return Comment.destroy({
             where: { id: id }
         })
-            .then(() => column.read(idDashboard))
+            .then(() => column.read(dashboardId))
     }
-
 }

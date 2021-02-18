@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { v4 as uuidv4 } from 'uuid';
+
 import actions from '../../../../redux/actions';
 import api from '../../../../redux/action-creator';
 
@@ -19,7 +21,8 @@ export default function NewProject(){
     const [ state, setState ] = useState({
         title: "",
         description: "",
-        idUser: user.id
+        idUser: user.id,
+        uuid: uuidv4(),
     })
     const onHandleCloseNewProject = () =>{
         dispatch({ type: BUTTONNEWPROJECT, payload: false })
@@ -35,7 +38,7 @@ export default function NewProject(){
         }
         const newProject = {
             description: state.description,
-            id: user.dashboards.length + 1,
+            uuid: uuidv4(),
             title: state.title,
             userRol: { state: "owner"}
         }

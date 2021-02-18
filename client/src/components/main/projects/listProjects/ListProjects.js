@@ -30,7 +30,7 @@ export default function ListProjects() {
             <div className={sContainer.containerListProject}>
                 <div className={sContainer.container}>
                     <div className={sContainer.containerListAndNewProject}>
-                        <p>List Projects</p>
+                        <p>Projects List</p>
                         <Button
                             s={"buttonBlueColumn"}
                             style={{ minWidth: 150 }}

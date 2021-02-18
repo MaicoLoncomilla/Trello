@@ -7,6 +7,9 @@ module.exports = (sequelize) => {
         },
         description: {
             type: DataTypes.STRING,
+        },
+        uuid: {
+            type: DataTypes.STRING,
         }
     })
 }

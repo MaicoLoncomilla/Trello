@@ -18,11 +18,10 @@ export default function Modify() {
     const { dashboardToModify } = useSelector(state => state.buttonModifyProject)
     const user = useSelector(state => state.user)
     const index = user.dashboards.findIndex(el => el.id === dashboardToModify.id)
-    console.log(index)
     const [state, setState] = useState({
         title: dashboardToModify.title,
         description: dashboardToModify.description,
-        id: dashboardToModify.id,
+        uuid: dashboardToModify.uuid,
         idUser: user.id
     })
 
@@ -44,7 +43,7 @@ export default function Modify() {
         dispatch({ type: BUTTONMODIFYPROJECT, payload: false })
     }
     const onHandleDelete = () => {
-        const data = { id: dashboardToModify.id, idUser: user.id }
+        const data = { uuid: dashboardToModify.uuid, idUser: user.id }
         if (user.dashboards.length > 1) {
 
             let position = user.dashboards.findIndex(el => el.id === dashboardToModify.id)

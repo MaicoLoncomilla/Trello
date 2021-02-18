@@ -25,7 +25,7 @@ export default function List({ el }) {
     }
     const onHandleSelectProject = (el) => {
         dispatch({ type: DASHBOARD, payload: el })
-        dispatch(api.getColumn(el.id))
+        dispatch(api.getColumn(el.uuid))
     }
     return (
         <div key={el.id} className={sContainer.listProjectMap}>

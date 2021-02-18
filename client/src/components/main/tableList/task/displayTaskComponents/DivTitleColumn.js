@@ -15,7 +15,7 @@ export default function DivTitleColumn({ task , columnSelected, index, indexTask
     const { COLUMN } = api
     const dispatch = useDispatch();
     const [ state, setState ] = useState({
-        idDashboard: columnSelected.dashboardId,
+        dashboardId: columnSelected?.dashboardId,
         title: task.title,
         id: task.id
     });
@@ -66,7 +66,7 @@ export default function DivTitleColumn({ task , columnSelected, index, indexTask
                     />
                 </div>
             </div>
-            <p>In list <strong>{columnSelected.title}</strong></p>
+            <p>In list <strong>{columnSelected?.title}</strong></p>
         </div>
     )
 }

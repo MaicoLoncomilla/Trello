@@ -2,14 +2,14 @@ const { Task, Column, Comment } = require('../db.js')
 const column = require('./column')
 module.exports = {
 
-    read: function (id) {
+    read: function (dashboardId) {
         return Column.findAll({
-            attributes: ['id', 'title', 'description', 'dashboardId', 'columnPriority'],
-            where: { dashboardId: id },
-            order: ['id'],
+            attributes: ['id', 'title', 'dashboardId', 'columnPriority', 'uuid'],
+            where: { dashboardId: dashboardId },
+            order: ["id"],
             include: [{
                 model: Task,
-                attributes: ['id', 'title', 'description','columnId', 'taskPriority'],
+                attributes: ['id', 'title', 'description','columnId', 'taskPriority', 'uuid'],
                 order: ['taskPriority'],
                 include: {
                     model: Comment,
@@ -18,12 +18,13 @@ module.exports = {
             }]
         })
     },
-    create: function (title, id, idDashboard) {
+    create: function (title, columnId, dashboardId, uuid) {
         
             return Task.create({
                 title: title,
                 description: '',
-                columnId: id,
+                uuid: uuid,
+                columnId: columnId,
             })
             .then(({dataValues}) => {
                 return Task.findOne({
@@ -33,18 +34,18 @@ module.exports = {
                 })
             })
             .then(task => task.update({ taskPriority: task.id}))
-            .then(() => column.read(idDashboard))
+            .then(() => column.read(dashboardId))
     },
-    update: function (id, title, description, idDashboard) {
+    update: function (id, title, description, dashboardId) {
         return Task.findOne({
             where: {
                 id: id
             }
         })
             .then(task => task.update({ title, description }))
-            .then(() => column.read(idDashboard))
+            .then(() => column.read(dashboardId))
     },
-    reorderUpdate: function (idDashboard, tasks) {
+    reorderUpdate: function (dashboardId, tasks) {
         tasks.map((el, index) => {
             let taskPriority = el.taskPriority
             return Task.findOne({
@@ -52,12 +53,12 @@ module.exports = {
             })
                 .then(task => task.update({ taskPriority }))
         })
-        return this.read(idDashboard)
+        return this.read(dashboardId)
     },
-    delete: function (id, idDashboard) {
+    delete: function (id, dashboardId) {
         return Task.destroy({
             where: { id: id }
         })
-            .then(() => column.read(idDashboard))
+            .then(() => column.read(dashboardId))
     }
 }

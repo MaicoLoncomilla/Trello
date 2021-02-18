@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { DragDropContext } from 'react-beautiful-dnd';
-import axios from 'axios';
+import { v4 as uuidv4 } from 'uuid';
 
 import api from '../../../redux/action-creator';
 import Columns from './columns/Columns';
@@ -18,11 +18,10 @@ import { Avatar } from '@material-ui/core';
 import { TextArea } from '../../../utils/components/Input';
 
 export default function TableList(){
+    const { COLUMN, DASHBOARD } = api
     const user = useSelector(state => state.user)
     const image = user.image && `${process.env.REACT_APP_API_URL}${user.image.url}`
     const column = useSelector(state => state.column)
-    const columnCopy = useSelector(state => state.columnCopy)
-    const { COLUMN, DASHBOARD, COLUMNCOPY } = api
     const dashboard = useSelector(state => state.dashboard)
     const [ activeInput, setActiveInput ] = useState(false)
     const [ state, setState ] = useState({})
@@ -42,7 +41,7 @@ export default function TableList(){
         }
         const newColumn = {
             title: state.title,
-            id: column.length + 1,
+            uuid: uuidv4(),
             dashboardId: dashboard ? dashboard.id : user.dashboards[0].id,
             tasks: [],
         }
@@ -53,32 +52,8 @@ export default function TableList(){
                 [newColumn.id]: newColumn
             })
         })
-        // const id = dashboard ? dashboard.id : user.dashboards[0].id
-        // const dataColumn = { id: id, title: data.title, description: data.description}
-        const dataColumn ={
-            id: dashboard ? dashboard.id : user.dashboards[0].id,
-            title: state.title,
-            description: state.description,
-        }
-        axios.post(`${process.env.REACT_APP_API_URL}/column/`, dataColumn)
-        .then(({data}) => {
-            dispatch({ type: COLUMNCOPY, payload: data })
-            console.log(data)
-            dispatch({
-                type: COLUMN,
-                payload: Object.values({
-                    ...column,
-                    [newColumn.id]: {
-                        ...newColumn,
-                        id: data[data.length - 1].id
-                    }
-                })
-            })
-            // console.log(data[data.length - 1])
-        })
 
-
-        // dispatch(api.newColumn(state, id))
+        dispatch(api.newColumn(newColumn))
         setState({})
         onHandleInputAddTask()
     }
@@ -93,26 +68,22 @@ export default function TableList(){
 
             const sourceColumn = column[source.droppableId.split(" ")[0]]
             const destinationColumn = column[destination.droppableId.split(" ")[0]]
-            // console.log(sourceColumn)
-            // console.log(destinationColumn)
+
             const sourceTasks = [...sourceColumn.tasks]
             const destinationTasks = [...destinationColumn.tasks]
 
-            // sourceTasks[source.index].columnId = columnCopy[destination.droppableId.split(" ")[0]].id
-            console.log(sourceTasks)
-            
             const [removed] = sourceTasks.splice(source.index, 1);
-            console.log(removed)
-            // removed.columnId = columnCopy[destination.droppableId.split(" ")[0]].id
             removed.columnId = destinationColumn.id
             destinationTasks.splice(destination.index, 0, removed)
+
+            removed.columnId = column[destination.droppableId.split(" ")[0]].id
 
             if (column[source.droppableId.split(" ")[0]].taskPriority !== destinationTasks[0].taskPriority) {
                 destinationTasks.map((el, index) =>
                     el.taskPriority = index + 1
                 )
             }
-
+            
             dispatch({
                 type: COLUMN, payload: Object.values({
                     ...column,
@@ -126,40 +97,8 @@ export default function TableList(){
                     }
                 })
             })
-            console.log(removed)
+            
             dispatch(api.reorderTaskInColumn(removed))
-
-            // const sourceColumn = column[source.droppableId.split(" ")[0]]
-            // const destinationColumn = column[destination.droppableId.split(" ")[0]]
-            // console.log(sourceColumn)
-            // console.log(destinationColumn)
-            // const sourceTasks = [...sourceColumn.tasks]
-            // const destinationTasks = [...destinationColumn.tasks]
-
-            // const [removed] = sourceTasks.splice(source.index, 1);
-            // removed.columnId = destinationColumn.id
-            // destinationTasks.splice(destination.index, 0, removed)
-
-            // if (column[source.droppableId.split(" ")[0]].taskPriority !== destinationTasks[0].taskPriority) {
-            //     destinationTasks.map((el, index) =>
-            //         el.taskPriority = index + 1
-            //     )
-            // }
-
-            // dispatch({
-            //     type: COLUMN, payload: Object.values({
-            //         ...column,
-            //         [source.droppableId.split(" ")[0]]: {
-            //             ...sourceColumn,
-            //             tasks: sourceTasks
-            //         },
-            //         [destination.droppableId.split(" ")[0]]: {
-            //             ...destinationColumn,
-            //             tasks: destinationTasks
-            //         }
-            //     })
-            // })
-            // dispatch(api.reorderTaskInColumn(removed))
 
         } else {
             const newColumn = column[source.droppableId.split(" ")[0]];
@@ -174,7 +113,7 @@ export default function TableList(){
             }
             const data = {
                 tasks: copiedTasks,
-                idDashboard: column[0].dashboardId
+                dashboardId: column[0].dashboardId
             }
             dispatch({
                 type: COLUMN, payload: Object.values({
@@ -217,6 +156,7 @@ export default function TableList(){
                         <Columns
                             key={index}
                             id={el.id}
+                            uuid={el.uuid}
                             index={index}
                             title={el.title}
                             task={el.tasks ? el.tasks?.sort((a, b) => a.taskPriority - b.taskPriority) : el.tasks?.sort((a, b) => a.id - b.id) }

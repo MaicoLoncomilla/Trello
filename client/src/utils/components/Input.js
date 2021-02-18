@@ -40,7 +40,8 @@ export function TextArea({ placeholder, onChangeText, name, number, s, value, au
                 (s === 'textAreaTask' && sInput.textAreaTask) ||
                 (s === 'textAreaAddColumn' && sInput.textAreaAddColumn) ||
                 (s === 'textareaAddTask' && sInput.textareaAddTask) ||
-                (s === 'textAreaModifyDescription' && sInput.textAreaModifyDescription)
+                (s === 'textAreaModifyDescription' && sInput.textAreaModifyDescription) ||
+                (s === 'textAreaNewComment' && sInput.textAreaNewComment)
             }
             placeholder={placeholder}
             onChange={(e) => onChangeText(name, e.target.value)}

@@ -39,7 +39,7 @@ export default function Header(){
         to: "/"
     },{
         icon: <DescriptionIcon/>,
-        title: 'Change Project',
+        title: 'Project List',
         to: "/listProjects"
     },{
         icon: <PersonIcon/>,
