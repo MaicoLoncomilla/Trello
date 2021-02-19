@@ -55,7 +55,7 @@ const actionCreator = {
     newColumn: function(data) {
         return dispatch => {
             const promise = axios.post(`${process.env.REACT_APP_API_URL}/column/`, data)
-            this._dispatchPromise(promise, this.COLUMN, dispatch)
+            this._dispatchPromise(promise, false, dispatch)
         }
     },
     getColumn: function(id){
@@ -71,9 +71,9 @@ const actionCreator = {
             this._dispatchPromise(promise, false, dispatch)
         }
     },
-    deleteColumn: function({id, dashboardId}){
+    deleteColumn: function({uuid, dashboardId}){
         return dispatch => {
-            const promise = axios.delete(`${process.env.REACT_APP_API_URL}/column/${id}/${dashboardId}`)
+            const promise = axios.delete(`${process.env.REACT_APP_API_URL}/column/${uuid}/${dashboardId}`)
             this._dispatchPromise(promise, false, dispatch)
         }
     },
@@ -87,7 +87,7 @@ const actionCreator = {
     newTask: function(data){
         return dispatch => {
             const promise = axios.post(`${process.env.REACT_APP_API_URL}/task/`, data)
-            this._dispatchPromise(promise, this.COLUMN, dispatch)
+            this._dispatchPromise(promise, false, dispatch)
         }
     },
 
@@ -137,7 +137,7 @@ const actionCreator = {
     _dispatchPromise: function(promise, type, dispatch){
         return promise
         .then(({data}) => {
-            console.log(data)
+            // console.log(data)
             dispatch({type: type, payload: data})
         })
         .catch(err => {

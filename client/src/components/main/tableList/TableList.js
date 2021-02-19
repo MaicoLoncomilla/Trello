@@ -73,10 +73,9 @@ export default function TableList(){
             const destinationTasks = [...destinationColumn.tasks]
 
             const [removed] = sourceTasks.splice(source.index, 1);
-            removed.columnId = destinationColumn.id
-            destinationTasks.splice(destination.index, 0, removed)
+            removed.columnUuid = column[destination.droppableId.split(" ")[0]].uuid
 
-            removed.columnId = column[destination.droppableId.split(" ")[0]].id
+            destinationTasks.splice(destination.index, 0, removed)
 
             if (column[source.droppableId.split(" ")[0]].taskPriority !== destinationTasks[0].taskPriority) {
                 destinationTasks.map((el, index) =>
@@ -97,7 +96,6 @@ export default function TableList(){
                     }
                 })
             })
-            console.log(removed)
             dispatch(api.reorderTaskInColumn(removed))
 
         } else {
@@ -105,7 +103,6 @@ export default function TableList(){
             const copiedTasks = [...newColumn.tasks]
             const [removed] = copiedTasks.splice(source.index, 1)
             copiedTasks.splice(destination.index, 0, removed)
-            console.log(copiedTasks)
 
             if (column[source.droppableId.split(" ")[0]].taskPriority !== copiedTasks[0].taskPriority) {
                 copiedTasks.map((el, index) =>
@@ -156,7 +153,6 @@ export default function TableList(){
                     {column?.map((el, index) => 
                         <Columns
                             key={index}
-                            id={el.id}
                             uuid={el.uuid}
                             index={index}
                             title={el.title}

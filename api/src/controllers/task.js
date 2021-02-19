@@ -4,12 +4,12 @@ module.exports = {
 
     read: function (dashboardId) {
         return Column.findAll({
-            attributes: ['id', 'title', 'dashboardId', 'columnPriority', 'uuid'],
+            attributes: ['title', 'dashboardId', 'columnPriority', 'uuid'],
             where: { dashboardId: dashboardId },
-            order: ["id"],
+            order: ["createdAt"],
             include: [{
                 model: Task,
-                attributes: ['id', 'title', 'description','columnId', 'taskPriority', 'uuid'],
+                attributes: ['title', 'description','columnUuid', 'taskPriority', 'uuid'],
                 order: ['taskPriority'],
                 include: {
                     model: Comment,
@@ -18,13 +18,13 @@ module.exports = {
             }]
         })
     },
-    create: function (title, columnId, dashboardId, uuid) {
+    create: function (title, columnUuid, dashboardId, uuid) {
         
             return Task.create({
                 title: title,
                 description: '',
                 uuid: uuid,
-                columnId: columnId,
+                columnUuid: columnUuid,
             })
             .then(({dataValues}) => {
                 return Task.findOne({
@@ -36,10 +36,10 @@ module.exports = {
             .then(task => task.update({ taskPriority: task.id}))
             .then(() => column.read(dashboardId))
     },
-    update: function (id, title, description, dashboardId) {
+    update: function (uuid, title, description, dashboardId) {
         return Task.findOne({
             where: {
-                id: id
+                uuid: uuid
             }
         })
             .then(task => task.update({ title, description }))
@@ -55,9 +55,9 @@ module.exports = {
         })
         return this.read(dashboardId)
     },
-    delete: function (id, dashboardId) {
+    delete: function (uuid, dashboardId) {
         return Task.destroy({
-            where: { id: id }
+            where: { uuid: uuid }
         })
             .then(() => column.read(dashboardId))
     }

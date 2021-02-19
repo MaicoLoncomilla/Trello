@@ -16,25 +16,25 @@ server.post('/', (req, res, next) => {
 })
 
 server.put('/', (req, res, next) => {
-    const { id, title, dashboardId } = req.body;
+    const { uuid, title, dashboardId } = req.body;
     if(!title){
         return res.status(400).send('The column need a title')
     }
-    column.modify(id, title, dashboardId)
+    column.modify(uuid, title, dashboardId)
         .then(r => res.send(r))
         .catch(next)
 })
 
 server.put('/reordertask/', (req, res ,next) => {
-    const { uuid, columnId } = req.body
-    column.reorderTaskInColumn(uuid, columnId)
+    const { uuid, columnUuid } = req.body
+    column.reorderTaskInColumn(uuid, columnUuid)
     .then(r => res.send(r))
     .catch(next)
 })
 
-server.delete('/:id/:dashboardId', (req, res, next) => {
-    const { id, dashboardId } = req.params;
-    column.delete(id, dashboardId)
+server.delete('/:uuid/:dashboardId', (req, res, next) => {
+    const { uuid, dashboardId } = req.params;
+    column.delete(uuid, dashboardId)
         .then(r => res.send(r))
         .catch(next)
 })

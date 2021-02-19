@@ -17,7 +17,7 @@ import Task from '../task/Task';
 import TitleColumn from './components/TitleColumn';
 import { TextArea } from '../../../../utils/components/Input';
 
-export default function Columns({ title, id, task, dashboardId, index, uuid }){
+export default function Columns({ title, task, dashboardId, index, uuid }){
 
     const [ activeFormColumn, setActiveFormColumn ] = useState(false)
     const column = useSelector(state => state.column)
@@ -34,12 +34,12 @@ export default function Columns({ title, id, task, dashboardId, index, uuid }){
         let newState = {
             uuid: uuidv4(),
             title: state.title,
-            columnId: column[index]?.id,
+            columnId: uuid,
             comments: [],
             description: "",
-            dashboardId: column[index]?.dashboardId, 
+            dashboardId: dashboardId, 
         }
-        let taskArray = column[index].tasks
+        let taskArray = task
         taskArray.push(newState)
 
         dispatch({
@@ -71,9 +71,9 @@ export default function Columns({ title, id, task, dashboardId, index, uuid }){
     })
 
     return (
-        <div className={sContainer.containerColumns}>
-            <TitleColumn title={title} id={id} dashboardId={dashboardId} index={index} />
-            <Droppable droppableId={`${String(index)} ${id}`} key={uuid}>
+        <div className={sContainer.containerColumns} key={uuid}>
+            <TitleColumn title={title} uuid={uuid} dashboardId={dashboardId} index={index} />
+            <Droppable droppableId={`${String(index)} ${uuid}`}>
                 {(provided) => (
                     <div {...provided.droppableProps} ref={provided.innerRef} className={sContainer.containerOverFlowTask}>
                         <div style={{ height: 5 }}></div>

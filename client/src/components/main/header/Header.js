@@ -23,13 +23,12 @@ export default function Header(){
     const dashboard = useSelector(state => state.dashboard)
     const [ menuActive, setMenuActive ] = useState(false)
     const image = user.image && `${process.env.REACT_APP_API_URL}${user.image.url}`
-    const { USER, COLUMN, DASHBOARD, COLUMNCOPY } = api
+    const { USER, COLUMN, DASHBOARD } = api
 
     const dispatch = useDispatch()
 
     const onHandleLogOut = () => {
         dispatch({ type: COLUMN, payload: [] })
-        dispatch({ type: COLUMNCOPY, payload: [] })
         dispatch({ type: USER, payload: false })
         dispatch({ type: DASHBOARD, payload: false })
     }

@@ -4,13 +4,13 @@ module.exports = {
 
     read: function (dashboardId) {
         return Column.findAll({
-            attributes: ['id', 'title', 'dashboardId', 'columnPriority','uuid'],
+            attributes: ['title', 'dashboardId', 'columnPriority','uuid'],
             where: { dashboardId: dashboardId },
-            order: ["id"],
+            order: ["createdAt"],
             include: [{
                 model: Task,
-                attributes: ['id', 'title', 'description','columnId', 'taskPriority', 'uuid'],
-                order: ["id"],
+                attributes: ['title', 'description','columnUuid', 'taskPriority', 'uuid'],
+                order: ["taskPriority"],
                 include: [{
                     model: Comment,
                     attributes: ['id', 'comment', 'taskId'],
@@ -29,27 +29,27 @@ module.exports = {
             .then(() => this.read(dashboardId))
     },
 
-    modify: function (id, title, dashboardId) {
+    modify: function (uuid, title, dashboardId) {
         return Column.findOne({
-            where: { id: id }
+            where: { uuid: uuid }
         })
             .then(column => column.update({ title: title }))
             .then(() => this.read(dashboardId))
     },
-    reorderTaskInColumn: function (uuid, columnId) {
+    reorderTaskInColumn: function (uuid, columnUuid) {
         return Task.findOne({
             where: {
                 uuid: uuid
             }
         })
-            .then(task => task.update({ columnId }))
+            .then(task => task.update({ columnUuid }))
     },
 
-    delete: function (id, dashboardId) {
+    delete: function (uuid, dashboardId) {
         return Task.destroy({
-            where: { columnId: id }
+            where: { columnUuid: uuid }
         })
-            .then(() => Column.destroy({ where: { id: id } }))
+            .then(() => Column.destroy({ where: { uuid: uuid } }))
             .then(() => this.read(dashboardId))
     }
 }

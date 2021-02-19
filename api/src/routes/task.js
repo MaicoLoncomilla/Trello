@@ -23,11 +23,11 @@ server.post('/', (req, res, next) => {
 })
 
 server.put('/', (req, res, next) => {
-    const { title, description, id, dashboardId } = req.body
+    const { title, description, uuid, dashboardId } = req.body
     if(!title){
         return res.status(400).send('The task need a title')
     }
-    task.update(id, title, description, dashboardId)
+    task.update(uuid, title, description, dashboardId)
     .then(r => res.send(r))
     .catch(next)
 })
@@ -39,12 +39,12 @@ server.put('/reorder/', (req, res, next) => {
     .catch(next)
 })
 
-server.delete('/:id/:dashboardId', (req, res, next) => {
-    const { id, dashboardId } = req.params
+server.delete('/:uuid/:dashboardId', (req, res, next) => {
+    const { uuid, dashboardId } = req.params
     if(!id){
         return res.status(400).send('You need an Id')
     }
-    task.delete(id, dashboardId)
+    task.delete(uuid, dashboardId)
     .then(r => res.send(r))
     .catch(next)
 })

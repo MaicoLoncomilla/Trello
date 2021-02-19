@@ -18,7 +18,7 @@ export default function DivDescription({ task, index, indexTask }) {
     const [ state, setState ] = useState({
         title: task.title,
         description: task.description,
-        id: task.id,
+        uuid: task.uuid,
         dashboardId: columnSelected?.dashboardId
     })
 

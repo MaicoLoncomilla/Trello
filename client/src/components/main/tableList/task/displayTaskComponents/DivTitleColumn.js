@@ -17,7 +17,7 @@ export default function DivTitleColumn({ task , columnSelected, index, indexTask
     const [ state, setState ] = useState({
         dashboardId: columnSelected?.dashboardId,
         title: task.title,
-        id: task.id
+        uuid: task.uuid
     });
     const onChangeText = (name, value) => {
         setState({...state, [name]: value})

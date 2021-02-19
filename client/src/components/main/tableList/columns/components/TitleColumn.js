@@ -10,7 +10,7 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 import sContainer from '../../../../../styles/container.module.css'
 import sButton from '../../../../../styles/button.module.css'
 
-export default function TitleColumn({ title, id, dashboardId, index }) {
+export default function TitleColumn({ title, uuid, dashboardId, index }) {
     const [ activeInput, setActiveInput ] = useState(false);
     const [ dispatchInput, setDispatchInput ] = useState(false)
     const [ activeVertIcon, setActiveVertIcon ] = useState(false)
@@ -19,7 +19,7 @@ export default function TitleColumn({ title, id, dashboardId, index }) {
     const dispatch = useDispatch()
     const [ titleColumn, setTitleColumn ] = useState({
         title: title,
-        id: id,
+        uuid: uuid,
         dashboardId: dashboardId
     })
     const onChangeTextColumn = (name, value) => {
@@ -27,11 +27,10 @@ export default function TitleColumn({ title, id, dashboardId, index }) {
     }
     const onHandleDeleteColumn = () => {
         const data = {
-            id: id,
+            uuid: uuid,
             dashboardId: dashboardId
         }
-        column.splice(index, 1)
-        dispatch({ type: COLUMN, payload: Object.values(column) })
+        dispatch({ type: COLUMN, payload: Object.values(column.filter(el => el.uuid !== uuid)) })
         setActiveVertIcon(!activeVertIcon)
         dispatch(api.deleteColumn(data))
     }
@@ -67,7 +66,7 @@ export default function TitleColumn({ title, id, dashboardId, index }) {
 
     return (
         < >
-            <div className={sContainer.containerTitleVertIcon} ref={domnNode}>
+            <div className={sContainer.containerTitleVertIcon} ref={domnNode} key={uuid}>
                 <div className={sContainer.containerTextarea} ref={inputRef}>
                     <TextArea
                         s={"textAreaAddColumn"}
