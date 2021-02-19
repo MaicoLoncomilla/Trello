@@ -39,7 +39,7 @@ export function Comments({ el, index, indexTask }){
         
         const data = {
             id: comment.id,
-            dashboardId: dashboard ? dashboard.id : user.dashboards[0].id,
+            dashboardUuid: dashboard ? dashboard.uuid : user.dashboards[0].uuid,
         }
         dispatch(api.deleteComment(data))
     }

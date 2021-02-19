@@ -71,9 +71,9 @@ const actionCreator = {
             this._dispatchPromise(promise, false, dispatch)
         }
     },
-    deleteColumn: function({uuid, dashboardId}){
+    deleteColumn: function({uuid, dashboardUuid}){
         return dispatch => {
-            const promise = axios.delete(`${process.env.REACT_APP_API_URL}/column/${uuid}/${dashboardId}`)
+            const promise = axios.delete(`${process.env.REACT_APP_API_URL}/column/${uuid}/${dashboardUuid}`)
             this._dispatchPromise(promise, false, dispatch)
         }
     },
@@ -98,9 +98,9 @@ const actionCreator = {
         }
     },
 
-    deleteTask: function({id, idDashboard}) {
+    deleteTask: function({id, dashboardUuid}) {
         return dispatch => {
-            const promise = axios.delete(`${process.env.REACT_APP_API_URL}/task/${id}/${idDashboard}`)
+            const promise = axios.delete(`${process.env.REACT_APP_API_URL}/task/${id}/${dashboardUuid}`)
             this._dispatchPromise(promise, false, dispatch)
         }
     },
@@ -127,9 +127,9 @@ const actionCreator = {
         }
     },
 
-    deleteComment: function({ id, dashboardId }){
+    deleteComment: function({ id, dashboardUuid }){
         return dispatch => {
-            const promise = axios.delete(`${process.env.REACT_APP_API_URL}/comment/${id}/${dashboardId}`)
+            const promise = axios.delete(`${process.env.REACT_APP_API_URL}/comment/${id}/${dashboardUuid}`)
             this._dispatchPromise(promise, false, dispatch)
         }
     },

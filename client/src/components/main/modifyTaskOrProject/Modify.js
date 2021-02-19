@@ -46,14 +46,14 @@ export default function Modify() {
         const data = { uuid: dashboardToModify.uuid, idUser: user.id }
         if (user.dashboards.length > 1) {
 
-            let position = user.dashboards.findIndex(el => el.id === dashboardToModify.id)
+            let position = user.dashboards.findIndex(el => el.uuid === dashboardToModify.uuid)
             dispatch(api.deleteDashboard(data))
 
             user.dashboards.splice(position, 1)
             dispatch({ type: USER, payload: user })
 
             dispatch({ type: DASHBOARD, payload: user.dashboards[position === 0 ? position ++ : 0] })
-            dispatch(api.getColumn(user.dashboards[position === 0 ? position : 0].id))
+            dispatch(api.getColumn(user.dashboards[position === 0 ? position : 0].uuid))
             return dispatch({ type: BUTTONMODIFYPROJECT, payload: false })
         } else {
             return alert("No puedes eliminar el ultimo proyecto")

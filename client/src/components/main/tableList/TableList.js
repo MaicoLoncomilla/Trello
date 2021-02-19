@@ -42,7 +42,7 @@ export default function TableList(){
         const newColumn = {
             title: state.title,
             uuid: uuidv4(),
-            dashboardId: dashboard ? dashboard.id : user.dashboards[0].id,
+            dashboardUuid: dashboard ? dashboard.uuid : user.dashboards[0].uuid,
             tasks: [],
         }
         dispatch({
@@ -128,7 +128,7 @@ export default function TableList(){
 
     useEffect(() => {
         if (user.id) {
-            let id = dashboard ? dashboard.id : user.dashboards[0].id
+            let id = dashboard ? dashboard.uuid : user.dashboards[0].uuid
             dispatch(api.getColumn(id))
             if (!dashboard) {
                 dispatch({ type: DASHBOARD, payload: user.dashboards[0] })
@@ -157,7 +157,7 @@ export default function TableList(){
                             index={index}
                             title={el.title}
                             task={el.tasks ? el.tasks?.sort((a, b) => a.taskPriority - b.taskPriority) : el.tasks?.sort((a, b) => a.id - b.id) }
-                            dashboardId={el.dashboardId}
+                            dashboardUuid={el.dashboardUuid}
                         />
                     
                     )}

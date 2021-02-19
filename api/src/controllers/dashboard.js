@@ -22,20 +22,20 @@ module.exports = {
         return Dashboard.findOne({
             where: { uuid: uuid }
         })
-        .then(dashboard => dashboard.update({ title, description}))
+        .then(dashboard => dashboard.update({ title, description }))
         .then(() => user.getById(idUser))
     },
 
     delete: function(uuid, idUser){
         return Column.findAll({
-            where: { dashboardId: uuid }
+            where: { dashboardUuid: uuid }
         })
             .then(column => {
-                column.map(el => Task.destroy({ where: { columnId: el.id } }))
+                column.map(el => Task.destroy({ where: { columnUuid: el.uuid } }))
             })
             .then(() => {
                 Column.destroy({
-                    where: { dashboardId: uuid }
+                    where: { dashboardUuid: uuid }
                 })
                 return Dashboard.destroy({
                     where: { uuid: uuid }

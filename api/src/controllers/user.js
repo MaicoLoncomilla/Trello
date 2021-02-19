@@ -9,7 +9,8 @@ module.exports = {
             where: { email: email },
             include: [{
                 model: Dashboard,
-                attributes: ['id', 'title', 'description', 'uuid'],
+                attributes: ['title', 'description', 'uuid'],
+                order: ["createdAt"],
                 through: {
                     attributes: ['state']
                 },
@@ -74,7 +75,8 @@ module.exports = {
             where: { id: id },
             include: [{
                 model: Dashboard,
-                attributes: ['id', 'title', 'description', 'uuid'],
+                attributes: ['title', 'description', 'uuid'],
+                order: ["createdAt"],
                 through: {
                     attributes: ['state']
                 }

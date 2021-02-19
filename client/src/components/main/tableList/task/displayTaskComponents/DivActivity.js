@@ -29,8 +29,8 @@ export default function DivActivity({ task, index, indexTask }){
     const [ activeTextArea, setActiveTextArea ] = useState(false);
     const [ state, setState ] = useState({
         comment: "",
-        dashboardId: dashboard ? dashboard.id : user.dashboards[0].id,
-        taskId: task.id,
+        dashboardUuid: dashboard ? dashboard.uuid : user.dashboards[0].uuid,
+        taskUuid: task.uuid,
         uuid: uuidv4() 
     });
 
@@ -44,8 +44,9 @@ export default function DivActivity({ task, index, indexTask }){
     const onHandleNewComment = () => {
         if(!state.comment) return;
         column[index].tasks[indexTask].comments.push(state)
-        dispatch({ type: COLUMN, payload: column})
+        dispatch({ type: COLUMN, payload: column })
         
+        console.log(state)
         dispatch(api.createComment(state))
         setState({...state, comment: ""})
         setActiveTextArea(false)
