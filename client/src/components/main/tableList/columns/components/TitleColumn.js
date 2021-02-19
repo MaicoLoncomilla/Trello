@@ -10,7 +10,7 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 import sContainer from '../../../../../styles/container.module.css'
 import sButton from '../../../../../styles/button.module.css'
 
-export default function TitleColumn({ title, uuid, dashboardUuid, index }) {
+export default function TitleColumn({ title, uuid, index }) {
     const [ activeInput, setActiveInput ] = useState(false);
     const [ dispatchInput, setDispatchInput ] = useState(false)
     const [ activeVertIcon, setActiveVertIcon ] = useState(false)
@@ -19,17 +19,13 @@ export default function TitleColumn({ title, uuid, dashboardUuid, index }) {
     const dispatch = useDispatch()
     const [ titleColumn, setTitleColumn ] = useState({
         title: title,
-        uuid: uuid,
-        dashboardUuid: dashboardUuid
+        uuid: uuid
     })
     const onChangeTextColumn = (name, value) => {
         setTitleColumn({ ...titleColumn, [name]: value })
     }
     const onHandleDeleteColumn = () => {
-        const data = {
-            uuid: uuid,
-            dashboardUuid: dashboardUuid
-        }
+        const data = { uuid: uuid }
         dispatch({ type: COLUMN, payload: Object.values(column.filter(el => el.uuid !== uuid)) })
         setActiveVertIcon(!activeVertIcon)
         dispatch(api.deleteColumn(data))

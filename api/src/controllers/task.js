@@ -18,7 +18,7 @@ module.exports = {
             }]
         })
     },
-    create: function (title, columnUuid, dashboardUuid, uuid, taskPriority) {
+    create: function (title, columnUuid, uuid, taskPriority) {
         
             return Task.create({
                 title: title,
@@ -27,18 +27,16 @@ module.exports = {
                 columnUuid: columnUuid,
                 taskPriority: taskPriority
             })
-            .then(() => column.read(dashboardUuid))
     },
-    update: function (uuid, title, description, dashboardUuid) {
+    update: function (uuid, title, description) {
         return Task.findOne({
             where: {
                 uuid: uuid
             }
         })
             .then(task => task.update({ title, description }))
-            .then(() => column.read(dashboardUuid))
     },
-    reorderUpdate: function (dashboardUuid, tasks) {
+    reorderUpdate: function (tasks) {
         tasks.map((el, index) => {
             let taskPriority = el.taskPriority
             return Task.findOne({
@@ -46,12 +44,10 @@ module.exports = {
             })
                 .then(task => task.update({ taskPriority }))
         })
-        return this.read(dashboardUuid)
     },
-    delete: function (uuid, dashboardUuid) {
+    delete: function (uuid) {
         return Task.destroy({
             where: { uuid: uuid }
         })
-            .then(() => column.read(dashboardUuid))
     }
 }

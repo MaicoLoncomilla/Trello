@@ -1,7 +1,7 @@
 import React from 'react';
 
 import FormatListBulletedIcon from '@material-ui/icons/FormatListBulleted';
-import { Avatar } from '@material-ui/core';
+import { Avatar, useEventCallback } from '@material-ui/core';
 
 import sContainer from '../../../../../styles/container.module.css';
 import { useDispatch, useSelector } from 'react-redux';
@@ -25,7 +25,6 @@ export function Comments({ el, index, indexTask }){
 
     const user = useSelector(state => state.user)
     const image = user.image && `${process.env.REACT_APP_API_URL}${user.image.url}`
-    const dashboard = useSelector(state => state.dashboard);
     const column = useSelector(state => state.column)
     const { COLUMN } = api;
     const dispatch = useDispatch()
@@ -37,14 +36,11 @@ export function Comments({ el, index, indexTask }){
         column[index].tasks[indexTask].comments.splice(indexComment, 1)
         dispatch({ type: COLUMN, payload: Object.values(column) })
         
-        const data = {
-            id: comment.id,
-            dashboardUuid: dashboard ? dashboard.uuid : user.dashboards[0].uuid,
-        }
+        const data = { uuid: comment.uuid }
         dispatch(api.deleteComment(data))
     }
     return (
-        <div className={sContainer.containerComments} key={index}>
+        <div className={sContainer.containerComments} key={el.taskUuid}>
             <Avatar style={{ width: 32, height: 32 }} src={image}/>
             <div className={sContainer.containerUserComment}>
                 <h5>{user.firstName} {user.lastName}</h5>

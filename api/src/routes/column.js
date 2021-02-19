@@ -16,11 +16,11 @@ server.post('/', (req, res, next) => {
 })
 
 server.put('/', (req, res, next) => {
-    const { uuid, title, dashboardUuid } = req.body;
+    const { uuid, title } = req.body;
     if(!title){
         return res.status(400).send('The column need a title')
     }
-    column.modify(uuid, title, dashboardUuid)
+    column.modify(uuid, title)
         .then(r => res.send(r))
         .catch(next)
 })
@@ -32,10 +32,10 @@ server.put('/reordertask/', (req, res ,next) => {
     .catch(next)
 })
 
-server.delete('/:uuid/:dashboardUuid', (req, res, next) => {
-    const { uuid, dashboardUuid } = req.params;
-    column.delete(uuid, dashboardUuid)
-        .then(r => res.send(r))
+server.delete('/:uuid', (req, res, next) => {
+    const { uuid } = req.params;
+    column.delete(uuid)
+        .then(r => res.send([]))
         .catch(next)
 })
 module.exports = server 

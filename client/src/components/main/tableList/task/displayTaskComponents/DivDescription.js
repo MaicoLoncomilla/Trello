@@ -10,7 +10,6 @@ import { useDispatch, useSelector } from 'react-redux';
 export default function DivDescription({ task, index, indexTask }) {
     
     const column = useSelector(state => state.column)
-    const columnSelected = column.find(el => el.id === task.columnId)
     const { COLUMN } = api
     const [ activeInput, setActiveInput ] = useState(false);
     const [ dispatchInput, setDispatchInput ] = useState(false);
@@ -19,7 +18,6 @@ export default function DivDescription({ task, index, indexTask }) {
         title: task.title,
         description: task.description,
         uuid: task.uuid,
-        dashboardUuid: columnSelected?.dashboardUuid
     })
 
     const onChangeText = (name, value) => {

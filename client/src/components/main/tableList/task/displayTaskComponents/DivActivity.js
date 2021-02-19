@@ -17,22 +17,14 @@ import sButton from '../../../../../styles/button.module.css';
 export default function DivActivity({ task, index, indexTask }){
 
     const dispatch = useDispatch();
-    const dashboard = useSelector(state => state.dashboard);
     const user = useSelector(state => state.user);
     const image = user.image && `${process.env.REACT_APP_API_URL}${user.image.url}`
 
     const { COLUMN } = api;
     const column = useSelector(state => state.column);
-    // const { tasks } = column[index]
-    // const { comments } = tasks[indexTask]
 
     const [ activeTextArea, setActiveTextArea ] = useState(false);
-    const [ state, setState ] = useState({
-        comment: "",
-        dashboardUuid: dashboard ? dashboard.uuid : user.dashboards[0].uuid,
-        taskUuid: task.uuid,
-        uuid: uuidv4() 
-    });
+    const [ state, setState ] = useState({});
 
     const onChangeText = (name, value) => {
         setState({...state, [name]: value })
@@ -43,11 +35,16 @@ export default function DivActivity({ task, index, indexTask }){
 
     const onHandleNewComment = () => {
         if(!state.comment) return;
-        column[index].tasks[indexTask].comments.push(state)
+        let newComment = {
+            comment: state.comment,
+            taskUuid: task.uuid,
+            uuid: uuidv4()
+        }
+
+        column[index].tasks[indexTask].comments.push(newComment)
         dispatch({ type: COLUMN, payload: column })
         
-        console.log(state)
-        dispatch(api.createComment(state))
+        dispatch(api.createComment(newComment))
         setState({...state, comment: ""})
         setActiveTextArea(false)
     }
@@ -69,7 +66,7 @@ export default function DivActivity({ task, index, indexTask }){
                         name={'comment'}
                         onChangeText={onChangeText}
                         type={"text"}
-                        status={false}
+                        status={activeTextArea ? false : true}
                         autoFocus={true}
                         number={500}
                         value={state.comment}
@@ -86,7 +83,7 @@ export default function DivActivity({ task, index, indexTask }){
                     }
                 </div>
             </div>
-            {column[index]?.tasks[indexTask]?.comments?.map((el, indexComment) => 
+            {task?.comments?.map((el, indexComment) => 
             <Comments el={el} key={indexComment} index={index} indexTask={indexTask}/>)}
         </div>
     )

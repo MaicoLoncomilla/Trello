@@ -27,15 +27,13 @@ module.exports = {
             dashboardUuid: dashboardUuid,
             columnPriority: columnPriority
         })
-            .then(() => this.read(dashboardUuid))
     },
 
-    modify: function (uuid, title, dashboardUuid) {
+    modify: function (uuid, title) {
         return Column.findOne({
             where: { uuid: uuid }
         })
             .then(column => column.update({ title: title }))
-            .then(() => this.read(dashboardUuid))
     },
     reorderTaskInColumn: function (uuid, columnUuid) {
         return Task.findOne({
@@ -46,11 +44,10 @@ module.exports = {
             .then(task => task.update({ columnUuid }))
     },
 
-    delete: function (uuid, dashboardUuid) {
+    delete: function (uuid) {
         return Task.destroy({
             where: { columnUuid: uuid }
         })
             .then(() => Column.destroy({ where: { uuid: uuid } }))
-            .then(() => this.read(dashboardUuid))
     }
 }

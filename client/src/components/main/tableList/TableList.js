@@ -158,7 +158,6 @@ export default function TableList(){
                             index={index}
                             title={el.title}
                             task={el.tasks?.sort((a, b) => a.taskPriority - b.taskPriority)}
-                            dashboardUuid={el.dashboardUuid}
                         />
                     
                     )}

@@ -13,39 +13,39 @@ server.get('/:id', (req, res, next) => {
 })
 
 server.post('/', (req, res, next) => {
-    const { title, columnUuid, dashboardUuid, uuid, taskPriority } = req.body
+    const { title, columnUuid, uuid, taskPriority } = req.body
     if (!title) {
         return res.status(400).send('You need a title for you task')
     }
-    task.create(title, columnUuid, dashboardUuid, uuid, taskPriority)
+    task.create(title, columnUuid, uuid, taskPriority)
         .then(r => res.send(r))
         .catch(next)
 })
 
 server.put('/', (req, res, next) => {
-    const { title, description, uuid, dashboardUuid } = req.body
+    const { title, description, uuid } = req.body
     if(!title){
         return res.status(400).send('The task need a title')
     }
-    task.update(uuid, title, description, dashboardUuid)
+    task.update(uuid, title, description)
     .then(r => res.send(r))
     .catch(next)
 })
 
 server.put('/reorder/', (req, res, next) => {
-    const { dashboardUuid, tasks } = req.body;
-    task.reorderUpdate(dashboardUuid, tasks)
+    const { tasks } = req.body;
+    task.reorderUpdate(tasks)
     .then(r => res.send(r))
     .catch(next)
 })
 
-server.delete('/:uuid/:dashboardId', (req, res, next) => {
-    const { uuid, dashboardUuid } = req.params
+server.delete('/:uuid', (req, res, next) => {
+    const { uuid } = req.params
     if(!id){
         return res.status(400).send('You need an Id')
     }
-    task.delete(uuid, dashboardUuid)
-    .then(r => res.send(r))
+    task.delete(uuid)
+    .then(r => res.send([]))
     .catch(next)
 })
 

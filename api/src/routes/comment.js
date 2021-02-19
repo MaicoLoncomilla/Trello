@@ -2,25 +2,25 @@ const server = require('express').Router()
 const comments = require('../controllers/comment');
 
 server.post('/', (req, res , next) => {
-    const { comment, dashboardUuid, taskUuid, uuid } = req.body;
+    const { comment, taskUuid, uuid } = req.body;
     if(!comment) return res.status(400).send('Comment need a title')
-    comments.create(comment, dashboardUuid, taskUuid, uuid)
+    comments.create(comment, taskUuid, uuid)
     .then(r => res.send(r))
     .catch(next)
 })
 
 server.put('/', (req, res, next) => {
-    const { comment, dashboardUuid } = req.body;
+    const { comment } = req.body;
     if(!comment) return res.status(400).send('Comment need a title')
-    comments.modify(comment, dashboardUuid)
+    comments.modify(comment)
     .then(r => res.send(r))
     .catch(next)
 })
 
-server.delete('/:id/:dashboardUuid', (req, res, next) => {
-    const { id, dashboardUuid } = req.params;
-    comments.delete(id, dashboardUuid)
-    .then(r => res.send(r))
+server.delete('/:uuid', (req, res, next) => {
+    const { uuid } = req.params;
+    comments.delete(uuid)
+    .then(r => res.send([]))
     .catch(next)
 })
 

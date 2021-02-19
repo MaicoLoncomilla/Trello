@@ -15,7 +15,6 @@ export default function DivTitleColumn({ task , columnSelected, index, indexTask
     const { COLUMN } = api
     const dispatch = useDispatch();
     const [ state, setState ] = useState({
-        dashboardUuid: columnSelected?.dashboardUuid,
         title: task.title,
         uuid: task.uuid
     });
