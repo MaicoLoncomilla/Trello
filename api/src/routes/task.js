@@ -13,11 +13,11 @@ server.get('/:id', (req, res, next) => {
 })
 
 server.post('/', (req, res, next) => {
-    const { title, columnUuid, dashboardUuid, uuid } = req.body
+    const { title, columnUuid, dashboardUuid, uuid, taskPriority } = req.body
     if (!title) {
         return res.status(400).send('You need a title for you task')
     }
-    task.create(title, columnUuid, dashboardUuid, uuid)
+    task.create(title, columnUuid, dashboardUuid, uuid, taskPriority)
         .then(r => res.send(r))
         .catch(next)
 })

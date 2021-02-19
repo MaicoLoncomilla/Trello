@@ -9,8 +9,8 @@ server.get('/:id', (req, res, next) => {
 })
 
 server.post('/', (req, res, next) => {
-    const { title, uuid, dashboardUuid } = req.body;
-    column.create(title, uuid, dashboardUuid)
+    const { title, uuid, dashboardUuid, columnPriority } = req.body;
+    column.create(title, uuid, dashboardUuid, columnPriority)
         .then(r => res.send(r))
         .catch(next)
 })

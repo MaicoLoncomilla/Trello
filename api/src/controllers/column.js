@@ -6,25 +6,26 @@ module.exports = {
         return Column.findAll({
             attributes: ['title', 'dashboardUuid', 'columnPriority','uuid'],
             where: { dashboardUuid: dashboardUuid },
-            order: ["createdAt"],
+            order: ['columnPriority'],
             include: [{
                 model: Task,
                 attributes: ['title', 'description','columnUuid', 'taskPriority', 'uuid'],
-                order: ["createdAt"],
+                order: ['taskPriority'],
                 include: [{
                     model: Comment,
-                    attributes: ['id', 'comment', 'taskUuid', 'uuid'],
-                    order: ["id"],
+                    attributes: ['id', 'comment', 'taskUuid', 'uuid', 'createdAt'],
+                    order: ['createdAt', 'ASC'],
                 }]
             }]
         })
     },
-    create: function (title, uuid, dashboardUuid) {
+    create: function (title, uuid, dashboardUuid, columnPriority) {
 
         return Column.create({
             title: title,
             uuid: uuid,
-            dashboardUuid: dashboardUuid
+            dashboardUuid: dashboardUuid,
+            columnPriority: columnPriority
         })
             .then(() => this.read(dashboardUuid))
     },

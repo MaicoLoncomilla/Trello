@@ -31,13 +31,15 @@ export default function Columns({ title, task, dashboardUuid, index, uuid }){
         if (!state.title) {
             return alert('You need a title')
         }
+
         let newState = {
             uuid: uuidv4(),
             title: state.title,
             columnUuid: uuid,
             comments: [],
             description: "",
-            dashboardUuid: dashboardUuid, 
+            dashboardUuid: dashboardUuid,
+            taskPriority: task.length
         }
         let taskArray = task
         taskArray.push(newState)

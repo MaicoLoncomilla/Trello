@@ -44,6 +44,7 @@ export default function TableList(){
             uuid: uuidv4(),
             dashboardUuid: dashboard ? dashboard.uuid : user.dashboards[0].uuid,
             tasks: [],
+            columnPriority: column.length
         }
         dispatch({
             type: COLUMN,
@@ -111,7 +112,7 @@ export default function TableList(){
             }
             const data = {
                 tasks: copiedTasks,
-                dashboardId: column[0].dashboardId
+                dashboardUuid: column[0].dashboardUuid
             }
             dispatch({
                 type: COLUMN, payload: Object.values({
@@ -156,7 +157,7 @@ export default function TableList(){
                             uuid={el.uuid}
                             index={index}
                             title={el.title}
-                            task={el.tasks ? el.tasks?.sort((a, b) => a.taskPriority - b.taskPriority) : el.tasks?.sort((a, b) => a.id - b.id) }
+                            task={el.tasks?.sort((a, b) => a.taskPriority - b.taskPriority)}
                             dashboardUuid={el.dashboardUuid}
                         />
                     
