@@ -49,7 +49,7 @@ module.exports = {
         tasks.map((el, index) => {
             let taskPriority = el.taskPriority
             return Task.findOne({
-                where: { id: el.id }
+                where: { uuid: el.uuid }
             })
                 .then(task => task.update({ taskPriority }))
         })

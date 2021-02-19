@@ -26,8 +26,8 @@ server.put('/', (req, res, next) => {
 })
 
 server.put('/reordertask/', (req, res ,next) => {
-    const { id, columnId } = req.body
-    column.reorderTaskInColumn(id, columnId)
+    const { uuid, columnId } = req.body
+    column.reorderTaskInColumn(uuid, columnId)
     .then(r => res.send(r))
     .catch(next)
 })

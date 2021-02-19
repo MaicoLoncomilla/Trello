@@ -36,10 +36,10 @@ module.exports = {
             .then(column => column.update({ title: title }))
             .then(() => this.read(dashboardId))
     },
-    reorderTaskInColumn: function (id, columnId) {
+    reorderTaskInColumn: function (uuid, columnId) {
         return Task.findOne({
             where: {
-                id: id
+                uuid: uuid
             }
         })
             .then(task => task.update({ columnId }))

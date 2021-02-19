@@ -97,7 +97,7 @@ export default function TableList(){
                     }
                 })
             })
-            
+            console.log(removed)
             dispatch(api.reorderTaskInColumn(removed))
 
         } else {
@@ -105,6 +105,7 @@ export default function TableList(){
             const copiedTasks = [...newColumn.tasks]
             const [removed] = copiedTasks.splice(source.index, 1)
             copiedTasks.splice(destination.index, 0, removed)
+            console.log(copiedTasks)
 
             if (column[source.droppableId.split(" ")[0]].taskPriority !== copiedTasks[0].taskPriority) {
                 copiedTasks.map((el, index) =>
