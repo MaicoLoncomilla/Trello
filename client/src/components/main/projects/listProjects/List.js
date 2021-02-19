@@ -28,15 +28,15 @@ export default function List({ el }) {
         dispatch(api.getColumn(el.uuid))
     }
     return (
-        <div key={el.id} className={sContainer.listProjectMap}>
+        <div key={el.uuid} className={sContainer.listProjectMap}>
             <div>
                 <p
-                    className={dashboard.id === el.id ? sText.pSelected : sText.pNoSelected}
+                    className={dashboard.uuid === el.uuid ? sText.pSelected : sText.pNoSelected}
                 >{el.title}</p>
                 <button
-                    className={dashboard.id === el.id ? sButton.buttonGreenSelected : sButton.buttonGreenNoSelected}
+                    className={dashboard.uuid === el.uuid ? sButton.buttonGreenSelected : sButton.buttonGreenNoSelected}
                     onClick={() => onHandleSelectProject(el)}>
-                    {dashboard.id === el.id ? "Proyect Selected" : "Select this Project"}
+                    {dashboard.uuid === el.uuid ? "Proyect Selected" : "Select this Project"}
                 </button>
             </div>
             <div>

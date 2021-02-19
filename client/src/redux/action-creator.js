@@ -40,7 +40,7 @@ const actionCreator = {
     modifyDashboard: function(data){
         return dispatch =>{
             const promise = axios.put(`${process.env.REACT_APP_API_URL}/dashboard/`, data)
-            this._dispatchPromise(promise, false, dispatch)
+            this._dispatchPromise(promise, this.USER, dispatch)
         }
     },
 
