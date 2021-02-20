@@ -8,11 +8,7 @@ export function Input({ placeholder, type, onChangeText, name, s, number, value,
 
     return (
         <input
-        className={
-            (s === 'inputsLogin' && sInput.inputsLogin ) ||
-            (s === 'inputModifyTask' && sInput.inputModifyTask) ||
-            (s === 'inputDisplayTask' && sInput.inputDisplayTask)
-        }
+            className={sInput[`${s}`]}
             onChange={(e) => onChangeText(name, e.target.value)}
             placeholder={placeholder}
             type={type}
@@ -31,18 +27,10 @@ export function TextArea({ placeholder, onChangeText, name, number, s, value, au
     useEffect(() => {
         setInputHeight(ref.current, '33px')
     },[value])
-
+ 
     return (
         <textarea
-            className={
-                (s === 'textAreaModifyTask' && sInput.textAreaModifyTask ) ||
-                (s === 'textAreaDisplayTask' && sInput.textAreaDisplayTask) ||
-                (s === 'textAreaTask' && sInput.textAreaTask) ||
-                (s === 'textAreaAddColumn' && sInput.textAreaAddColumn) ||
-                (s === 'textareaAddTask' && sInput.textareaAddTask) ||
-                (s === 'textAreaModifyDescription' && sInput.textAreaModifyDescription) ||
-                (s === 'textAreaNewComment' && sInput.textAreaNewComment)
-            }
+            className={sInput[`${s}`]}
             placeholder={placeholder}
             onChange={(e) => onChangeText(name, e.target.value)}
             maxLength={number}

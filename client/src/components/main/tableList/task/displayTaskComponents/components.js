@@ -1,7 +1,7 @@
 import React from 'react';
 
 import FormatListBulletedIcon from '@material-ui/icons/FormatListBulleted';
-import { Avatar, useEventCallback } from '@material-ui/core';
+import { Avatar } from '@material-ui/core';
 
 import sContainer from '../../../../../styles/container.module.css';
 import { useDispatch, useSelector } from 'react-redux';
@@ -29,7 +29,6 @@ export function Comments({ el, index, indexTask }){
     const { COLUMN } = api;
     const dispatch = useDispatch()
     const onHandleDeleteComment = (comment) => {
-
 
         let indexComment = column[index].tasks[indexTask].comments.findIndex(elComments => elComments.id === comment.id)
 
