@@ -22,6 +22,14 @@ server.post('/', (req, res, next) => {
         .catch(next)
 })
 
+server.post('/addMembers', (req, res, next) => {
+    const { email, idUser, uuid } = req.body
+    if(!email) return res.status(400).send("You need an email")
+    dashboard.addMember(email, idUser, uuid)
+    .then(r => res.send(r))
+    .catch(next)
+})
+
 server.put('/', (req, res, next) => {
     const { uuid, title, description, idUser } = req.body;
     if (!title || !description) {

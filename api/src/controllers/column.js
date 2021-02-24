@@ -1,21 +1,44 @@
-const { Task, Column, Comment } = require('../db.js')
+const { Task, Column, Comment, User, Image, ImageTask } = require('../db.js')
 
 module.exports = {
 
     read: function (dashboardUuid) {
         return Column.findAll({
-            attributes: ['title', 'dashboardUuid', 'columnPriority','uuid'],
+            attributes: ['title', 'dashboardUuid', 'columnPriority', 'uuid'],
             where: { dashboardUuid: dashboardUuid },
             order: ['columnPriority'],
             include: [{
                 model: Task,
-                attributes: ['title', 'description','columnUuid', 'taskPriority', 'uuid'],
+                attributes: ['title', 'description', 'columnUuid', 'taskPriority', 'uuid'],
                 order: ['taskPriority'],
                 include: [{
                     model: Comment,
                     attributes: ['id', 'comment', 'taskUuid', 'uuid', 'createdAt'],
                     order: ['createdAt', 'ASC'],
-                }]
+                    include: {
+                        model: User,
+                        attributes: ['id', 'firstName', 'lastName', 'email'],
+                        order: ['createdAt', 'ASC'],
+                        include: {
+                            model: Image,
+                            attributes: ['url']
+                        }
+                    }
+                }, {
+                    model: User,
+                    attributes: ['firstName', 'lastName', 'email'],
+                    order: ['createdAt', 'ASC'],
+                    through: {
+                        attributes: []
+                    },
+                    include: {
+                        model: Image,
+                        attributes: ['url']
+                    }
+                },{
+                    model: ImageTask,
+                    attributes: ['url']
+                }],
             }]
         })
     },

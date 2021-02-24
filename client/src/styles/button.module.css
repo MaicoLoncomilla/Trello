@@ -34,10 +34,11 @@
 .buttonGreenSelected,
 .buttonGreenNoSelected,
 .buttonCloseActive,
-.buttonCommentEmpty {
+.buttonCommentEmpty,
+.buttonDisplayTaskAddToCard,
+.buttonCommentary {
     font-size: 16px;
     outline: none;
-    border-radius: 4px;
     border: none;
     color: var(--colorText);
     cursor: pointer;
@@ -53,7 +54,6 @@
 /* --------------- Button Task ---------------  */
 .buttonAddTask{
     font-style: italic;
-    margin-top: 10px;
     margin-bottom: 10px;
     width: 100%;
 }
@@ -107,7 +107,7 @@
     border: 1px solid var(--ColorTitleColumn);
     min-width: 272px;
     max-width: 272px;
-    margin-left: 5px;
+    margin-left: 15px;
     background-color: var(--backgroundColumn);
     font-style: italic;
 }
@@ -176,4 +176,32 @@
 .buttonCloseIcon:hover{
     background-color: var(--backgroundColorButtonClose);
     color: var(--colorTextHover);
+}
+
+.buttonDisplayTaskAddToCard {
+    font-size: 14px;
+    line-height: 20px;
+    height: 32px;
+    margin-top: 8px;
+    padding: 6px 12px;
+    background-color: var(--backgroundCommentEmpty);
+    color: var(--colorTextH4);
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+}
+.buttonDisplayTaskAddToCard:hover{
+    background-color: rgba(9, 30, 66, .08);
+}
+
+.icon {
+    max-height: 16px;
+}
+
+.buttonCommentary {
+    margin: 5px;
+    font-size: 12px;
+    line-height: 24px;
+    text-decoration: underline;
+    display: inline-block;
 }

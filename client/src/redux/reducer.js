@@ -7,7 +7,7 @@ import { createLogger } from 'redux-logger';
 import storage from 'redux-persist/lib/storage';
 
 const { USER, DASHBOARD, COLUMN } = actionCreator;
-const { BUTTONTASKACTIVE, BUTTONNEWPROJECT, BUTTONMODIFYPROJECT, DISPLAYTASK } = actions
+const { BUTTONTASKACTIVE, BUTTONNEWPROJECT, BUTTONMODIFYPROJECT, DISPLAYTASK, ACTIVEFORMADDMEMBERS, LISTADDTOCARD } = actions
 
 const initialState = {
     user: false,
@@ -16,7 +16,9 @@ const initialState = {
     buttonTaskActive: false,
     buttonNewProject: false,
     buttonModifyProject: false,
-    displayTask: false
+    displayTask: false,
+    activeFormAddMembers: false,
+    listAddToCard: false,
 }
 
 const reducer = (state = initialState, action) => {
@@ -56,6 +58,16 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 displayTask: action.payload
+            }
+        case ACTIVEFORMADDMEMBERS:
+            return {
+                ...state,
+                activeFormAddMembers: action.payload
+            }
+        case LISTADDTOCARD:
+            return {
+                ...state,
+                listAddToCard: action.payload
             }
         default:
             return {...state}

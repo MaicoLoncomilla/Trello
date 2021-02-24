@@ -16,6 +16,8 @@ import CloseIcon from '@material-ui/icons/Close';
 import Task from '../task/Task';
 import TitleColumn from './components/TitleColumn';
 import { TextArea } from '../../../../utils/components/Input';
+import { Button, ButtonComment } from '../../../../utils/components/Button';
+import FormColumn from './components/FormColumn';
 
 export default function Columns({ title, task, index, uuid }){
 
@@ -100,35 +102,24 @@ export default function Columns({ title, task, index, uuid }){
             </Droppable>
             <div ref={domnNode}>
                 {activeFormColumn ?
-                    <form
-                        onSubmit={(e) => onHandleInputAddTask(e)}
-                        className={sForm.formAddTask}>
-                        <TextArea
-                            autoFocus={true}
-                            number={500}
-                            s={"textareaAddTask"}
-                            placeholder={"Enter a title for this card..."}
-                            name={"title"}
-                            onChangeText={onChangeText}
-                            value={state.title}
-                        />
-                        <div>
-                            <button
-                                className={sButton.buttonGreen}
-                                type="submit">Add New Task</button>
-                            <CloseIcon
-                                className={sButton.buttonIcon}
-                                onClick={() => setActiveFormColumn(!activeFormColumn)}
-                            />
-                        </div>
-                    </form>
+                    <FormColumn
+                        s={"formAddTask"}
+                        state={state}
+                        onChangeText={onChangeText}
+                        onSubmit={onHandleInputAddTask}
+                        setActiveFormColumn={setActiveFormColumn}
+                        activeFormColumn={activeFormColumn}
+                        placeholder={"Enter a title for this card..."}
+                        label={"Add New Task"}
+                    />
                     :
-                    <button
-                        className={sButton.buttonAddTask}
-                        onClick={() => setActiveFormColumn(!activeFormColumn)}>
-                        <AddIcon fontSize="small" />
-                        Add New Task
-                    </button>
+                    <ButtonComment
+                        s={"buttonAddTask"}
+                        icon={<AddIcon fontSize="small" />}
+                        label={"Add New Task"}
+                        el={!activeFormColumn}
+                        onClick={setActiveFormColumn}
+                    />
                 }
             </div>
         </div>

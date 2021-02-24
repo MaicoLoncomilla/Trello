@@ -24,6 +24,20 @@
     color: var(--colorText);
     font-weight: 500;
 }
+.contaienerAddMembers {
+    border-radius: 50%;
+    background-color: rgba(9, 30, 66, .04);
+    width: 32px;
+    height: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 10px;
+    cursor: pointer;
+}
+.contaienerAddMembers:hover {
+    background-color: rgba(9, 30, 66, .08);
+}
 
 /* ------ TableList body ------*/
 
@@ -58,7 +72,7 @@
     padding: 5px 10px;
     overflow: hidden;
     max-height: 80vh;
-    margin: 0 15px;
+    margin-left: 15px;
     min-width: 272px;
     max-width: 272px;
     margin-bottom: 20px;
@@ -95,7 +109,6 @@
 }
 .containerTaskBody{
     background-color: var(--backgroundTask);
-    padding: 10px 10px;
     border-radius: 2px;
     margin: 0px 5px;
     margin-bottom: 10px;
@@ -110,7 +123,11 @@
     color: var(--colorHoverTask);
     cursor: pointer;
 }
-
+.containerTaskAvatar {
+    display: flex;
+    justify-content: flex-end;
+    padding: 5px;
+}
 .containerTextarea{
     display: flex;
     justify-content: flex-start;
@@ -234,10 +251,7 @@
     color: var(--ColorTitleColumn);
     cursor: pointer;
 }
-.avatarUserProfile {
-    min-width: 150px;
-    min-height: 150px;
-}
+
 .containerUserProfileUserName {
     display: flex;
     flex-direction: column;
@@ -276,6 +290,9 @@
     display: flex;
     flex-direction: column;
     position: relative;
+    margin: 0 16px;
+    margin-top: 20px;
+    margin-bottom: 10px;
 }
 .containerInput {
     box-sizing: content-box;
@@ -296,7 +313,6 @@
 }
 
 .containerMembers {
-    margin-top: 20px;
     margin-left: 40px;
     color: var(--colorText);
 }
@@ -318,7 +334,6 @@
 .containerDescripcionIconH3 h3{
     font-size: 16px;
     margin-left: 15px;
-
 }
 .containerP {
     margin-left: 40px;
@@ -377,7 +392,10 @@
 }
 .containerUserComment{
     margin-left: 7px;
+    width: 100%;
 }
+
+/* cambiar todo esto */
 .containerUserComment h5 {
     font-weight: 700;
     color: var(--colorTextH4);
@@ -394,16 +412,67 @@
     background-color: #fff;
     box-shadow: 0 1px 2px -1px rgb(9 30 66 / 25%), 0 0 0 1px rgb(9 30 66 / 8%);
     border-radius: 3px;
+    width: max-content;
 }
-.containerUserComment button {
-    background-color: transparent;
-    border: none;
-    outline: none;
+
+.containerListMembers {
+    background-color: #fff;
+    border-radius: 3px;
+    overflow: hidden;
+    box-shadow: 0 8px 16px -4px rgb(9 30 66 / 25%), 0 0 0 1px rgb(9 30 66 / 8%);
+    color: var(--colorTextH4);
+    position: relative;
+    padding: 0 12px 12px;
+}
+.containerListMembers input {
+    display: none;
+}
+.containerClose {
+    position: relative;
+    display: flex;
+    width: 304px;
+    height: 40px;
+    justify-content: center;
+    align-items: center;
+}
+.containerIconMembers {
+    position: absolute;
+    right: 0;
+    padding: 10px 12px 10px 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     cursor: pointer;
-    margin: 5px;
-    font-size: 12px;
-    color: #5e6c84;
-    line-height: 24px;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    text-decoration: underline;
+}
+.icon {
+    max-height: 16px;
+    color: var(--colorText);
+}
+.containerAvatarName {
+    display: flex;
+    align-items: center;
+    margin: 5px 0;
+    background-color: var(--backgroundCommentEmpty);
+    padding: 4px;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.containerDivImage {
+    background-color: rgb(224, 222, 221);
+    min-height: 160px;
+    max-height: 160px;
+    width: 100%;
+    position: relative;
+}
+.containerDivImage img {
+    object-fit: contain;
+    width: 100%;
+    max-height: 160px;
+    box-sizing: border-box;
+}
+.containerButtonAbsolute {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
 }

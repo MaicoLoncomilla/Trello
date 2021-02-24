@@ -14,6 +14,14 @@ module.exports = {
                 through: {
                     attributes: ['state']
                 },
+                include: {
+                    model: User,
+                    attributes: ['id', 'firstName', 'lastName', 'email'],
+                    include: {
+                        model: Image,
+                        attributes: ['url']
+                    }
+                }
             },{
                 model: Image,
                 attributes: ['url']
@@ -79,7 +87,15 @@ module.exports = {
                 order: ["createdAt"],
                 through: {
                     attributes: ['state']
-                }
+                },
+                include: [{
+                    model: User,
+                    attributes: ['id', 'firstName', 'lastName', 'email'],
+                    include: {
+                        model: Image,
+                        attributes: ['url']
+                    }
+                }]
             },{
                 model: Image,
                 attributes: ['url']

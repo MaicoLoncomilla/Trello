@@ -4,11 +4,10 @@ import sInput from '../../styles/input.module.css';
 import setInputHeight from '../../utils/functions/serInputHeight';
 
 export function Input({ placeholder, type, onChangeText, name, s, number, value, autoFocus, status }) {
-    
 
     return (
         <input
-            className={sInput[`${s}`]}
+            className={sInput[s]}
             onChange={(e) => onChangeText(name, e.target.value)}
             placeholder={placeholder}
             type={type}
@@ -20,17 +19,16 @@ export function Input({ placeholder, type, onChangeText, name, s, number, value,
     )
 }
 
-
-export function TextArea({ placeholder, onChangeText, name, number, s, value, autoFocus, status, statusRead }){
+export function TextArea({ placeholder, onChangeText, name, number, s, value, autoFocus, status, statusRead }) {
 
     let ref = useRef()
     useEffect(() => {
         setInputHeight(ref.current, '33px')
-    },[value])
- 
+    }, [value])
+
     return (
         <textarea
-            className={sInput[`${s}`]}
+            className={sInput[s]}
             placeholder={placeholder}
             onChange={(e) => onChangeText(name, e.target.value)}
             maxLength={number}

@@ -13,3 +13,13 @@ export function DivCloseIcon({ onClick }) {
         </div>
     )
 }
+
+export function DivCloseIconAbsolute ({ onClick }) {
+    return (
+        <div
+            className={sSection.containerButtonCloseAbsolute}
+            onClick={() => onClick()}>
+            <CloseIcon className={sSection.closeIcon}/>
+        </div>
+    )
+}

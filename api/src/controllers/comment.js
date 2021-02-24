@@ -3,15 +3,16 @@ const column = require('../controllers/column');
 
 module.exports = {
 
-    create: function (comment, taskUuid, uuid) {
-        return Comment.create({ comment, taskUuid, uuid })
+    create: function (comment, taskUuid, uuid, userId) {
+        return Comment.create({ comment, taskUuid, uuid, userId })
+        .then(() => column.read(userId))
     },
 
-    modify: function (comment, id) {
+    modify: function (comment, uuid) {
         return Comment.findOne({
-            where: { id: id }
+            where: { uuid: uuid }
         })
-            .then(commentary => commentary.update(comment))
+            .then(commentary => commentary.update({ comment: comment }))
     },
 
     delete: function (uuid) {

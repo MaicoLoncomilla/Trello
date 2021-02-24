@@ -22,6 +22,14 @@ server.post('/', (req, res, next) => {
         .catch(next)
 })
 
+server.post('/addMember', (req, res, next) => {
+    const { email, dashboardUuid, uuid } = req.body
+    if(!email) return res.status(400).send('You need an email')
+    task.addMember(email, dashboardUuid, uuid)
+    .then(r => res.send(r))
+    .catch(next)
+})
+
 server.put('/', (req, res, next) => {
     const { title, description, uuid } = req.body
     if(!title){
@@ -41,7 +49,7 @@ server.put('/reorder/', (req, res, next) => {
 
 server.delete('/:uuid', (req, res, next) => {
     const { uuid } = req.params
-    if(!id){
+    if(!uuid){
         return res.status(400).send('You need an Id')
     }
     task.delete(uuid)

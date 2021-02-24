@@ -14,14 +14,14 @@ import sButton from '../../../styles/button.module.css';
 
 import CloseIcon from '@material-ui/icons/Close';
 import AddIcon from '@material-ui/icons/Add';
-import { Avatar } from '@material-ui/core';
+
 import { TextArea } from '../../../utils/components/Input';
+import AddMembers from './components/AddMembers';
 
 export default function TableList(){
     const { COLUMN, DASHBOARD } = api
-    const user = useSelector(state => state.user)
-    const image = user.image && `${process.env.REACT_APP_API_URL}${user.image.url}`
     const column = useSelector(state => state.column)
+    const user = useSelector(state => state.user)
     const dashboard = useSelector(state => state.dashboard)
     const [ activeInput, setActiveInput ] = useState(false)
     const [ state, setState ] = useState({})
@@ -131,6 +131,7 @@ export default function TableList(){
         if (user.id) {
             let id = dashboard ? dashboard.uuid : user.dashboards[0].uuid
             dispatch(api.getColumn(id))
+            console.log("entro aca")
             if (!dashboard) {
                 dispatch({ type: DASHBOARD, payload: user.dashboards[0] })
             }
@@ -145,10 +146,7 @@ export default function TableList(){
         <>
             {!user.firstName && <Redirect to="/login" />}
 
-            <div className={sContainer.containerFlexTableList}>
-                <p>Members:</p>
-                <Avatar style={{ width: 32, height: 32 }} src={image} />
-            </div>
+            <AddMembers/>
             <div className={sContainer.containerTableListBody} >
                 <DragDropContext onDragEnd={result => onDragEnd(result)}>
                     {column?.map((el, index) => 

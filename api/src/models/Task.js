@@ -3,7 +3,7 @@ const { DataTypes } = require('sequelize')
 module.exports = (sequelize) => {
     sequelize.define('task', {
         title: {
-            type: DataTypes.STRING,
+            type: DataTypes.STRING(500),
         },
         description: {
             type: DataTypes.STRING(5000)

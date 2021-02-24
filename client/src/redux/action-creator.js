@@ -50,6 +50,13 @@ const actionCreator = {
             this._dispatchPromise(promise, false, dispatch)
         }
     },
+
+    addMembers: function(data) {
+        return dispatch => {
+            const promise = axios.post(`${process.env.REACT_APP_API_URL}/dashboard/addMembers/`, data)
+            this._dispatchPromise(promise, this.USER, dispatch)
+        }
+    },
     
     COLUMN: 'COLUMN',
     newColumn: function(data) {
@@ -92,15 +99,33 @@ const actionCreator = {
         }
     },
 
-    deleteTask: function({ id }) {
+    deleteTask: function({ uuid }) {
         return () => {
-            axios.delete(`${process.env.REACT_APP_API_URL}/task/${id}`)
+            axios.delete(`${process.env.REACT_APP_API_URL}/task/${uuid}`)
         }
     },
 
     reorderTask: function(data) {
         return () => {
             axios.put(`${process.env.REACT_APP_API_URL}/task/reorder/`, data)
+        }
+    },
+    addMemberInTask: function(data){
+        return dispatch => {
+            const promise = axios.post(`${process.env.REACT_APP_API_URL}/task/addMember/`, data)
+            this._dispatchPromise(promise, this.COLUMN, dispatch)
+        }
+    },
+
+    addCoverImage: function(formData, data) {
+        return dispatch => {
+            const promise = axios.post(`${process.env.REACT_APP_API_URL}/imageTask/addCoverTask/${data.uuid}/${data.dashboardUuid}`, formData)
+            this._dispatchPromise(promise, this.COLUMN, dispatch)
+        }
+    },
+    removeCoverImage: function(uuid) {
+        return () => {
+            axios.delete(`${process.env.REACT_APP_API_URL}/imageTask/${uuid}`)
         }
     },
 

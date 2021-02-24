@@ -4,8 +4,7 @@ import { Redirect } from 'react-router-dom';
 
 import api from '../../../redux/action-creator';
 import dataURLtoFile from '../../../utils/functions/dataURLtoFile';
-
-import { Avatar } from '@material-ui/core';
+import UserAvatar from '../../../utils/components/UserAvatar';
 import PhotoCameraIcon from '@material-ui/icons/PhotoCamera';
 
 import sContainer from '../../../styles/container.module.css';
@@ -14,7 +13,7 @@ import sText from '../../../styles/text.module.css';
 export default function UserProfile(){
 
     const user = useSelector(state => state.user)
-    const image = user.image && `${process.env.REACT_APP_API_URL}${user.image.url}`
+    const image = user.image && `${user.image?.url}`
     const [ img, setImg ] = useState(false)
     const [ imgUpload, setImgUpload ] = useState(true)
     const dispatch = useDispatch()
@@ -24,7 +23,6 @@ export default function UserProfile(){
         let fReader = new FileReader();
         fReader.onloadend = event => setImg({ src: event.target.result, name: input.files[0].name })
         if(input.files[0]){
-            console.log("entro")
             fReader.readAsDataURL(input.files[0]);
             setImgUpload(true)
         }
@@ -45,9 +43,7 @@ export default function UserProfile(){
             {!user.firstName && <Redirect to="/login" />}
             <div className={sContainer.containerUserProfile}>
                 <div className={sContainer.containerAvatar}>
-                    <Avatar
-                    className={sContainer.avatarUserProfile}
-                    src={image} />
+                    <UserAvatar size={150} image={image}/>
                     <input
                         onChange={selectImg}
                         accept="image/*"

@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import api from '../../../redux/action-creator';
 import useClickOutside from '../../../utils/functions/useClickOutside'; 
+import UserAvatar from '../../../utils/components/UserAvatar';
 
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
@@ -12,7 +13,6 @@ import DescriptionIcon from '@material-ui/icons/Description';
 import PersonIcon from '@material-ui/icons/Person';
 import ArrowRightIcon from '@material-ui/icons/ArrowRight';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-import { Avatar } from '@material-ui/core';
 
 import sHeader from '../../../styles/header.module.css';
 import sButton from '../../../styles/button.module.css';
@@ -22,7 +22,7 @@ export default function Header(){
     const user = useSelector(state => state.user)
     const dashboard = useSelector(state => state.dashboard)
     const [ menuActive, setMenuActive ] = useState(false)
-    const image = user.image && `${process.env.REACT_APP_API_URL}${user.image.url}`
+    const image = user.image && `${user.image.url}`
     const { USER, COLUMN, DASHBOARD } = api
 
     const dispatch = useDispatch()
@@ -63,7 +63,7 @@ export default function Header(){
                     className={sButton.link}
                     onClick={() => setMenuActive(false)}>
                     <div className={sHeader.containerAvatar}>
-                        <Avatar src={image} />
+                        <UserAvatar size={40} image={image} />
                         <h3>{user && user.firstName} {user && user.lastName}</h3>
                     </div>
                 </Link>
@@ -79,7 +79,7 @@ export default function Header(){
             {menuActive &&
                 <div className={sHeader.containerMenuActive}>
                     <div className={sHeader.containerMenuActiveFlex}>
-                        <Avatar src={image} />
+                        <UserAvatar size={40} image={image} />
                         <div className={sHeader.containerFullNameEmail}>
                             <h3>{user && user.firstName} {user && user.lastName}</h3>
                             <p>{user.email}</p>
