@@ -123,10 +123,20 @@
     color: var(--colorHoverTask);
     cursor: pointer;
 }
+.containerTask {
+    position: relative;
+}
 .containerTaskAvatar {
     display: flex;
     justify-content: flex-end;
     padding: 5px;
+}
+.containerAbsoluteIconDescripcion {
+    position: absolute;
+    bottom: 5px;
+    color: var(--colorTextH4);
+    left: 5px;
+
 }
 .containerTextarea{
     display: flex;

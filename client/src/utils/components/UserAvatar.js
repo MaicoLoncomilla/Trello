@@ -1,14 +1,16 @@
 import React from 'react';
 
-import { Avatar } from '@material-ui/core';
+import emptyAvatar from '../../assets/emptyAvatar.png';
 
-export default function UserAvatar({ size, image, s }) {
+import sSection from '../../styles/section.module.css';
 
-  let avatar = image && `${process.env.REACT_APP_API_URL}${image}`
+export default function UserAvatar({ size, image, s, title }) {
+
+  let avatar = image ? `${process.env.REACT_APP_API_URL}${image}` : emptyAvatar
 
   return (
-    <div style={s}>
-      <Avatar src={avatar} style={{ height: size, width: size }}/>
+    <div style={s} className={sSection.containerUserAvatar}>
+      <img src={avatar} style={{ height: size, width: size }} alt={title} title={title}/>
     </div>
   )
 }

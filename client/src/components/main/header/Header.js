@@ -28,9 +28,9 @@ export default function Header(){
     const dispatch = useDispatch()
 
     const onHandleLogOut = () => {
+        dispatch({ type: DASHBOARD, payload: false })
         dispatch({ type: COLUMN, payload: [] })
         dispatch({ type: USER, payload: false })
-        dispatch({ type: DASHBOARD, payload: false })
     }
     const arrayMenu = [{
         icon: <HomeIcon/>,
@@ -63,7 +63,7 @@ export default function Header(){
                     className={sButton.link}
                     onClick={() => setMenuActive(false)}>
                     <div className={sHeader.containerAvatar}>
-                        <UserAvatar size={40} image={image} />
+                        <UserAvatar size={40} image={image} title={`${user.firstName} ${user.lastName}`}/>
                         <h3>{user && user.firstName} {user && user.lastName}</h3>
                     </div>
                 </Link>

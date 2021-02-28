@@ -91,3 +91,12 @@
     width: 26.7%;
     overflow: hidden;
 }
+
+/* --------------- Container User Avatar --------------- */
+.containerUserAvatar {
+    position: relative;
+}
+.containerUserAvatar img {
+    border-radius: 50%;
+    object-fit: cover;
+}

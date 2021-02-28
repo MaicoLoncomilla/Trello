@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import actions from '../../../../redux/actions';
@@ -24,7 +24,7 @@ export default function AddMembers(){
     <div className={sContainer.containerFlexTableList}>
       <p>Members:</p>
       {user && user?.dashboards[indexDashboard]?.users.map(el =>
-        <UserAvatar size={32} image={el.image?.url} key={el.id}/>
+        <UserAvatar size={32} image={el.image?.url} key={el.id} title={`${el.firstName} ${el.lastName}`}/>
       )}
       <div className={sContainer.contaienerAddMembers} onClick={() => onHandleAddMembers()}>
         <AddIcon />

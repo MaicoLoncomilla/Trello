@@ -19,6 +19,7 @@ import { TextArea } from '../../../utils/components/Input';
 import AddMembers from './components/AddMembers';
 
 export default function TableList(){
+
     const { COLUMN, DASHBOARD } = api
     const column = useSelector(state => state.column)
     const user = useSelector(state => state.user)
@@ -144,7 +145,7 @@ export default function TableList(){
     
     return (
         <>
-            {!user.firstName && <Redirect to="/login" />}
+            {!user.id && <Redirect to="/login" />}
 
             <AddMembers/>
             <div className={sContainer.containerTableListBody} >

@@ -2,13 +2,24 @@ import axios from 'axios';
 
 const actionCreator = {
 
+    TOKEN: 'TOKEN',
+
     USER: "USER",
     login: function (data) {
         return dispatch => {
             const promise = axios.post(`${process.env.REACT_APP_API_URL}/user/login`, data)
             this._dispatchPromise(promise, this.USER, dispatch)
+            // this._dispatchPromiseToken(promise, false, dispatch)
         }
     },
+
+    getUser: function(data) {
+        return dispatch => {
+            const promise = axios.get(`${process.env.REACT_APP_API_URL}/user/${data}`)
+            this._dispatchPromise(promise, this.USER, dispatch)
+        }
+    },
+
     register: function (data) {
         return dispatch => {
             const promise = axios.post(`${process.env.REACT_APP_API_URL}/user/register`, data)
@@ -161,7 +172,23 @@ const actionCreator = {
                 alert(`Error! ${err}`);
             }
         })
-    }
+    },
+
+    // _dispatchPromiseToken: function(promise, type, dispatch){
+    //     return promise 
+    //     .then(({data}) => {
+    //         dispatch({ type: this.USER, payload: data.user })
+    //         localStorage.setItem('token', data.token)
+    //         dispatch({ type: this.TOKEN, payload: data.token })
+    //     })
+    //     .catch(err => {
+    //         if(err.response){
+    //             alert(`Error! \n Status: ${err.response.status} \n ${err.response.data}`);
+    //         }else{
+    //             alert(`Error! ${err}`);
+    //         }
+    //     })
+    // }
 }
 
 export default actionCreator;

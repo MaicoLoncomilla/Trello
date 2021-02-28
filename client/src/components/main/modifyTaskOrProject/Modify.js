@@ -40,6 +40,7 @@ export default function Modify() {
         user.dashboards[index].description = state.description
         dispatch(api.modifyDashboard(state))
         dispatch({ type: USER, payload: user })
+        dispatch({ type: DASHBOARD, payload: state })
         dispatch({ type: BUTTONMODIFYPROJECT, payload: false })
     }
     const onHandleDelete = () => {

@@ -1,16 +1,17 @@
 const server = require('express').Router();
 const dashboard = require('../controllers/dashboard');
-const user = require('../controllers/user')
+// const { authenticateToken } = require('../middlewares/authentication');
+// const user = require('../controllers/user')
 
-server.get('/uuid', (req, res, next) => {
-    const { uuid } = req.params;
-    if (!uuid) {
-        return res.status(400).send('You need an id to get all dashboard')
-    }
-    user.getById(id)
-        .then(r => res.send(r))
-        .catch(next)
-})
+// server.get('/uuid', authenticateToken, (req, res, next) => {
+//     const { uuid } = req.params;
+//     if (!uuid) {
+//         return res.status(400).send('You need an id to get all dashboard')
+//     }
+//     user.getById(id)
+//         .then(r => res.send(r))
+//         .catch(next)
+// })
 
 server.post('/', (req, res, next) => {
     const { title, description, idUser, uuid } = req.body;

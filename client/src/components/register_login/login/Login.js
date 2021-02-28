@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
 import api from '../../../redux/action-creator';
@@ -14,7 +14,6 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 
 
 export default function Login(){
-
     const user = useSelector(state => state.user)
     const dispatch = useDispatch();
     const [ state, setState ] = useState({})
@@ -32,7 +31,7 @@ export default function Login(){
         }
         dispatch(api.login(state))
     }
-    
+
     return (
         <>
             {user.id && <Redirect to="/" />}

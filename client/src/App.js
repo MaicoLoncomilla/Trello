@@ -15,7 +15,6 @@ export default function App() {
   return (
     <div className="App">
       <Switch>
-
         <Route exact path="/register" component={Register} />
         <Route exact path="/login" component={Login} />
         <Route path="/" render={() => (

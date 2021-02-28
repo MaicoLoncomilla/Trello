@@ -14,7 +14,7 @@ export default function DivMembers({ index, indexTask }){
       <h3>MEMBERS</h3>
       <div style={{ display: "flex", marginTop: 5 }}>
         {column[index].tasks[indexTask].users.map(el =>
-          <UserAvatar s={{marginRight: 5}} size={32} image={el.image?.url} key={el.email}/>
+          <UserAvatar s={{marginRight: 5}} size={32} image={el.image?.url} key={el.email} title={`${el.firstName} ${el.lastName}`}/>
         )}
       </div>
       

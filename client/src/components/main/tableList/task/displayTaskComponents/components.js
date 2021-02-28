@@ -58,7 +58,7 @@ export function Comments({ el, index, indexTask }){
 
     return (
         <div className={sContainer.containerComments} key={el.uuid}>
-            <UserAvatar size={32} image={el.user?.image?.url} />
+            <UserAvatar size={32} image={el.user?.image?.url} title={`${el.user.firstName} ${el.user.lastName}`}/>
             <div className={sContainer.containerUserComment} ref={domnNode}>
                 <h5>{el.user?.firstName} {el.user?.lastName}</h5>
                 {activeFormColumn ?
@@ -97,9 +97,10 @@ export function Comments({ el, index, indexTask }){
 }
 
 export function FormEditAddComment({ state, image, onChangeText, activeTextArea, setActiveTextArea, onHandleNewComment, domnNode }) {
+    const user = useSelector(state => state.user)
     return (
         <div className={sContainer.containerAddActivity}>
-            <UserAvatar size={32} image={image} />
+            <UserAvatar size={32} image={image} title={`${user.firstName} ${user.lastName}`}/>
             <div
                 className={activeTextArea ? sContainer.containerNewCommentActive : sContainer.containerTextAreaNewComment}
                 onClick={() => setActiveTextArea(true)}
@@ -177,7 +178,7 @@ export function ListMembers({ position, task }) {
             <H3 title={"BOARD MEMBERS"} s={"titleBoard"}/>
             { user?.dashboards[indexDashboard].users.map(el => 
                 <div className={sContainer.containerAvatarName} key={el.id} onClick={() => onHandleAddMembers(el)}>
-                    <UserAvatar size={32} image={el.image?.url}/>
+                    <UserAvatar size={32} image={el.image?.url} title={`${el.firstName} ${el.lastName}`}/>
                     <H3 title={`${el.firstName} ${el.lastName}`} s={"titleNameLastName"} />
                 </div>)}
         </div>

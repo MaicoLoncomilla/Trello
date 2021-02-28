@@ -1,5 +1,15 @@
 const server = require('express').Router();
 const user = require('../controllers/user');
+const jwt = require('jsonwebtoken');
+
+// server.get('/:token', (req, res, next) => {
+//     const { token } = req.params
+//     const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+//     console.log(decoded)
+//     user.getById(decoded)
+//     .then(r => res.send(r))
+//     .catch(next)
+// })
 
 server.post('/login', (req, res, next) => {
     const { email, password } = req.body;
@@ -8,6 +18,10 @@ server.post('/login', (req, res, next) => {
     }
     user.login(email, password)
     .then(r => res.send(r))
+    // .then((r) => {
+    //     const token = jwt.sign(r.id, process.env.ACCESS_TOKEN_SECRET)
+    //     res.json({ token: token, user: r })
+    // })
     .catch(next)
 })
 

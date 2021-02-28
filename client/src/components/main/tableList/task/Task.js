@@ -2,10 +2,13 @@ import React from 'react';
 
 import { TextArea } from '../../../../utils/components/Input';
 import UserAvatar from '../../../../utils/components/UserAvatar';
+import NotesIcon from '@material-ui/icons/Notes';
 
-import sContainer from '../../../../styles/container.module.css'
+import sContainer from '../../../../styles/container.module.css';
+import sButton from '../../../../styles/button.module.css';
 
 export default function Task({ el }) {
+    
     let image = el.imageTask?.url && `${process.env.REACT_APP_API_URL}${el.imageTask?.url}`
     let fileName = el.imageTask?.fileName
 
@@ -15,7 +18,7 @@ export default function Task({ el }) {
         objectFit: "cover"
     }
     return (
-        <div>
+        <div className={sContainer.containerTask}>
             {el.imageTask?.url && 
             <img style={styleImg} src={image} alt={fileName}/>}
             <TextArea
@@ -28,10 +31,15 @@ export default function Task({ el }) {
             {el.users?.length ?
                 <div className={sContainer.containerTaskAvatar}>
                     {el.users?.map(user =>
-                        <UserAvatar size={32} image={user.image?.url} key={user.email} />)}
+                        <UserAvatar size={32} image={user.image?.url} key={user.email} title={`${user.firstName} ${user.lastName}`}/>)}
                 </div>
                 :
                 false
+            }
+            {el.description &&  
+                <div className={sContainer.containerAbsoluteIconDescripcion}>
+                    <NotesIcon className={sButton.icon} />
+                </div>
             }
         </div>
     )

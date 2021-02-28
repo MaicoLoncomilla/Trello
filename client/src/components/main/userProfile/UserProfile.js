@@ -37,7 +37,6 @@ export default function UserProfile(){
         }
     }
     img && imgUpload && onSubmit()
-
     return (
         <>
             {!user.firstName && <Redirect to="/login" />}
