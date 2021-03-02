@@ -28,19 +28,21 @@ export default function Task({ el }) {
                 number={500}
                 statusRead={true}
             />
-            {el.users?.length ?
-                <div className={sContainer.containerTaskAvatar}>
-                    {el.users?.map(user =>
-                        <UserAvatar size={32} image={user.image?.url} key={user.email} title={`${user.firstName} ${user.lastName}`}/>)}
-                </div>
-                :
-                false
-            }
-            {el.description &&  
-                <div className={sContainer.containerAbsoluteIconDescripcion}>
-                    <NotesIcon className={sButton.icon} />
-                </div>
-            }
+            <div>
+                {el.description &&
+                    <div className={sContainer.containerAbsoluteIconDescripcion}>
+                        <NotesIcon className={sButton.icon} />
+                    </div>
+                }
+                {el.users?.length ?
+                    <div className={sContainer.containerTaskAvatar}>
+                        {el.users?.map(user =>
+                            <UserAvatar size={32} image={user.image?.url} key={user.email} title={`${user.firstName} ${user.lastName}`} />)}
+                    </div>
+                    :
+                    false
+                }
+            </div>
         </div>
     )
 }

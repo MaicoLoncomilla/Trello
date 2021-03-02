@@ -16,7 +16,6 @@
     align-items: center;
     justify-content: flex-start;
     color: var(--colorText);
-    margin-bottom: 10px;
 }
 .containerFlexTableList p {
     margin: 0 10px;
@@ -48,7 +47,7 @@
     width: 100%;
     overflow-y: hidden;
     overflow-x: auto;
-    height: calc(98% - 55px);
+    height: calc(99% - 55px);
 }
 
 .containerTableListBody::-webkit-scrollbar {
@@ -71,7 +70,7 @@
     border-radius: 2px;
     padding: 5px 10px;
     overflow: hidden;
-    max-height: 80vh;
+    max-height: 85vh;
     margin-left: 15px;
     min-width: 272px;
     max-width: 272px;
@@ -125,17 +124,27 @@
 }
 .containerTask {
     position: relative;
+    height: 100%;
+}
+.containerTask div {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    overflow: hidden;
+    padding: 1px 3px;
+    margin-bottom: 1px;
 }
 .containerTaskAvatar {
     display: flex;
     justify-content: flex-end;
-    padding: 5px;
+    /* padding: 5px; */
 }
 .containerAbsoluteIconDescripcion {
-    position: absolute;
-    bottom: 5px;
+    /* position: absolute; */
+    /* bottom: 5px; */
     color: var(--colorTextH4);
-    left: 5px;
+    /* left: 5px; */
 
 }
 .containerTextarea{
