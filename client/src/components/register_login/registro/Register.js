@@ -48,7 +48,7 @@ export default function Register() {
     }
     return (
         <>
-            {/* {user.firstName && <Redirect to="/" />} */}
+            {user.id && <Redirect to="/" />}
             <form onSubmit={(e) => onHandleCreateUser(e)}
                 className={sContainer.containerLogin}>
                 <div className={sContainer.containerIconInput}>

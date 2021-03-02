@@ -1,6 +1,5 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Redirect } from 'react-router-dom';
 import actions from '../../../../redux/actions';
 
 import NewProject from '../newProject/NewProject';
@@ -26,7 +25,6 @@ export default function ListProjects() {
 
     return (
         <>
-            {!user.firstName && <Redirect to="/login" />}
             <div className={sContainer.containerListProject}>
                 <div className={sContainer.container}>
                     <div className={sContainer.containerListAndNewProject}>
@@ -40,7 +38,7 @@ export default function ListProjects() {
                     </div>
                     <div className={sContainer.containerListProjectMap}>
                         {user.dashboards?.map((el, index) =>
-                            <List el={el} key={index}/>)}
+                            <List el={el} key={index} />)}
                     </div>
                 </div>
             </div>

@@ -1,0 +1,52 @@
+.containerLoader {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+.container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 1px;
+  height: 100%;
+  background: var(--ColorTitleColumn);
+  animation: blinkCursor 0.8s steps(3) infinite;
+}
+.container {
+  -webkit-box-reflect: below 1px linear-gradient(transparent, #0002);
+}
+.container h2 {
+  position: relative;
+  color: var(--ColorTitleColumn);
+  letter-spacing: 5px;
+  font-size: 2.5em;
+  text-transform: uppercase;
+  animation: typing 8s steps(10) infinite;
+  overflow: hidden;
+}
+
+@keyframes blinkCursor {
+  0%, 75% {
+    opacity: 1;
+  }
+  76%, 100% {
+    opacity: 0;
+  }
+}
+@keyframes typing {
+  0%, 90%, 100% {
+    width: 0;
+  }
+  30%, 60% {
+    width: 262.03px;
+  }
+}

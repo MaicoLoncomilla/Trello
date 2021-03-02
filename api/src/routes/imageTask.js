@@ -1,7 +1,7 @@
-const server = require('express').Router()
-const task = require('../controllers/task')
-const imageTask = require('../controllers/imageTask')
-const { ProfileImageUploader } = require('../middlewares/uploadImg')
+const server = require('express').Router();
+const task = require('../controllers/task');
+const imageTask = require('../controllers/imageTask');
+const { ProfileImageUploader } = require('../middlewares/uploadImg');
 
 server.get('/:imageFileName', (req, res, next) => {
     const { imageFileName } = req.params

@@ -1,12 +1,9 @@
-import actionCreator from './action-creator';
-import actions from './actions'
+import { applyMiddleware, createStore } from 'redux';
 import thunk from 'redux-thunk';
-import { createStore, applyMiddleware, combineReducers } from 'redux';
-import { persistStore, persistReducer } from 'redux-persist';
-import { createLogger } from 'redux-logger';
-import storage from 'redux-persist/lib/storage';
+import actionCreator from './action-creator';
+import actions from './actions';
 
-const { USER, DASHBOARD, COLUMN, TOKEN } = actionCreator;
+const { USER, DASHBOARD, COLUMN } = actionCreator;
 const { BUTTONTASKACTIVE, BUTTONNEWPROJECT, BUTTONMODIFYPROJECT, DISPLAYTASK, ACTIVEFORMADDMEMBERS, LISTADDTOCARD } = actions
 
 const initialState = {
@@ -75,17 +72,9 @@ const reducer = (state = initialState, action) => {
 }
 
 export default () => {
-    const persistConfig = {
-        key: 'root',
-        storage,
-    }
-    
-    const persistedReducer = persistReducer(persistConfig, reducer)
-    
     const store = createStore(
-        persistedReducer,
-        applyMiddleware(thunk, createLogger())
+        reducer,
+        applyMiddleware(thunk)
     );
-    const persistor = persistStore(store)
-    return { store, persistor }
+    return { store }
 }

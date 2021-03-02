@@ -1,6 +1,5 @@
 const server = require('express').Router()
 const user = require('../controllers/user')
-const image = require('../controllers/image')
 const { ProfileImageUploader } = require('../middlewares/uploadImg')
 
 server.get('/:imageFileName', (req, res, next) => {

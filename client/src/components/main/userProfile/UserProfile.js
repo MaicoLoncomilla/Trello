@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Redirect } from 'react-router-dom';
 
 import api from '../../../redux/action-creator';
 import dataURLtoFile from '../../../utils/functions/dataURLtoFile';
@@ -38,24 +37,21 @@ export default function UserProfile(){
     }
     img && imgUpload && onSubmit()
     return (
-        <>
-            {!user.firstName && <Redirect to="/login" />}
-            <div className={sContainer.containerUserProfile}>
-                <div className={sContainer.containerAvatar}>
-                    <UserAvatar size={150} image={image}/>
-                    <input
-                        onChange={selectImg}
-                        accept="image/*"
-                        id="file"
-                        type="file"
-                    />
-                    <label htmlFor="file"><PhotoCameraIcon fontSize="large"/></label>
-                </div>
-                <div className={sContainer.containerUserProfileUserName}>
-                    <h2 className={sText.textUserName}>{user.firstName} {user.lastName}</h2>
-                    <p className={sText.textEmail}>{user.email}</p>
-                </div>
+        <div className={sContainer.containerUserProfile}>
+            <div className={sContainer.containerAvatar}>
+                <UserAvatar size={150} image={image} />
+                <input
+                    onChange={selectImg}
+                    accept="image/*"
+                    id="file"
+                    type="file"
+                />
+                <label htmlFor="file"><PhotoCameraIcon fontSize="large" /></label>
             </div>
-        </>
+            <div className={sContainer.containerUserProfileUserName}>
+                <h2 className={sText.textUserName}>{user.firstName} {user.lastName}</h2>
+                <p className={sText.textEmail}>{user.email}</p>
+            </div>
+        </div>
     )
 }

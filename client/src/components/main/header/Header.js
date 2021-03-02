@@ -23,13 +23,12 @@ export default function Header(){
     const dashboard = useSelector(state => state.dashboard)
     const [ menuActive, setMenuActive ] = useState(false)
     const image = user.image && `${user.image.url}`
-    const { USER, COLUMN, DASHBOARD } = api
+    const { USER } = api
 
     const dispatch = useDispatch()
 
     const onHandleLogOut = () => {
-        dispatch({ type: DASHBOARD, payload: false })
-        dispatch({ type: COLUMN, payload: [] })
+        localStorage.removeItem('token')
         dispatch({ type: USER, payload: false })
     }
     const arrayMenu = [{

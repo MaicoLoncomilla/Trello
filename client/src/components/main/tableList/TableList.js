@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Redirect } from 'react-router-dom';
 import { DragDropContext } from 'react-beautiful-dnd';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -132,21 +131,18 @@ export default function TableList(){
         if (user.id) {
             let id = dashboard ? dashboard.uuid : user.dashboards[0].uuid
             dispatch(api.getColumn(id))
-            console.log("entro aca")
             if (!dashboard) {
                 dispatch({ type: DASHBOARD, payload: user.dashboards[0] })
             }
         }
-    }, [user])
+    }, [dispatch, user, DASHBOARD, dashboard])
 
     let domnNode = useClickOutside(() => {
         setActiveInput(false)
     })
-    
+
     return (
         <>
-            {!user.id && <Redirect to="/login" />}
-
             <AddMembers/>
             <div className={sContainer.containerTableListBody} >
                 <DragDropContext onDragEnd={result => onDragEnd(result)}>

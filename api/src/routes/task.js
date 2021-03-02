@@ -1,8 +1,9 @@
 const server = require('express').Router();
 const task = require('../controllers/task');
 const column = require('../controllers/column');
+const { authenticateToken } = require('../middlewares/authentication');
 
-server.get('/:id', (req, res, next) => {
+server.get('/:id', authenticateToken, (req, res, next) => {
     const { id } = req.params;
     if(!id){
         return res.status(400).send('You need an ID')
@@ -12,7 +13,7 @@ server.get('/:id', (req, res, next) => {
     .catch(next)
 })
 
-server.post('/', (req, res, next) => {
+server.post('/', authenticateToken, (req, res, next) => {
     const { title, columnUuid, uuid, taskPriority } = req.body
     if (!title) {
         return res.status(400).send('You need a title for you task')
@@ -22,7 +23,7 @@ server.post('/', (req, res, next) => {
         .catch(next)
 })
 
-server.post('/addMember', (req, res, next) => {
+server.post('/addMember', authenticateToken, (req, res, next) => {
     const { email, dashboardUuid, uuid } = req.body
     if(!email) return res.status(400).send('You need an email')
     task.addMember(email, dashboardUuid, uuid)
@@ -30,7 +31,7 @@ server.post('/addMember', (req, res, next) => {
     .catch(next)
 })
 
-server.put('/', (req, res, next) => {
+server.put('/', authenticateToken, (req, res, next) => {
     const { title, description, uuid } = req.body
     if(!title){
         return res.status(400).send('The task need a title')
@@ -40,14 +41,14 @@ server.put('/', (req, res, next) => {
     .catch(next)
 })
 
-server.put('/reorder/', (req, res, next) => {
+server.put('/reorder/', authenticateToken, (req, res, next) => {
     const { tasks } = req.body;
     task.reorderUpdate(tasks)
     .then(r => res.send(r))
     .catch(next)
 })
 
-server.delete('/:uuid', (req, res, next) => {
+server.delete('/:uuid', authenticateToken, (req, res, next) => {
     const { uuid } = req.params
     if(!uuid){
         return res.status(400).send('You need an Id')

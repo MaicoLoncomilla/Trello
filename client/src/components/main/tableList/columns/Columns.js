@@ -8,15 +8,11 @@ import actions from '../../../../redux/actions';
 import useClickOutside from '../../../../utils/functions/useClickOutside';
 
 import sContainer from '../../../../styles/container.module.css';
-import sButton from '../../../../styles/button.module.css';
-import sForm from '../../../../styles/form.module.css';
 
 import AddIcon from '@material-ui/icons/Add';
-import CloseIcon from '@material-ui/icons/Close';
 import Task from '../task/Task';
 import TitleColumn from './components/TitleColumn';
-import { TextArea } from '../../../../utils/components/Input';
-import { Button, ButtonComment } from '../../../../utils/components/Button';
+import { ButtonComment } from '../../../../utils/components/Button';
 import FormColumn from './components/FormColumn';
 
 export default function Columns({ title, task, index, uuid }){
