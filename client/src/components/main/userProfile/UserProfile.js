@@ -16,7 +16,6 @@ export default function UserProfile(){
     const [ img, setImg ] = useState(false)
     const [ imgUpload, setImgUpload ] = useState(true)
     const dispatch = useDispatch()
-
     const selectImg = () => {
         let input = document.getElementById("file")
         let fReader = new FileReader();
