@@ -6,8 +6,8 @@ import actions from '../../../../../redux/actions';
 import { Button } from '../../../../../utils/components/Button';
 import { H3 } from '../../../../../utils/components/Titles';
 
-import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
-import FileCopyOutlinedIcon from '@material-ui/icons/FileCopyOutlined';
+// import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
+// import FileCopyOutlinedIcon from '@material-ui/icons/FileCopyOutlined';
 import DeleteOutlineOutlinedIcon from '@material-ui/icons/DeleteOutlineOutlined';
 
 import sButton from '../../../../../styles/button.module.css';
@@ -33,7 +33,7 @@ export default function Actions({ task, index, indexTask }){
         title={"ACTIONS"}
       />
       <div>
-        <Button
+        {/* <Button
           s={"buttonDisplayTaskAddToCard"}
           icon={<ArrowForwardIcon className={sButton.icon} />}
           label={"Move"}
@@ -42,7 +42,7 @@ export default function Actions({ task, index, indexTask }){
           s={"buttonDisplayTaskAddToCard"}
           icon={<FileCopyOutlinedIcon className={sButton.icon} />}
           label={"Copy"}
-        />
+        /> */}
         <Button
           s={"buttonDisplayTaskAddToCard"}
           icon={<DeleteOutlineOutlinedIcon className={sButton.icon} />}

@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import actions from '../../../redux/actions';
+import api from '../../../redux/action-creator';
 
 import NewProject from './newProject/NewProject';
 import List from './list/List';
@@ -13,15 +14,27 @@ export default function ListProjects() {
 
     const dispatch = useDispatch()
     const user = useSelector(state => state.user)
+    const dashboard = useSelector(state => state.dashboard)
     const buttonNewProject = useSelector(state => state.buttonNewProject)
     const { active } = useSelector(state => state.buttonModifyProject)
     const { BUTTONNEWPROJECT } = actions
+    const { DASHBOARD } = api
     const onHandleNewProject = () => {
         dispatch({
             type: BUTTONNEWPROJECT,
             payload: true
         })
     }
+
+    useEffect(() => {
+        if (user.id) {
+            let id = dashboard ? dashboard.uuid : user.dashboards[0].uuid
+            dispatch(api.getColumn(id))
+            if (!dashboard) {
+                dispatch({ type: DASHBOARD, payload: user.dashboards[0] })
+            }
+        }
+    }, [dispatch, user, DASHBOARD, dashboard])
 
     return (
         <>

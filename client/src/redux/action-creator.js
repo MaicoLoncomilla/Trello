@@ -13,7 +13,6 @@ const actionCreator = {
         }
     },
     loginWithToken: function(token){
-        console.log(token)
        return dispatch => {
            const promise = axios.get(`${process.env.REACT_APP_API_URL}/user/${token}`)
            this._dispatchPromise(promise, this.USER, dispatch)
@@ -128,10 +127,16 @@ const actionCreator = {
             axios.put(`${process.env.REACT_APP_API_URL}/task/reorder/`, data, header)
         }
     },
+
     addMemberInTask: function(data){
-        return dispatch => {
-            const promise = axios.post(`${process.env.REACT_APP_API_URL}/task/addMember/`, data, header)
-            this._dispatchPromise(promise, this.COLUMN, dispatch)
+        return () => {
+            axios.post(`${process.env.REACT_APP_API_URL}/task/addMember/`, data, header)
+        }
+    },
+
+    removeMemberInTask: function(data){
+        return () => {
+            axios.put(`${process.env.REACT_APP_API_URL}/task/removeMemberInTask/`, data, header)
         }
     },
 

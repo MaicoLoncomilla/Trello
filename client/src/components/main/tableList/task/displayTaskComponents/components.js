@@ -141,24 +141,33 @@ export function ListDivTop({ onClick, title }) {
 }
 
 
-export function ListMembers({ position, task }) {
+export function ListMembers({ position, task, index, indexTask }) {
 
-    const user = useSelector(state => state.user)
+    const column = useSelector(state => state.column)
     const dashboard = useSelector(state => state.dashboard)
-    const indexDashboard = user?.dashboards?.findIndex(el => el.uuid === dashboard.uuid)
     const dispatch = useDispatch()
     const { LISTADDTOCARD } = actions
+    const { COLUMN } = api
     const onHandleCloseList = () => {
         dispatch({ type: LISTADDTOCARD, payload: false })
     }
 
-    const onHandleAddMembers = ({ email }) => {
+    const onHandleAddMembers = (el) => {
+
+        const hasUser = task.users.some(elUser => elUser.email === el.email)
+        const hasIndex = task.users.findIndex(elUser => elUser.email === el.email)
         let data = {
-            email: email,
-            dashboardUuid: dashboard.uuid, 
-            uuid: task.uuid,
+            email: el.email,
+            uuid: task.uuid
         }
-        dispatch(api.addMemberInTask(data))
+        if(hasUser){
+            column[index].tasks[indexTask].users.splice(hasIndex, 1)
+            dispatch(api.removeMemberInTask(data))
+        }else {
+            column[index].tasks[indexTask].users.push(el)
+            dispatch(api.addMemberInTask(data))
+        }  
+        dispatch({ type: COLUMN, payload: column }) 
         dispatch({ type: LISTADDTOCARD, payload: false })
     }
 
@@ -167,16 +176,19 @@ export function ListMembers({ position, task }) {
     })
     const style = {
         position: 'absolute',
+        display: "block",
         zIndex: 80,
         top: position.top + 35,
-        left: `calc(100% - ${position.left - (position.width + 30)}px)`,
+        right: position.right,
+        left: position.left,
+        width: '304px'
     }
     return (
         <div style={style} className={sContainer.containerListMembers} ref={domnNode}>
             <ListDivTop onClick={onHandleCloseList} title={"Members"}/>
             <hr/>
             <H3 title={"BOARD MEMBERS"} s={"titleBoard"}/>
-            { user?.dashboards[indexDashboard].users.map(el => 
+            { dashboard?.users?.map((el) => 
                 <div className={sContainer.containerAvatarName} key={el.id} onClick={() => onHandleAddMembers(el)}>
                     <UserAvatar size={32} image={el.image?.url} title={`${el.firstName} ${el.lastName}`}/>
                     <H3 title={`${el.firstName} ${el.lastName}`} s={"titleNameLastName"} />
@@ -228,9 +240,12 @@ export function ListCover({ position, task, index, indexTask }) {
 
     const style = {
         position: 'absolute',
+        display: "block",
         zIndex: 80,
         top: position.top + 35,
-        left: `calc(100% - ${position.left - (position.width + 30)}px)`,
+        right: position.right,
+        left: position.left,
+        width: '304px'
     }
 
     const styleImg = {

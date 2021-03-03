@@ -24,11 +24,19 @@ server.post('/', authenticateToken, (req, res, next) => {
 })
 
 server.post('/addMember', authenticateToken, (req, res, next) => {
-    const { email, dashboardUuid, uuid } = req.body
+    const { email, uuid } = req.body
     if(!email) return res.status(400).send('You need an email')
-    task.addMember(email, dashboardUuid, uuid)
+    task.addMember(email, uuid)
     .then(r => res.send(r))
     .catch(next)
+})
+
+server.put('/removeMemberInTask', authenticateToken, (req, res, next) => {
+    const { email, uuid } = req.body;
+    if(!email) return res.status(400).send('Your need an email')
+    task.deleteMemberInTask(email, uuid)
+    .then(r => res.send([]))
+    .catch(next) 
 })
 
 server.put('/', authenticateToken, (req, res, next) => {

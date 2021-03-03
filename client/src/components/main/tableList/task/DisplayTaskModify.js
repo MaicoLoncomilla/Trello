@@ -51,7 +51,7 @@ export default function DisplayTaskModify() {
                     index={index}
                     indexTask={indexTask}
                 />
-                <div style={{ display: "flex" }}>
+                <div className={sSection.containerMainLeftAndRight}>
                     <div className={sSection.containerLeft}>
                         {column[index]?.tasks[indexTask]?.users?.length ?
                             <DivMembers
@@ -83,6 +83,8 @@ export default function DisplayTaskModify() {
             </div>
             {lista.active === "Members" &&
                 <ListMembers
+                    index={index}
+                    indexTask={indexTask}
                     position={lista.position}
                     task={task}
                 />}

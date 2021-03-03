@@ -13,18 +13,20 @@ module.exports = {
             })
     },
 
-    addMember: function(email, dashboardUuid, uuid){
-
+    addMember: function (email, uuid) {
         return Promise.all([
-            User.findOne({
-                where: { email: email }
-            }),
-            Task.findOne({
-                where: { uuid: uuid }
-            })
+            User.findOne({ where: { email: email } }),
+            Task.findOne({ where: { uuid: uuid } })
         ])
-        .then(([user, task]) => task.addUser(user))
-        .then(() => column.read(dashboardUuid))
+            .then(([user, task]) => task.addUser(user))
+    },
+
+    deleteMemberInTask: function (email, uuid) {
+        return Promise.all([
+            User.findOne({ where: { email: email } }),
+            Task.findOne({ where: { uuid: uuid } })
+        ])
+            .then(([user, task]) => task.removeUser(user))
     },
 
     addCoverImage: function (uuid, dashboardUuid, img) {

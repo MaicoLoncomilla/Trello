@@ -75,6 +75,11 @@
     z-index: 1;
     align-self: flex-start;
 }
+/* --------------- Display Container Left Container Right --------------- */
+.containerMainLeftAndRight{
+    display: flex;
+}
+
 
 /* --------------- Display Container Left --------------- */
 
@@ -90,6 +95,18 @@
     padding: 0 16px 8px 8px;
     width: 26.7%;
     overflow: hidden;
+}
+
+@media (max-width: 990px) {
+    .containerMainLeftAndRight{
+        flex-direction: column;
+    }
+    .containerLeft {
+        width: 100%;
+    }
+    .containerRight {
+        width: 100%;
+    }
 }
 
 /* --------------- Container User Avatar --------------- */
