@@ -1,4 +1,4 @@
-const { Dashboard, User, Column, Task, Image, UserRol } = require('../db');
+const { Dashboard, User, Column, Task, Image, UserRol, Comment } = require('../db');
 const { login } = require('./user');
 const user = require('./user')
 
@@ -37,29 +37,16 @@ module.exports = {
             .then(({ dataValues }) => user.login(dataValues.email, dataValues.password))
     },
 
-    modify: function(uuid, title, description, idUser){
+    modify: function (uuid, title, description, idUser) {
         return Dashboard.findOne({
             where: { uuid: uuid }
         })
-        .then(dashboard => dashboard.update({ title, description }))
-        .then(() => user.getById(idUser))
+            .then(dashboard => dashboard.update({ title, description }))
+            .then(() => user.getById(idUser))
     },
 
-    delete: function(uuid, idUser){
-        return Column.findAll({
-            where: { dashboardUuid: uuid }
-        })
-            .then(column => {
-                column.map(el => Task.destroy({ where: { columnUuid: el.uuid } }))
-            })
-            .then(() => {
-                Column.destroy({
-                    where: { dashboardUuid: uuid }
-                })
-                return Dashboard.destroy({
-                    where: { uuid: uuid }
-                })
-            })
-            .then(() => user.getById(idUser))
+    delete: function (uuid, idUser) {
+        return Dashboard.destroy({ where: { uuid: uuid }})
+        .then(() => user.getById(idUser))
     }
 }

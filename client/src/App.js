@@ -22,17 +22,17 @@ export default function App() {
 
   useEffect(() => {
     const token = localStorage.getItem('token')
-    if(token){
+    if (token) {
       axios.get(`${process.env.REACT_APP_API_URL}/user/${token}`)
-      .then(({data}) => {
-        dispatch({ type: USER, payload: data })
-        setLoading(false)
-      })
+        .then(({ data }) => {
+          dispatch({ type: USER, payload: data })
+          setLoading(false)
+        })
     }
-    if(!token){
+    if (!token) {
       setLoading(false)
     }
-  },[dispatch, USER])
+  }, [dispatch, USER])
   
   return (
     <div className="App">

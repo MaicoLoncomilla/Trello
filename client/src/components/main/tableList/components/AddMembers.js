@@ -23,7 +23,7 @@ export default function AddMembers(){
   return (
     <div className={sContainer.containerFlexTableList}>
       <p>Members:</p>
-      {user && user?.dashboards[indexDashboard]?.users.map(el =>
+      {user && user?.dashboards[indexDashboard]?.users?.map(el =>
         <UserAvatar size={32} image={el.image?.url} key={el.id} title={`${el.firstName} ${el.lastName}`}/>
       )}
       <div className={sContainer.contaienerAddMembers} onClick={() => onHandleAddMembers()}>

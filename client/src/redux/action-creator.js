@@ -1,4 +1,5 @@
 import axios from 'axios';
+
 const header = {
     headers: { 'x-access-token': localStorage.getItem('token')}
 }
@@ -29,7 +30,7 @@ const actionCreator = {
     register: function (data) {
         return dispatch => {
             const promise = axios.post(`${process.env.REACT_APP_API_URL}/user/register`, data)
-            this._dispatchPromise(promise, this.USER, dispatch)
+            this._dispatchPromiseToken(promise, this.USER, dispatch)
         }
     },
     addImgUser: function(data, id) {

@@ -68,9 +68,6 @@ module.exports = {
     },
 
     delete: function (uuid) {
-        return Task.destroy({
-            where: { columnUuid: uuid }
-        })
-            .then(() => Column.destroy({ where: { uuid: uuid } }))
+        return Column.destroy({ where: { uuid: uuid }})
     }
 }

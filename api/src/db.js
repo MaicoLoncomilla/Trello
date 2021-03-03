@@ -55,15 +55,15 @@ User.hasOne(Image)
 Image.belongsTo(User)
 
 // Dashboard 1 <-----> N Column
-Dashboard.hasMany(Column)
+Dashboard.hasMany(Column, { onDelete: "CASCADE"})
 Column.belongsTo(Dashboard)
 
 // Column 1 <-----> N Task
-Column.hasMany(Task)
+Column.hasMany(Task, { onDelete: "CASCADE"})
 Task.belongsTo(Column)
 
 // Task 1 <-----> N Comment
-Task.hasMany(Comment)
+Task.hasMany(Comment, { onDelete: "CASCADE"})
 Comment.belongsTo(Task)
 
 // User 1 <-----> N Comment
