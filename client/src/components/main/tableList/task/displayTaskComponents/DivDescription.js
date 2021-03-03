@@ -1,12 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import api from '../../../../../../redux/action-creator';
-import { TextArea } from '../../../../../../utils/components/Input';
+import api from '../../../../../redux/action-creator';
+import { TextArea } from '../../../../../utils/components/Input';
 
 import NotesIcon from '@material-ui/icons/Notes';
 
-import sContainer from '../../../../../../styles/container.module.css';
+import sContainer from '../../../../../styles/container.module.css';
 
 export default function DivDescription({ task, index, indexTask }) {
     

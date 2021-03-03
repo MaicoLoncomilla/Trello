@@ -138,14 +138,11 @@
 .containerTaskAvatar {
     display: flex;
     justify-content: flex-end;
-    /* padding: 5px; */
+    align-items: flex-end;
+    margin-left: auto;
 }
 .containerAbsoluteIconDescripcion {
-    /* position: absolute; */
-    /* bottom: 5px; */
     color: var(--colorTextH4);
-    /* left: 5px; */
-
 }
 .containerTextarea{
     display: flex;

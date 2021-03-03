@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 
 import TableList from './tableList/TableList';
-import Modify from './modifyTaskOrProject/Modify';
+import Modify from './projects/modifyProject/Modify';
 import DisplayTaskModify from './tableList/task/DisplayTaskModify';
 import FormAddMembers from './tableList/components/FormAddMembers';
 

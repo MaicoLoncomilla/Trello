@@ -8,7 +8,7 @@ import Login from './components/register_login/login/Login';
 import Register from './components/register_login/registro/Register';
 import Header from './components/main/header/Header';
 import Main from './components/main/Main';
-import ListProjects from './components/main/projects/listProjects/ListProjects';
+import ListProjects from './components/main/projects/ListProjects';
 import UserProfile from './components/main/userProfile/UserProfile';
 import { useDispatch, useSelector } from 'react-redux';
 import ProtectedRoute from './routes/ProtectedRoute';
@@ -27,6 +27,9 @@ export default function App() {
         .then(({ data }) => {
           dispatch({ type: USER, payload: data })
           setLoading(false)
+        })
+        .catch(() => {
+          alert("Someting went wrong, please recharge the page")
         })
     }
     if (!token) {

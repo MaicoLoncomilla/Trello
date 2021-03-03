@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
-import api from '../../../redux/action-creator';
-import actions from '../../../redux/actions'
 import { useDispatch, useSelector } from 'react-redux';
 
-import { DivCloseIcon } from '../../../utils/components/Div';
-import useClickOutside from '../../../utils/functions/useClickOutside';
+import api from '../../../../redux/action-creator';
+import actions from '../../../../redux/actions'
+import useClickOutside from '../../../../utils/functions/useClickOutside';
+import { Input, TextArea } from '../../../../utils/components/Input';
+import { DivCloseIcon } from '../../../../utils/components/Div';
 
-import sSection from '../../../styles/section.module.css';
-import sButton from '../../../styles/button.module.css';
-import { Input, TextArea } from '../../../utils/components/Input';
+import sSection from '../../../../styles/section.module.css';
+import sButton from '../../../../styles/button.module.css';
 
 export default function Modify() {
 

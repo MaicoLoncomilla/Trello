@@ -2,14 +2,13 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
 
-import useClickOutside from '../../../../../../utils/functions/useClickOutside';
-import api from '../../../../../../redux/action-creator';
-import { Comments, FormEditAddComment } from '../components';
+import useClickOutside from '../../../../../utils/functions/useClickOutside';
+import api from '../../../../../redux/action-creator';
+import { Comments, FormEditAddComment } from './components';
 
 import FormatListBulletedIcon from '@material-ui/icons/FormatListBulleted';
 
-import sContainer from '../../../../../../styles/container.module.css';
-
+import sContainer from '../../../../../styles/container.module.css';
 
 export default function DivActivity({ task, index, indexTask }){
 
@@ -70,7 +69,12 @@ export default function DivActivity({ task, index, indexTask }){
                 domnNode={domnNode}
             />
             {column[index]?.tasks[indexTask]?.comments.map(el =>
-                <Comments el={el} key={el.uuid} index={index} indexTask={indexTask} />
+                <Comments
+                    el={el}
+                    key={el.uuid}
+                    index={index}
+                    indexTask={indexTask}
+                />
             )}
         </div>
     )

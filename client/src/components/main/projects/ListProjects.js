@@ -1,13 +1,13 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import actions from '../../../../redux/actions';
+import actions from '../../../redux/actions';
 
-import NewProject from '../newProject/NewProject';
-import List from './List';
-import { Button } from '../../../../utils/components/Button';
+import NewProject from './newProject/NewProject';
+import List from './list/List';
+import { Button } from '../../../utils/components/Button';
 
-import sContainer from '../../../../styles/container.module.css';
-import Modify from '../../modifyTaskOrProject/Modify';
+import sContainer from '../../../styles/container.module.css';
+import Modify from './modifyProject/Modify';
 
 export default function ListProjects() {
 

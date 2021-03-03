@@ -1,15 +1,15 @@
 import React from 'react';
 
-import actions from '../../../../../../redux/actions';
-import { Button } from '../../../../../../utils/components/Button';
-import { H3 } from '../../../../../../utils/components/Titles';
+import actions from '../../../../../redux/actions';
+import { Button } from '../../../../../utils/components/Button';
+import { H3 } from '../../../../../utils/components/Titles';
 
 import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
 import LocalOfferOutlinedIcon from '@material-ui/icons/LocalOfferOutlined';
 import PaymentOutlinedIcon from '@material-ui/icons/PaymentOutlined';
 import ImageOutlinedIcon from '@material-ui/icons/ImageOutlined';
 
-import sButton from '../../../../../../styles/button.module.css';
+import sButton from '../../../../../styles/button.module.css';
 import { useDispatch } from 'react-redux';
 
 export default function AddToCard(){
@@ -48,14 +48,14 @@ export default function AddToCard(){
         s={"titleAddToCard"}
       />
       <div>
-        {arrayButtons?.map(el => 
+        {arrayButtons?.map(el =>
           <Button
-          key={el.label}
-          id={el.label}
-          s={"buttonDisplayTaskAddToCard"}
-          onClick={onHandleActiveDiv}
-          icon={el.icon}
-          label={el.label}
+            key={el.label}
+            id={el.label}
+            s={"buttonDisplayTaskAddToCard"}
+            onClick={onHandleActiveDiv}
+            icon={el.icon}
+            label={el.label}
           />)}
       </div>
     </div>

@@ -1,9 +1,9 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 
-import UserAvatar from '../../../../../../utils/components/UserAvatar';
+import UserAvatar from '../../../../../utils/components/UserAvatar';
 
-import sContainer from '../../../../../../styles/container.module.css';
+import sContainer from '../../../../../styles/container.module.css';
 
 export default function DivMembers({ index, indexTask }){
 

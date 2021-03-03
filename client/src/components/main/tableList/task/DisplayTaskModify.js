@@ -5,12 +5,15 @@ import useClickOutside from '../../../../utils/functions/useClickOutside';
 import actions from '../../../../redux/actions';
 import { DivCloseIconAbsolute } from '../../../../utils/components/Div';
 import DivTitleColumn from './displayTaskComponents/DivTitleColumn';
+import DivImage from './displayTaskComponents/DivImage';
+import DivMembers from './displayTaskComponents/DivMembers';
+import DivDescription from './displayTaskComponents/DivDescription';
+import DivActivity from './displayTaskComponents/DivActivity';
+import AddToCard from './displayTaskComponents/AddToCard';
+import Actions from './displayTaskComponents/Actions';
+import { ListCover, ListMembers } from './displayTaskComponents/components';
 
 import sSection from '../../../../styles/section.module.css';
-import ContainerLeft from './displayTaskComponents/ContainerLeft';
-import ContainerRight from './displayTaskComponents/ContainerRight';
-import { ListCover, ListMembers } from './displayTaskComponents/components';
-import DivImage from './displayTaskComponents/DivImage';
 
 export default function DisplayTaskModify() {
 
@@ -32,21 +35,64 @@ export default function DisplayTaskModify() {
         dispatch({ type: DISPLAYTASK, payload: false })
     })
     return (
-
         <div className={sSection.containerModifyTask}>
             <div className={sSection.containerDisplayTask} ref={domnNode}>
-                <DivCloseIconAbsolute onClick={onHandleClose} />
-                { column[index]?.tasks[indexTask]?.imageTask?.url && 
-                <DivImage index={index} indexTask={indexTask} task={task}/>}
-                <DivTitleColumn task={task} columnSelected={columnSelected[0]} index={index} indexTask={indexTask}/>
-                <div style={{display: "flex"}}>
-                    <ContainerLeft task={task} index={index} indexTask={indexTask}/>
-                    <ContainerRight task={task} index={index} indexTask={indexTask}/>
+                <DivCloseIconAbsolute
+                    onClick={onHandleClose}
+                />
+                {column[index]?.tasks[indexTask]?.imageTask?.url &&
+                    <DivImage
+                        index={index}
+                        indexTask={indexTask}
+                        task={task} />}
+                <DivTitleColumn
+                    task={task}
+                    columnSelected={columnSelected[0]}
+                    index={index}
+                    indexTask={indexTask}
+                />
+                <div style={{ display: "flex" }}>
+                    <div className={sSection.containerLeft}>
+                        {column[index]?.tasks[indexTask]?.users?.length ?
+                            <DivMembers
+                                task={task}
+                                index={index}
+                                indexTask={indexTask}
+                            /> : false
+                        }
+                        <DivDescription
+                            task={task}
+                            index={index}
+                            indexTask={indexTask}
+                        />
+                        <DivActivity
+                            task={task}
+                            index={index}
+                            indexTask={indexTask}
+                        />
+                    </div>
+                    <div className={sSection.containerRight}>
+                        <AddToCard />
+                        <Actions
+                            task={task}
+                            index={index}
+                            indexTask={indexTask}
+                        />
+                    </div>
                 </div>
             </div>
-            {lista.active === "Members" && <ListMembers position={lista.position} task={task}/>}
-            {lista.active === "Cover" && <ListCover position={lista.position} task={task} index={index} indexTask={indexTask}/>}
+            {lista.active === "Members" &&
+                <ListMembers
+                    position={lista.position}
+                    task={task}
+                />}
+            {lista.active === "Cover" &&
+                <ListCover
+                    position={lista.position}
+                    task={task}
+                    index={index}
+                    indexTask={indexTask}
+                />}
         </div>
-
     )
 }
