@@ -48,7 +48,7 @@ export default function Register() {
     }
     return (
         <>
-            {user.id && <Redirect to="/" />}
+            {user.id && <Redirect to="/Trello/" />}
             <form onSubmit={(e) => onHandleCreateUser(e)}
                 className={sContainer.containerLogin}>
                 <div className={sContainer.containerIconInput}>
@@ -79,7 +79,7 @@ export default function Register() {
                 </button>
                 <Link
                     style={{ textAlign: 'center' }}
-                    to="/login"
+                    to="/Trello/login"
                     className={sButton.link}>
                     Do you have an account?
                 </Link>

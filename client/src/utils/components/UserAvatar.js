@@ -1,12 +1,13 @@
 import React from 'react';
 
+import { url } from '../../utils/url';
 import emptyAvatar from '../../assets/emptyAvatar.png';
 
 import sSection from '../../styles/section.module.css';
 
 export default function UserAvatar({ size, image, s, title }) {
 
-  let avatar = image ? `${process.env.REACT_APP_API_URL}${image}` : emptyAvatar
+  let avatar = image ? `${url}${image}` : emptyAvatar
 
   return (
     <div style={s} className={sSection.containerUserAvatar}>

@@ -34,15 +34,15 @@ export default function Header(){
     const arrayMenu = [{
         icon: <HomeIcon/>,
         title: "Home",
-        to: "/"
+        to: "/Trello/"
     },{
         icon: <DescriptionIcon/>,
         title: 'Project List',
-        to: "/listProjects"
+        to: "/Trello/listProjects"
     },{
         icon: <PersonIcon/>,
         title: "Profile",
-        to: "/userProfile"
+        to: "/Trello/userProfile"
     }]
    
     let domnNode = useClickOutside(() => {
@@ -58,7 +58,7 @@ export default function Header(){
             </Link>
             <div className={sHeader.containerAvatarName}>
                 <Link
-                    to="userProfile"
+                    to="Trello/userProfile"
                     className={sButton.link}
                     onClick={() => setMenuActive(false)}>
                     <div className={sHeader.containerAvatar}>

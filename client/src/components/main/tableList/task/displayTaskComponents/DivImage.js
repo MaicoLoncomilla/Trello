@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { url } from '../../../../../utils/url';
 import api from '../../../../../redux/action-creator';
 import { ButtonComment } from '../../../../../utils/components/Button';
 import { useDispatch, useSelector } from 'react-redux';
@@ -14,7 +15,7 @@ export default function DivImage({ index, indexTask, task }){
   const column = useSelector(state => state.column)
   const { COLUMN } = api
   const dispatch = useDispatch()
-  let image = column[index]?.tasks[indexTask]?.imageTask?.url && `${process.env.REACT_APP_API_URL}${column[index]?.tasks[indexTask]?.imageTask?.url}`
+  let image = column[index]?.tasks[indexTask]?.imageTask?.url && `${url}${column[index]?.tasks[indexTask]?.imageTask?.url}`
   let fileName = column[index]?.tasks[indexTask]?.imageTask?.fileName
   const onHandleRemoveCover = () => {
     column[index].tasks[indexTask].imageTask = {}

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
+import { url } from '../../../../../utils/url';
 import api from '../../../../../redux/action-creator';
 import actions from '../../../../../redux/actions';
 import dataURLtoFile from '../../../../../utils/functions/dataURLtoFile';
@@ -205,7 +206,7 @@ export function ListCover({ position, task, index, indexTask }) {
     const dashboard = useSelector(state => state.dashboard)
     const dispatch = useDispatch()
     const column = useSelector(state => state.column)
-    let image = column[index]?.tasks[indexTask]?.imageTask?.url && `${process.env.REACT_APP_API_URL}${column[index]?.tasks[indexTask]?.imageTask?.url}`
+    let image = column[index]?.tasks[indexTask]?.imageTask?.url && `${url}${column[index]?.tasks[indexTask]?.imageTask?.url}`
     let fileName = column[index]?.tasks[indexTask]?.imageTask?.fileName
     const [ img, setImg ] = useState(false)
     const [ imgUpload, setImgUpload ] = useState(true)

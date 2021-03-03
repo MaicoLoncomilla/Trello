@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { url } from '../utils/url';
 
 const header = {
     headers: { 'x-access-token': localStorage.getItem('token')}
@@ -8,33 +9,33 @@ const actionCreator = {
     USER: "USER",
     login: function (data) {
         return dispatch => {
-            const promise = axios.post(`${process.env.REACT_APP_API_URL}/user/login`, data)
+            const promise = axios.post(`${url}/user/login`, data)
             this._dispatchPromiseToken(promise, false, dispatch)
         }
     },
     loginWithToken: function(token){
        return dispatch => {
-           const promise = axios.get(`${process.env.REACT_APP_API_URL}/user/${token}`)
+           const promise = axios.get(`${url}/user/${token}`)
            this._dispatchPromise(promise, this.USER, dispatch)
        } 
     },
 
     getUser: function(data) {
         return dispatch => {
-            const promise = axios.get(`${process.env.REACT_APP_API_URL}/user/${data}`)
+            const promise = axios.get(`${url}/user/${data}`)
             this._dispatchPromise(promise, this.USER, dispatch)
         }
     },
 
     register: function (data) {
         return dispatch => {
-            const promise = axios.post(`${process.env.REACT_APP_API_URL}/user/register`, data)
+            const promise = axios.post(`${url}/user/register`, data)
             this._dispatchPromiseToken(promise, this.USER, dispatch)
         }
     },
     addImgUser: function(data, id) {
         return dispatch => {
-            const promise = axios.post(`${process.env.REACT_APP_API_URL}/image/${id}`, data, header)
+            const promise = axios.post(`${url}/image/${id}`, data, header)
             this._dispatchPromise(promise, this.USER, dispatch)
         }
     },
@@ -42,35 +43,35 @@ const actionCreator = {
     DASHBOARD: 'DASHBOARD',
     getDashboard: function(id){
         return dispatch => {
-            const promise = axios.get(`${process.env.REACT_APP_API_URL}/dashboard/${id}`, header)
+            const promise = axios.get(`${url}/dashboard/${id}`, header)
             this._dispatchPromise(promise, this.USER, dispatch)
         }
     },
 
     newDashboard: function(data){
         return dispatch => {
-            const promise = axios.post(`${process.env.REACT_APP_API_URL}/dashboard/`, data, header)
+            const promise = axios.post(`${url}/dashboard/`, data, header)
             this._dispatchPromise(promise, this.USER, dispatch)
         }
     },
 
     modifyDashboard: function(data){
         return dispatch =>{
-            const promise = axios.put(`${process.env.REACT_APP_API_URL}/dashboard/`, data, header)
+            const promise = axios.put(`${url}/dashboard/`, data, header)
             this._dispatchPromise(promise, this.USER, dispatch)
         }
     },
 
     deleteDashboard: function({uuid, idUser}){
         return dispatch => {
-            const promise = axios.delete(`${process.env.REACT_APP_API_URL}/dashboard/${uuid}/${idUser}`, header)
+            const promise = axios.delete(`${url}/dashboard/${uuid}/${idUser}`, header)
             this._dispatchPromise(promise, false, dispatch)
         }
     },
 
     addMembers: function(data) {
         return dispatch => {
-            const promise = axios.post(`${process.env.REACT_APP_API_URL}/dashboard/addMembers/`, data, header)
+            const promise = axios.post(`${url}/dashboard/addMembers/`, data, header)
             this._dispatchPromise(promise, this.USER, dispatch)
         }
     },
@@ -78,96 +79,96 @@ const actionCreator = {
     COLUMN: 'COLUMN',
     newColumn: function(data) {
         return () => {
-            axios.post(`${process.env.REACT_APP_API_URL}/column/`, data, header)
+            axios.post(`${url}/column/`, data, header)
         }
     },
     getColumn: function(id){
         return dispatch => {
-            const promise = axios.get(`${process.env.REACT_APP_API_URL}/column/${id}`, header)
+            const promise = axios.get(`${url}/column/${id}`, header)
             this._dispatchPromise(promise, this.COLUMN, dispatch)
         }
     },
 
     modifyColumn: function(data) {
         return () => {
-            axios.put(`${process.env.REACT_APP_API_URL}/column/`, data, header)
+            axios.put(`${url}/column/`, data, header)
         }
     },
     deleteColumn: function({ uuid }){
         return () => {
-            axios.delete(`${process.env.REACT_APP_API_URL}/column/${uuid}`, header)
+            axios.delete(`${url}/column/${uuid}`, header)
         }
     },
     reorderTaskInColumn: function(data){
         return () => {
-            axios.put(`${process.env.REACT_APP_API_URL}/column/reordertask/`, data, header)
+            axios.put(`${url}/column/reordertask/`, data, header)
         }
     },
     // -------------- Task -----------------
     newTask: function(data){
         return () => {
-            axios.post(`${process.env.REACT_APP_API_URL}/task/`, data, header)
+            axios.post(`${url}/task/`, data, header)
         }
     },
 
     modifyTask: function(data){
         return () => {
-            axios.put(`${process.env.REACT_APP_API_URL}/task/`, data, header)
+            axios.put(`${url}/task/`, data, header)
         }
     },
 
     deleteTask: function({ uuid }) {
         return () => {
-            axios.delete(`${process.env.REACT_APP_API_URL}/task/${uuid}`, header)
+            axios.delete(`${url}/task/${uuid}`, header)
         }
     },
 
     reorderTask: function(data) {
         return () => {
-            axios.put(`${process.env.REACT_APP_API_URL}/task/reorder/`, data, header)
+            axios.put(`${url}/task/reorder/`, data, header)
         }
     },
 
     addMemberInTask: function(data){
         return () => {
-            axios.post(`${process.env.REACT_APP_API_URL}/task/addMember/`, data, header)
+            axios.post(`${url}/task/addMember/`, data, header)
         }
     },
 
     removeMemberInTask: function(data){
         return () => {
-            axios.put(`${process.env.REACT_APP_API_URL}/task/removeMemberInTask/`, data, header)
+            axios.put(`${url}/task/removeMemberInTask/`, data, header)
         }
     },
 
     addCoverImage: function(formData, data) {
         return dispatch => {
-            const promise = axios.post(`${process.env.REACT_APP_API_URL}/imageTask/addCoverTask/${data.uuid}/${data.dashboardUuid}`, formData, header)
+            const promise = axios.post(`${url}/imageTask/addCoverTask/${data.uuid}/${data.dashboardUuid}`, formData, header)
             this._dispatchPromise(promise, this.COLUMN, dispatch)
         }
     },
     removeCoverImage: function(uuid) {
         return () => {
-            axios.delete(`${process.env.REACT_APP_API_URL}/imageTask/${uuid}`, header)
+            axios.delete(`${url}/imageTask/${uuid}`, header)
         }
     },
 
     // -------------- Commentary -----------------
     createComment: function(data){
         return () => {
-            axios.post(`${process.env.REACT_APP_API_URL}/comment/`, data, header)
+            axios.post(`${url}/comment/`, data, header)
         }
     },
 
     modifyComment: function(data){
         return () => {
-            axios.put(`${process.env.REACT_APP_API_URL}/comment/`, data, header)
+            axios.put(`${url}/comment/`, data, header)
         }
     },
 
     deleteComment: function({ uuid }){
         return () => {
-            axios.delete(`${process.env.REACT_APP_API_URL}/comment/${uuid}`, header)
+            axios.delete(`${url}/comment/${uuid}`, header)
         }
     },
     

@@ -2,6 +2,7 @@ import React from 'react';
 
 import { TextArea } from '../../../../utils/components/Input';
 import UserAvatar from '../../../../utils/components/UserAvatar';
+import { url } from '../../../../utils/url';
 import NotesIcon from '@material-ui/icons/Notes';
 
 import sContainer from '../../../../styles/container.module.css';
@@ -9,7 +10,7 @@ import sButton from '../../../../styles/button.module.css';
 
 export default function Task({ el }) {
     
-    let image = el.imageTask?.url && `${process.env.REACT_APP_API_URL}${el.imageTask?.url}`
+    let image = el.imageTask?.url && `${url}${el.imageTask?.url}`
     let fileName = el.imageTask?.fileName
 
     let styleImg = {

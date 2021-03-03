@@ -34,7 +34,7 @@ export default function Login(){
 
     return (
         <>
-            {user.id && <Redirect to="/" />}
+            {user.id && <Redirect to="/Trello/" />}
             <div className={sContainer.containerLogin}>
                 <form onSubmit={(e) => onHandleLogin(e)} className={sForm.formLogin}>
                     <div className={sContainer.containerIconInput}>
@@ -64,7 +64,7 @@ export default function Login(){
                 <Link
                     style={{ textAlign: "center", margin: 10 }}
                     className={sButton.link}
-                    to="/register">Create a new account
+                    to="/Trello/register">Create a new account
                 </Link>
             </div>
         </>
