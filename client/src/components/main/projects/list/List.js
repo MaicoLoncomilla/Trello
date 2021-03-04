@@ -14,7 +14,7 @@ export default function List({ el }) {
 
     const dashboard = useSelector(state => state.dashboard)
     const dispatch = useDispatch()
-    const { BUTTONMODIFYPROJECT } = actions
+    const { BUTTONMODIFYPROJECT, SPINNER } = actions
     const { DASHBOARD } = api
 
     const onHandleModifyProject = (el) => {
@@ -25,6 +25,7 @@ export default function List({ el }) {
     }
     const onHandleSelectProject = (el) => {
         dispatch({ type: DASHBOARD, payload: el })
+        dispatch({ type: SPINNER, payload: true })
         dispatch(api.getColumn(el.uuid))
     }
     return (

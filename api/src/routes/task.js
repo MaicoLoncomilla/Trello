@@ -49,10 +49,10 @@ server.put('/', authenticateToken, (req, res, next) => {
     .catch(next)
 })
 
-server.put('/reorder/', authenticateToken, (req, res, next) => {
+server.put('/reorder', authenticateToken, (req, res, next) => {
     const { tasks } = req.body;
     task.reorderUpdate(tasks)
-    .then(r => res.send(r))
+    .then(r => res.send([]))
     .catch(next)
 })
 

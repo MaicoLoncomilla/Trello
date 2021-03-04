@@ -2,7 +2,7 @@ const server = require('express').Router();
 const column = require('../controllers/column');
 const { authenticateToken } = require('../middlewares/authentication');
 
-server.get('/:id', authenticateToken, (req, res, next) => {
+server.get('/:id', (req, res, next) => {
     const { id } = req.params;
     column.read(id)
         .then(r => res.send(r))

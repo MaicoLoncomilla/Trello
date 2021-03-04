@@ -3,7 +3,7 @@
   width: 100%;
   align-items: center;
   justify-content: center;
-  min-height: 100vh;
+  height: calc(100vh - 55px);
 }
 .container {
   display: flex;

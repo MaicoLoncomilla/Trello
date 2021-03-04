@@ -4,7 +4,7 @@ import actionCreator from './action-creator';
 import actions from './actions';
 
 const { USER, DASHBOARD, COLUMN } = actionCreator;
-const { BUTTONTASKACTIVE, BUTTONNEWPROJECT, BUTTONMODIFYPROJECT, DISPLAYTASK, ACTIVEFORMADDMEMBERS, LISTADDTOCARD } = actions
+const { BUTTONTASKACTIVE, BUTTONNEWPROJECT, BUTTONMODIFYPROJECT, DISPLAYTASK, ACTIVEFORMADDMEMBERS, LISTADDTOCARD, SPINNER } = actions
 
 const initialState = {
     user: false,
@@ -16,6 +16,7 @@ const initialState = {
     displayTask: false,
     activeFormAddMembers: false,
     listAddToCard: false,
+    spinner: false
 }
 
 const reducer = (state = initialState, action) => {
@@ -65,6 +66,11 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 listAddToCard: action.payload
+            }
+        case SPINNER:
+            return {
+                ...state,
+                spinner: action.payload
             }
         default:
             return {...state}

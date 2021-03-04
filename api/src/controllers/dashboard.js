@@ -16,7 +16,6 @@ module.exports = {
             })
         ]) 
         .then(([user, dashboard]) => user.addDashboard(dashboard, { through: { state: 'owner' }}))
-        .then(() => user.getById(idUser))
     },
     addMember: function (email, idUser, uuid) {
         

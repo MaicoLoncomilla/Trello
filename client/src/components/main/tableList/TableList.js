@@ -19,7 +19,7 @@ import AddMembers from './components/AddMembers';
 
 export default function TableList(){
 
-    const { COLUMN, DASHBOARD } = api
+    const { COLUMN, DASHBOARD } = api;
     const column = useSelector(state => state.column)
     const user = useSelector(state => state.user)
     const dashboard = useSelector(state => state.dashboard)

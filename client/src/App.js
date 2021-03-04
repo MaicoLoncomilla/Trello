@@ -5,6 +5,7 @@ import axios from 'axios';
 
 import { url } from './utils/url';
 import api from './redux/action-creator';
+import actions from './redux/actions';
 import Login from './components/register_login/login/Login';
 import Register from './components/register_login/registro/Register';
 import Header from './components/main/header/Header';
@@ -19,6 +20,7 @@ export default function App() {
   const dispatch = useDispatch();
   const user = useSelector(state => state.user)
   const { USER} = api;
+  const { SPINNER } = actions
   const [ loading, setLoading ] = useState(true)
 
   useEffect(() => {
@@ -27,6 +29,7 @@ export default function App() {
       axios.get(`${url}/user/${token}`)
         .then(({ data }) => {
           dispatch({ type: USER, payload: data })
+          dispatch({ type: SPINNER, payload: true })
           setLoading(false)
         })
         .catch(() => {
@@ -36,20 +39,20 @@ export default function App() {
     if (!token) {
       setLoading(false)
     }
-  }, [dispatch, USER])
+  }, [dispatch, USER, SPINNER])
   
   return (
     <div className="App">
       {loading && <Loading/>}
       {!loading &&
         <Switch>
-          <Route exact path="/Trello/register" component={Register} />
-          <Route exact path="/Trello/login" component={Login} />
+          <Route exact path="/register" component={Register} />
+          <Route exact path="/login" component={Login} />
           <>
-            <ProtectedRoute path="/Trello/" Component={Header} user={user} />
-            <ProtectedRoute exact path="/Trello/" Component={Main} user={user} />
-            <ProtectedRoute path="/Trello/userProfile" Component={UserProfile} user={user} />
-            <ProtectedRoute path="/Trello/listProjects" Component={ListProjects} user={user} />
+            <ProtectedRoute path="/" Component={Header} user={user} />
+            <ProtectedRoute exact path="/" Component={Main} user={user} />
+            <ProtectedRoute path="/userProfile" Component={UserProfile} user={user} />
+            <ProtectedRoute path="/listProjects" Component={ListProjects} user={user} />
           </>
         </Switch>
       }

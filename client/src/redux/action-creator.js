@@ -1,5 +1,7 @@
 import axios from 'axios';
+import actions from './actions';
 import { url } from '../utils/url';
+const { SPINNER } = actions
 
 const header = {
     headers: { 'x-access-token': localStorage.getItem('token')}
@@ -49,9 +51,8 @@ const actionCreator = {
     },
 
     newDashboard: function(data){
-        return dispatch => {
-            const promise = axios.post(`${url}/dashboard/`, data, header)
-            this._dispatchPromise(promise, this.USER, dispatch)
+        return () => {
+            axios.post(`${url}/dashboard/`, data, header)
         }
     },
 
@@ -72,7 +73,7 @@ const actionCreator = {
     addMembers: function(data) {
         return dispatch => {
             const promise = axios.post(`${url}/dashboard/addMembers/`, data, header)
-            this._dispatchPromise(promise, this.USER, dispatch)
+            this._dispatchPromise(promise, this.USER, dispatch, 'addMembers')
         }
     },
     
@@ -84,8 +85,8 @@ const actionCreator = {
     },
     getColumn: function(id){
         return dispatch => {
-            const promise = axios.get(`${url}/column/${id}`, header)
-            this._dispatchPromise(promise, this.COLUMN, dispatch)
+            const promise = axios.get(`${url}/column/${id}`)
+            this._dispatchPromise(promise, this.COLUMN, dispatch, 'getColumn')
         }
     },
 
@@ -172,15 +173,21 @@ const actionCreator = {
         }
     },
     
-    _dispatchPromise: function(promise, type, dispatch){
+    _dispatchPromise: function(promise, type, dispatch, text){
         return promise
         .then(({data}) => {
             // console.log(data)
+            if(text) {
+                dispatch({ type: SPINNER, payload: false})
+            }
             dispatch({type: type, payload: data})
         })
         .catch(err => {
+            if(text){
+                dispatch({ type: SPINNER, payload: false})
+            }
             if(err.response){
-                alert(`Error! \n Status: ${err.response.status} \n ${err.response.data}`);
+                alert(`Error! \n ${err.response.data}`);
             }else{
                 alert(`Error! ${err}`);
             }

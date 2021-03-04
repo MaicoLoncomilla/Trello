@@ -34,15 +34,15 @@ export default function Header(){
     const arrayMenu = [{
         icon: <HomeIcon/>,
         title: "Home",
-        to: "/Trello/"
+        to: "/"
     },{
         icon: <DescriptionIcon/>,
         title: 'Project List',
-        to: "/Trello/listProjects"
+        to: "/listProjects"
     },{
         icon: <PersonIcon/>,
         title: "Profile",
-        to: "/Trello/userProfile"
+        to: "/userProfile"
     }]
    
     let domnNode = useClickOutside(() => {
@@ -50,7 +50,7 @@ export default function Header(){
     })
     return (
         <div className={sHeader.containerFlex}  ref={domnNode}>
-            <Link className={sButton.link} to="/Trello/">
+            <Link className={sButton.link} to="/">
                 <div className={sHeader.containerTitleDashboard}>
                     <p>{dashboard ? dashboard.title : user.id ? user.dashboards[0].title : false}
                     </p>
@@ -58,7 +58,7 @@ export default function Header(){
             </Link>
             <div className={sHeader.containerAvatarName}>
                 <Link
-                    to="/Trello/userProfile"
+                    to="/userProfile"
                     className={sButton.link}
                     onClick={() => setMenuActive(false)}>
                     <div className={sHeader.containerAvatar}>

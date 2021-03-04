@@ -15,7 +15,7 @@ export default function FormAddMembers(){
   const dispatch = useDispatch()
   const user = useSelector(state => state.user)
   const dashboard = useSelector(state => state.dashboard)
-  const { ACTIVEFORMADDMEMBERS } = actions;
+  const { ACTIVEFORMADDMEMBERS, SPINNER } = actions;
   const [ state, setState ] = useState({})
 
   const onChangeText = (name, value) => {
@@ -32,6 +32,7 @@ export default function FormAddMembers(){
       uuid: dashboard.uuid
     }
     dispatch(api.addMembers(newState))
+    dispatch({ type: SPINNER, payload: true })
     dispatch({ type: ACTIVEFORMADDMEMBERS, payload: false })
   }
   const onHandleCloseForm = () => {

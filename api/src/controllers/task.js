@@ -52,6 +52,7 @@ module.exports = {
             })
                 .then(task => task.update({ taskPriority }))
         })
+        return Task.findAll()
     },
     delete: function (uuid) {
         return Task.destroy({ where: { uuid: uuid }})

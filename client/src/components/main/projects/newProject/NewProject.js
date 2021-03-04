@@ -38,9 +38,17 @@ export default function NewProject(){
         }
         const newProject = {
             description: state.description,
-            uuid: uuidv4(),
+            uuid: state.uuid,
             title: state.title,
-            userRol: { state: "owner"}
+            userRol: { state: "owner"},
+            users: [{
+                email: user.email,
+                firstName: user.firstName,
+                lastName: user.lastName,
+                id: user.id,
+                image: user.image,
+                userRol: user.userRol
+            }]
         }
         user.dashboards.push(newProject)
         dispatch(api.newDashboard(state))

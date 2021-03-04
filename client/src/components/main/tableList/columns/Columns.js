@@ -72,7 +72,7 @@ export default function Columns({ title, task, index, uuid }){
     return (
         <div className={sContainer.containerColumns} key={uuid}>
             <TitleColumn title={title} uuid={uuid} index={index} />
-            <Droppable droppableId={`${String(index)} ${uuid}`}>
+            <Droppable droppableId={`${String(index)} ${uuid}`} >
                 {(provided) => (
                     <div {...provided.droppableProps} ref={provided.innerRef} className={sContainer.containerOverFlowTask}>
                         <div style={{ height: 5 }}></div>
