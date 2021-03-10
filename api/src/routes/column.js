@@ -33,6 +33,12 @@ server.put('/reordertask/', authenticateToken, (req, res ,next) => {
     .catch(next)
 })
 
+server.put('/reorderColumnPriority', authenticateToken, (req, res, next) => {
+    column.reorderColumnPriority(req.body)
+    .then(r => res.send(r))
+    .catch(next)
+})
+
 server.delete('/:uuid', authenticateToken, (req, res, next) => {
     const { uuid } = req.params;
     column.delete(uuid)

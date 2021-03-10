@@ -205,3 +205,16 @@
     text-decoration: underline;
     display: inline-block;
 }
+
+.buttonBoards {
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    text-align: left;
+    color: var(--colorTextH4);
+    padding: 5px 10px;
+    font-size: 15px;
+}

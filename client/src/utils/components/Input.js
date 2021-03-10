@@ -19,7 +19,7 @@ export function Input({ placeholder, type, onChangeText, name, s, number, value,
     )
 }
 
-export function TextArea({ placeholder, onChangeText, name, number, s, value, autoFocus, status, statusRead }) {
+export function TextArea({ placeholder, onChangeText, name, number, s, value, autoFocus, status, statusRead, style }) {
 
     let ref = useRef()
     useEffect(() => {
@@ -28,6 +28,7 @@ export function TextArea({ placeholder, onChangeText, name, number, s, value, au
 
     return (
         <textarea
+            style={style}
             className={sInput[s]}
             placeholder={placeholder}
             onChange={(e) => onChangeText(name, e.target.value)}

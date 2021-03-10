@@ -8,6 +8,9 @@ import FormAddMembers from './tableList/components/FormAddMembers';
 import Spinner from '../loading/Spinner';
 
 import sContainer from '../../styles/container.module.css';
+import FormNewColumn from './tableList/FormNewColumn';
+import AddMembers from './tableList/components/AddMembers';
+import ChangeBoards from './changeboards/ChangeBoards';
 
 export default function Main() {
 
@@ -17,13 +20,20 @@ export default function Main() {
     const spinner = useSelector(state => state.spinner)
     return (
         <>
-            {spinner && <Spinner /> }
+            {spinner && <Spinner />}
             <div className={sContainer.containerMain}>
-                <TableList />
+                <div className={sContainer.containerMemberBoards}>
+                    <AddMembers />
+                    <ChangeBoards/>
+                </div>
+                <div className={sContainer.containerTableListBody}>
+                    <TableList />
+                    <FormNewColumn />
+                </div>
             </div>
             {active && <Modify />}
-            {displayTaskActive && <DisplayTaskModify/>}
-            {activeFormAddMembers && <FormAddMembers/>}
+            {displayTaskActive && <DisplayTaskModify />}
+            {activeFormAddMembers && <FormAddMembers />}
         </>
     )
 }

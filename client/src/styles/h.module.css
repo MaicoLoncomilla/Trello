@@ -39,3 +39,12 @@
   font-weight: 400;
   margin-left: 10px;
 }
+
+.titleBoards {
+  font-size: 18px;
+  line-height: 20px;
+  font-weight: 500;
+  letter-spacing: .03px;
+  margin: 15px 0px;
+  
+}

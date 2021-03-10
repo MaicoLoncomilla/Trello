@@ -53,9 +53,7 @@ module.exports = {
     },
 
     modify: function (uuid, title) {
-        return Column.findOne({
-            where: { uuid: uuid }
-        })
+        return Column.findOne({ where: { uuid: uuid } })
             .then(column => column.update({ title: title }))
     },
     reorderTaskInColumn: function (uuid, columnUuid) {
@@ -65,6 +63,14 @@ module.exports = {
             }
         })
             .then(task => task.update({ columnUuid }))
+    },
+
+    reorderColumnPriority: function(column){
+        return Promise.all([
+            column.map(el => 
+                Column.findOne({ where: { uuid: el.uuid }})
+                .then(col => col.update({ columnPriority: el.columnPriority })))
+        ])
     },
 
     delete: function (uuid) {

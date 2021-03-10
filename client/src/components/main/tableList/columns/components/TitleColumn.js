@@ -62,23 +62,23 @@ export default function TitleColumn({ title, uuid, index }) {
 
     return (
         < >
-            <div className={sContainer.containerTitleVertIcon} ref={domnNode} key={uuid}>
+            <div className={sContainer.containerTitleVertIcon} ref={domnNode}>
                 <div className={sContainer.containerTextarea} ref={inputRef}>
-                    <TextArea
-                        s={"textAreaAddColumn"}
-                        placeholder={"Enter list title..."}
-                        number={255}
-                        value={titleColumn.title}
-                        onChangeText={onChangeTextColumn}
-                        type={"text"}
-                        name={"title"}
-                        autoFocus={true}
-                        status={activeInput ? false : true}
-                    />
+                        <TextArea
+                            s={"textAreaAddColumn"}
+                            style={{marginTop: 0}}
+                            placeholder={"Enter list title..."}
+                            number={255}
+                            value={titleColumn.title}
+                            onChangeText={onChangeTextColumn}
+                            type={"text"}
+                            name={"title"}
+                            autoFocus={true}
+                            status={activeInput ? false : true}
+                        />
                 </div>
                 <div
-                    
-                    style={{ cursor: "pointer", marginTop: 10 }}
+                    style={{ cursor: "pointer" }}
                     onClick={() => setActiveVertIcon(!activeVertIcon)}>
                     <MoreVertIcon />
                 </div>

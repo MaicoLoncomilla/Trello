@@ -105,6 +105,12 @@ const actionCreator = {
             axios.put(`${url}/column/reordertask/`, data, header)
         }
     },
+
+    reorderColumnPriority: function(data) {
+        return () => {
+            axios.put(`${url}/column/reorderColumnPriority`, data, header)
+        }
+    },
     // -------------- Task -----------------
     newTask: function(data){
         return () => {

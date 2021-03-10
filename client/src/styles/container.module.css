@@ -3,10 +3,37 @@
     -webkit-box-shadow: inset 0px 0px 15px 3px var(--backgroundColorBoxShadow);
     -moz-box-shadow: inset 0px 0px 15px 3px var(--backgroundColorBoxShadow);
     box-shadow: inset 0px 0px 15px 3px var(--backgroundColorBoxShadow);
-    height: calc(100% - 55px);
     background-color: #e6e6e6;
+    height: calc(100vh - 55px);
     position: fixed;
     width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+.containerTableListBody{
+    display: flex;
+    width: 100%;
+    overflow-y: hidden;
+    overflow-x: auto;
+    height: calc(100% - 55px);
+}
+
+.containerTableListBody::-webkit-scrollbar {
+    height: 12px;
+}
+.containerTableListBody::-webkit-scrollbar-track{
+    background-color: var(--backgroundTrack);
+    border-radius: 5px;
+}
+.containerTableListBody::-webkit-scrollbar-thumb{
+    background-color: var(--backgroundThumb);
+    border-radius: 5px;
+}
+
+.containerMemberBoards {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 /* ------ TableList Top ------*/
@@ -37,40 +64,114 @@
 .contaienerAddMembers:hover {
     background-color: rgba(9, 30, 66, .08);
 }
-
-/* ------ TableList body ------*/
-
-.containerTableListBody{
+.contaienerMembersChangeBoards {
     display: flex;
-    justify-content: flex-start;
-    align-items: flex-start;
-    width: 100%;
-    overflow-y: hidden;
-    overflow-x: auto;
-    height: calc(99% - 55px);
+    align-items: center;
+    padding: 5px 20px;
+    border: 1px solid var(--ColorTitleColumn);
+    border-radius: 3px;
+    color: var(--ColorTitleColumn);
+    margin-right: 10px;
+    cursor: pointer;
+}
+.contaienerMembersChangeBoards span {
+    margin-left: 5px;
 }
 
-.containerTableListBody::-webkit-scrollbar {
-    height: 12px;
+.sideBarBoards {
+    position: absolute;
+    top: 5px;
+    right: 0;
+    height: calc(100vh - 60px);
+    z-index: 1;
+    width: 300px;
+    background-color: var(--backgroundHeader);
+    -webkit-box-shadow: 0px 0px 10px 3px var(--backgroundColorBoxShadow);
+    -moz-box-shadow: 0px 0px 10px 3px var(--backgroundColorBoxShadow);
+    box-shadow: 0px 0px 10px 3px var(--backgroundColorBoxShadow);
+    transition: 1s;
 }
-.containerTableListBody::-webkit-scrollbar-track{
+
+.containerBoards {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    height: 95%;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+
+.containerBoards::-webkit-scrollbar {
+    width: 10px;
+}
+.containerBoards::-webkit-scrollbar-track{
     background-color: var(--backgroundTrack);
     border-radius: 5px;
 }
-.containerTableListBody::-webkit-scrollbar-thumb{
+.containerBoards::-webkit-scrollbar-thumb{
     background-color: var(--backgroundThumb);
     border-radius: 5px;
 }
 
+.containerMapBoards,
+.containerMapBoardsUuid {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 40px;
+    margin-bottom: 10px;
+    border-radius: 3px;
+    cursor: pointer;
+    background-color: var(--backgroundColumn);
+    position: relative;
+
+}
+.containerMapBoardsUuid {
+    color: #fff;
+    background-color: var(--ColorTitleColumn);
+}
+.containerMapBoardsUuid button {
+    color: #fff;
+}
+.containerMapBoards:hover{
+    color: #fff;
+    background-color: var(--ColorTitleColumn);
+}
+.containerMapBoards:hover button {
+    color: #fff;
+}
+.iconDeleteBoard {
+    max-width: 25px;
+    margin-right: 5px;
+    cursor: pointer;
+    visibility: hidden;
+}
+.iconDeleteBoard:hover {
+    color: var(--backgroundColorButtonClose);
+}
+.containerMapBoardsUuid:hover .iconDeleteBoard {
+    visibility: visible;
+}
+.containerMapBoards:hover .iconDeleteBoard{
+    visibility: visible;
+}
+
+
 /* ------ Columns body ------*/
+.containerDroppable {
+    display: flex;
+    align-items: flex-start;
+    height: 100%;
+}
 .containerColumns {
     display: flex;
     flex-direction: column;
     background-color: var(--backgroundColumn); 
     border-radius: 2px;
-    padding: 5px 10px;
-    overflow: hidden;
-    max-height: 85vh;
+    padding: 0px 10px;
+    padding-bottom: 5px;
+    max-height: 97%;
     margin-left: 15px;
     min-width: 272px;
     max-width: 272px;
@@ -79,6 +180,10 @@
     -moz-box-shadow: 0px 0px 10px 3px var(--backgroundColorBoxShadow);
     box-shadow: 0px 0px 10px 3px var(--backgroundColorBoxShadow);
 
+}
+.containerDraggable {
+    min-height: 20px;
+    max-height: 20px;
 }
 
 .containerTitleVertIcon{
@@ -111,6 +216,7 @@
     border-radius: 2px;
     margin: 0px 5px;
     margin-bottom: 10px;
+    margin-top: 5px;
     -webkit-box-shadow: 0px 0px 2px 1px var(--backgroundColorBoxShadow);
     -moz-box-shadow: 0px 0px 2px 1px var(--backgroundColorBoxShadow);
     box-shadow: 0px 0px 2px 1px var(--backgroundColorBoxShadow);
@@ -124,7 +230,6 @@
 }
 .containerTask {
     position: relative;
-    height: 100%;
 }
 .containerTask div {
     position: relative;
