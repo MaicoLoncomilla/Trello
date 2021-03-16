@@ -56,7 +56,7 @@ export default function Login() {
 
     return (
         <>
-            {user.id && <Redirect to="/" />}
+            {user.id && <Redirect to="/Trello/" />}
             <div className={sContainer.containerLogin}>
                 <div className={sContainer.containerMainLogin}>
                     <form onSubmit={(e) => onHandleLogin(e)} className={sForm.formLogin}>

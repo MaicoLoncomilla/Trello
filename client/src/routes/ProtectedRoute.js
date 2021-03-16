@@ -8,7 +8,7 @@ export default function ProtectedRoute({ user, Component, ...rest }) {
       if (user) {
         return <Component />
       } else {
-        return (<Redirect to={{pathname: "/login", state: { from: props.location }}} />)
+        return (<Redirect to={{pathname: "/Trello/login", state: { from: props.location }}} />)
       }
     }}>
     </Route>

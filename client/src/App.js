@@ -54,18 +54,18 @@ export default function App() {
       {loading && <Loading />}
       {!loading &&
         <Switch>
-          <Route exact path="/register" component={Register} />
-          <Route exact path="/login" component={Login} />
-          <Route exact path="/" render={() =>
+          <Route exact path="/Trello/register" component={Register} />
+          <Route exact path="/Trello/login" component={Login} />
+          <Route exact path="/Trello/" render={() =>
             <>
-              <ProtectedRoute path="/" Component={Header} user={user} />
-              <ProtectedRoute exact path="/" Component={Main} user={user} />
+              <ProtectedRoute path="/Trello/" Component={Header} user={user} />
+              <ProtectedRoute exact path="/Trello/" Component={Main} user={user} />
             </>
           }>
           </Route>
-          <ProtectedRoute exact path="/userProfile" Component={UserProfile} user={user} />
-          <ProtectedRoute exact path="/listProjects" Component={ListProjects} user={user} />
-          <Route path="/*" component={NotFound} />
+          <ProtectedRoute exact path="/Trello/userProfile" Component={UserProfile} user={user} />
+          <ProtectedRoute exact path="/Trello/listProjects" Component={ListProjects} user={user} />
+          <Route path="/Trello/*" component={NotFound} />
         </Switch>
       }
     </div>

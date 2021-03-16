@@ -17,7 +17,7 @@ export default function NotFound(){
           <h2>404</h2>
           <h3>Page not found!</h3>
           <p>I'm very sorry for incovenience. It looks you are trying to access a page that either has been deleted or never been existed</p>
-          <Link className={sContainer.Link} to="/">BACK TO HOME</Link>
+          <Link className={sContainer.Link} to="/Trello/">BACK TO HOME</Link>
         </div>
       </div>
     </div>

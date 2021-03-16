@@ -34,7 +34,7 @@ export default function Header() {
     })
     return (
         <div className={sHeader.containerFlex} ref={domnNode}>
-            <Link className={sButton.link} to="/">
+            <Link className={sButton.link} to="/Trello/">
                 <div className={sHeader.containerTitleDashboard}>
                     <img src={Trello_Logo} alt="Trello_Logo"/>
                     <span>Trello</span>
@@ -42,7 +42,7 @@ export default function Header() {
             </Link>
             <div className={sHeader.containerAvatarName}>
                 <Link
-                    to="/userProfile"
+                    to="/Trello/userProfile"
                     className={sButton.link}
                     onClick={() => setMenuActive(false)}>
                     <div className={sHeader.containerAvatar}>

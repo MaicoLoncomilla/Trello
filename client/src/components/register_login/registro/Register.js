@@ -70,7 +70,7 @@ export default function Register() {
                         <span>Already have an account?</span>
                         <Link
                             className={sButton.linkLogin}
-                            to="/login">Sign In
+                            to="/Trello/login">Sign In
                         </Link>
                     </div>
                 </div>

@@ -17,15 +17,15 @@ export default function Menu({ image, onHandleLogOut, menuActive, setMenuActive 
   const arrayMenu = [{
     icon: <HomeIcon />,
     title: "Home",
-    to: "/"
+    to: "/Trello/"
   }, {
     icon: <DescriptionIcon />,
     title: 'Project List',
-    to: "/listProjects"
+    to: "/Trello/listProjects"
   }, {
     icon: <PersonIcon />,
     title: "Profile",
-    to: "/userProfile"
+    to: "/Trello/userProfile"
   }]
   const user = useSelector(state => state.user)
   return (
