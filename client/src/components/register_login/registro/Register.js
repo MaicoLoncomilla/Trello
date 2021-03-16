@@ -57,7 +57,7 @@ export default function Register() {
     }
     return (
         <>
-            {user.id && <Redirect to="/" />}
+            {user.id && <Redirect to="/Trello/" />}
             <div className={sContainer.containerLogin}>
                 <div className={sContainer.containerMainLogin}>
                     <form onSubmit={(e) => onHandleCreateUser(e)} className={sForm.formLogin}>

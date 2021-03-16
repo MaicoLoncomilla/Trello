@@ -68,7 +68,7 @@ export default function Login() {
                         <span>Don't have an account?</span>
                         <Link
                             className={sButton.linkLogin}
-                            to="/register">Register
+                            to="/Trello/register">Register
                         </Link>
                     </div>
                 </div>
