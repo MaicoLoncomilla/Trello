@@ -42,8 +42,10 @@ export default function List({ el, ModifyBoard, DeleteBoard }) {
                 uuid: el.uuid,
                 idUser: user.id
             }
+            // let newDashboard = el
+            // newDashboard.title = title
             ModifyBoard(title, index)
-            
+            // dispatch({ type: DASHBOARD, payload: newDashboard })
             dispatch(api.modifyDashboard(BoardModify))
         }
     }

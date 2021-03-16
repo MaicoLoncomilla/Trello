@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 
 import useClickOutside from '../../../utils/functions/useClickOutside';
 import UserAvatar from '../../../utils/components/UserAvatar';
+import Trello_Logo from '../../../assets/Trello_logo.png';
 import api from '../../../redux/action-creator';
 import Menu from './Menu';
 
@@ -36,8 +37,8 @@ export default function Header() {
         <div className={sHeader.containerFlex} ref={domnNode}>
             <Link className={sButton.link} to="/">
                 <div className={sHeader.containerTitleDashboard}>
-                    <p>{dashboard ? dashboard.title : user.id ? user.dashboards[0].title : false}
-                    </p>
+                    <img src={Trello_Logo} />
+                    <span>Trello</span>
                 </div>
             </Link>
             <div className={sHeader.containerAvatarName}>

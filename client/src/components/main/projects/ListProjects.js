@@ -5,6 +5,7 @@ import Swal from 'sweetalert2';
 
 import { Button } from '../../../utils/components/Button';
 import api from '../../../redux/action-creator';
+import Header from '../header/Header';
 import List from './list/List';
 
 import sContainer from '../../../styles/container.module.css';
@@ -82,6 +83,8 @@ export default function ListProjects() {
     }, [dispatch, user, DASHBOARD, dashboard, USER])
 
     return (
+        <>
+        <Header/>
         <div className={sContainer.containerListProject}>
             <div className={sContainer.container}>
                 <div className={sContainer.containerListAndNewProject}>
@@ -104,5 +107,6 @@ export default function ListProjects() {
                 </div>
             </div>
         </div>
+        </>
     )
 }

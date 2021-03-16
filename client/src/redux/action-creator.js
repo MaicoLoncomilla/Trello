@@ -1,7 +1,7 @@
-import axios from 'axios';
-import actions from './actions';
 import { url } from '../utils/url';
+import actions from './actions';
 import Swal from 'sweetalert2';
+import axios from 'axios';
 
 const { SPINNER } = actions
 

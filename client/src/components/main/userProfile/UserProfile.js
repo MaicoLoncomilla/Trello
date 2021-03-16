@@ -5,9 +5,11 @@ import dataURLtoFile from '../../../utils/functions/dataURLtoFile';
 import UserAvatar from '../../../utils/components/UserAvatar';
 import PhotoCameraIcon from '@material-ui/icons/PhotoCamera';
 import api from '../../../redux/action-creator';
+import Header from '../header/Header';
 
 import sContainer from '../../../styles/container.module.css';
 import sText from '../../../styles/text.module.css';
+
 
 export default function UserProfile(){
 
@@ -37,6 +39,8 @@ export default function UserProfile(){
     img && imgUpload && onSubmit()
 
     return (
+        <>
+        <Header/>
         <div className={sContainer.containerUserProfile}>
             <div className={sContainer.containerAvatar}>
                 <UserAvatar size={150} image={image} />
@@ -53,5 +57,6 @@ export default function UserProfile(){
                 <p className={sText.textEmail}>{user.email}</p>
             </div>
         </div>
+        </>
     )
 }

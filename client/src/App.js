@@ -8,6 +8,7 @@ import Register from './components/register_login/registro/Register';
 import UserProfile from './components/main/userProfile/UserProfile';
 import ListProjects from './components/main/projects/ListProjects';
 import Login from './components/register_login/login/Login';
+import NotFound from './components/notFound/NotFound';
 import Header from './components/main/header/Header';
 import ProtectedRoute from './routes/ProtectedRoute';
 import Loading from './components/loading/Loading';
@@ -19,11 +20,12 @@ import { url } from './utils/url';
 import './App.css';
 
 export default function App() {
+  
   const dispatch = useDispatch();
   const user = useSelector(state => state.user)
-  const { USER} = api;
+  const { USER } = api;
   const { SPINNER } = actions
-  const [ loading, setLoading ] = useState(true)
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     const token = localStorage.getItem('token')
@@ -49,17 +51,21 @@ export default function App() {
 
   return (
     <div className="App">
-      {loading && <Loading/>}
+      {loading && <Loading />}
       {!loading &&
         <Switch>
           <Route exact path="/register" component={Register} />
           <Route exact path="/login" component={Login} />
-          <>
-            <ProtectedRoute path="/" Component={Header} user={user} />
-            <ProtectedRoute exact path="/" Component={Main} user={user} />
-            <ProtectedRoute path="/userProfile" Component={UserProfile} user={user} />
-            <ProtectedRoute path="/listProjects" Component={ListProjects} user={user} />
-          </>
+          <Route exact path="/" render={() =>
+            <>
+              <ProtectedRoute path="/" Component={Header} user={user} />
+              <ProtectedRoute exact path="/" Component={Main} user={user} />
+            </>
+          }>
+          </Route>
+          <ProtectedRoute exact path="/userProfile" Component={UserProfile} user={user} />
+          <ProtectedRoute exact path="/listProjects" Component={ListProjects} user={user} />
+          <Route path="/*" component={NotFound} />
         </Switch>
       }
     </div>

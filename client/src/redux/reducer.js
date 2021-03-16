@@ -4,13 +4,12 @@ import actionCreator from './action-creator';
 import actions from './actions';
 
 const { USER, DASHBOARD, COLUMN } = actionCreator;
-const { BUTTONTASKACTIVE, DISPLAYTASK, LISTADDTOCARD, SPINNER } = actions
+const { DISPLAYTASK, LISTADDTOCARD, SPINNER } = actions
 
 const initialState = {
     user: false,
     dashboard: false,
     column: [],
-    buttonTaskActive: false,
     displayTask: false,
     listAddToCard: false,
     spinner: false
@@ -33,11 +32,6 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 column: action.payload
-            }
-        case BUTTONTASKACTIVE:
-            return {
-                ...state,
-                buttonTaskActive: action.payload
             }
         case DISPLAYTASK:
             return {
