@@ -154,9 +154,9 @@ export function ListMembers({ position, task, index, indexTask }) {
     }
 
     const onHandleAddMembers = (el) => {
-
-        const hasUser = task.users.some(elUser => elUser.email === el.email)
-        const hasIndex = task.users.findIndex(elUser => elUser.email === el.email)
+        
+        const hasUser = task.users?.some(elUser => elUser.email === el.email)
+        const hasIndex = task.users?.findIndex(elUser => elUser.email === el.email)
         let data = {
             email: el.email,
             uuid: task.uuid

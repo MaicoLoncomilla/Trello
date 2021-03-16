@@ -17,7 +17,6 @@ import sButton from '../../../styles/button.module.css';
 export default function Header() {
 
     const user = useSelector(state => state.user)
-    const dashboard = useSelector(state => state.dashboard)
     const [menuActive, setMenuActive] = useState(false)
     const image = user.image && `${user.image.url}`
     const { USER } = api
@@ -37,7 +36,7 @@ export default function Header() {
         <div className={sHeader.containerFlex} ref={domnNode}>
             <Link className={sButton.link} to="/">
                 <div className={sHeader.containerTitleDashboard}>
-                    <img src={Trello_Logo} />
+                    <img src={Trello_Logo} alt="Trello_Logo"/>
                     <span>Trello</span>
                 </div>
             </Link>
