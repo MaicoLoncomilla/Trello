@@ -4,17 +4,14 @@ import actionCreator from './action-creator';
 import actions from './actions';
 
 const { USER, DASHBOARD, COLUMN } = actionCreator;
-const { BUTTONTASKACTIVE, BUTTONNEWPROJECT, BUTTONMODIFYPROJECT, DISPLAYTASK, ACTIVEFORMADDMEMBERS, LISTADDTOCARD, SPINNER } = actions
+const { BUTTONTASKACTIVE, DISPLAYTASK, LISTADDTOCARD, SPINNER } = actions
 
 const initialState = {
     user: false,
     dashboard: false,
     column: [],
     buttonTaskActive: false,
-    buttonNewProject: false,
-    buttonModifyProject: false,
     displayTask: false,
-    activeFormAddMembers: false,
     listAddToCard: false,
     spinner: false
 }
@@ -42,25 +39,10 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 buttonTaskActive: action.payload
             }
-        case BUTTONNEWPROJECT:
-            return {
-                ...state,
-                buttonNewProject: action.payload
-            }
-        case BUTTONMODIFYPROJECT:
-            return {
-                ...state,
-                buttonModifyProject: action.payload
-            }
         case DISPLAYTASK:
             return {
                 ...state,
                 displayTask: action.payload
-            }
-        case ACTIVEFORMADDMEMBERS:
-            return {
-                ...state,
-                activeFormAddMembers: action.payload
             }
         case LISTADDTOCARD:
             return {

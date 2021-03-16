@@ -1,4 +1,4 @@
-const { Task, Column, Comment, User, ImageTask } = require('../db.js')
+const { Task, User, ImageTask } = require('../db.js')
 const column = require('./column')
 module.exports = {
 

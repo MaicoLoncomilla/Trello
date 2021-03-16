@@ -13,11 +13,11 @@ server.get('/uuid', authenticateToken, (req, res, next) => {
 })
 
 server.post('/', authenticateToken, (req, res, next) => {
-    const { title, description, idUser, uuid } = req.body;
-    if (!title || !description) {
-        return res.status(400).send('You need a title and description to create a new dashboard')
+    const { title, idUser, uuid, dashboardPriority } = req.body;
+    if (!title) {
+        return res.status(400).send('You need a title to create a new dashboard')
     }
-    dashboard.create(title, description, idUser, uuid)
+    dashboard.create(title, idUser, uuid, dashboardPriority)
         .then(r => res.send(r))
         .catch(next)
 })
@@ -31,11 +31,11 @@ server.post('/addMembers', authenticateToken, (req, res, next) => {
 })
 
 server.put('/', authenticateToken, (req, res, next) => {
-    const { uuid, title, description, idUser } = req.body;
-    if (!title || !description) {
-        return res.status(400).send('You need an Title and description to modify Dashboard')
+    const { uuid, title, idUser } = req.body;
+    if (!title) {
+        return res.status(400).send('You need an Title to modify Dashboard')
     }
-    dashboard.modify(uuid, title, description, idUser)
+    dashboard.modify(uuid, title, idUser)
         .then(r => res.send(r))
         .catch(next)
 })

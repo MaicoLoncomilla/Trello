@@ -1,16 +1,16 @@
-const { Task, Column, User, Dashboard, UserRol, Image } = require('../db.js');
-const { v4 } = require('uuid')
+const { User, Dashboard, Image } = require('../db.js');
+const { v4 } = require('uuid');
 const uuidv4 = v4;
 module.exports = {
     
     login: function (email, password) {
         return User.findOne({
-            attributes: ['id', 'email', 'password', 'firstName', 'lastName'],
+            attributes: ['id', 'email', 'password', 'firstName', 'lastName', 'salt'],
             where: { email: email },
             include: [{
                 model: Dashboard,
-                attributes: ['title', 'description', 'uuid'],
-                order: ["createdAt"],
+                attributes: ['title', 'uuid', 'dashboardPriority'],
+                order: ['dashboardPriority'],
                 through: {
                     attributes: ['state']
                 },
@@ -27,16 +27,20 @@ module.exports = {
                 attributes: ['url']
             }]
         })
-            .then(user => this.matchPassword(user, password))
+            .then(user => {
+                if(!user) throw "The email you entered isn't connected to an account. Create a new account."
+                return this.matchPassword(user, password)
+            })
             .then(user => this.loginUser(user))
     },
     matchPassword: function (user, password) {
-        if (user.password !== password) throw 'Wrong password'
+        if(!user.correctPassword(password)) throw 'Email or Password incorrect'
         return user
     },
     loginUser: function (user) {
         const sesion = {...user.dataValues}
         delete sesion.password
+        delete sesion.salt
         return sesion
     },
 
@@ -64,38 +68,34 @@ module.exports = {
                     }),
                     Dashboard.create({
                         title: 'Title',
-                        description: 'Description',
-                        uuid: uuidv4()
+                        uuid: uuidv4(),
+                        dashboardPriority: 1
                     }),
                 ])
             })
             .then(([user, dashboard]) => user.addDashboard(dashboard, { through: { state: 'owner' }}))
             .then(([{userId}]) => this.getById(userId))
     },
-    // addDashboard añadir datos al dashboard
-    // addUser
-    // set pisa el array anterior, hay que pasarle un array
-    // ver destroyDashboard 
 
     getById: function (id) {
         return User.findOne({
-            attributes: ['id', 'email', 'firstName', 'lastName'],
+            attributes: ['id', 'email', 'password', 'firstName', 'lastName', 'salt'],
             where: { id: id },
             include: [{
                 model: Dashboard,
-                attributes: ['title', 'description', 'uuid'],
-                order: ["createdAt"],
+                attributes: ['title', 'uuid', 'dashboardPriority'],
+                order: ['dashboardPriority'],
                 through: {
                     attributes: ['state']
                 },
-                include: [{
+                include: {
                     model: User,
                     attributes: ['id', 'firstName', 'lastName', 'email'],
                     include: {
                         model: Image,
                         attributes: ['url']
                     }
-                }]
+                }
             },{
                 model: Image,
                 attributes: ['url']

@@ -3,9 +3,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
 
 import useClickOutside from '../../../utils/functions/useClickOutside';
-import api from '../../../redux/action-creator';
 import FormAddColumn from './formAddColumn/FormAddColumn';
 import { Button } from '../../../utils/components/Button';
+import { ToastTimer } from '../../../utils/alerts/Alert';
+import api from '../../../redux/action-creator';
 
 import AddIcon from '@material-ui/icons/Add';
 
@@ -15,7 +16,9 @@ export default function FormNewColumn() {
   const column = useSelector(state => state.column)
   const user = useSelector(state => state.user)
   const dashboard = useSelector(state => state.dashboard)    
-  const [state, setState] = useState({})
+  const [state, setState] = useState({
+    title: ""
+  })
   const dispatch = useDispatch()
   const onChangeText = (name, value) => {
     setState({ ...state, [name]: value })
@@ -23,7 +26,11 @@ export default function FormNewColumn() {
   const onHandleSubmit = (e) => {
     e.preventDefault()
     if (!state.title) {
-      return alert('The list should have a title')
+      setActiveInput(false)
+      setState({ title: ""})
+      return ToastTimer.fire('Deny!',
+      "The list should have a title",
+      "info")
     }
     const newColumn = {
       title: state.title,
@@ -50,9 +57,10 @@ export default function FormNewColumn() {
 
   let domnNode = useClickOutside(() => {
     setActiveInput(false)
+    setState({ title: ""})
   })
   return (
-    <div ref={domnNode}>
+    <div ref={domnNode} style={{height: "max-content"}}>
       {activeInput ?
         <FormAddColumn
           onSubmit={onHandleSubmit}

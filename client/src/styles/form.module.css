@@ -33,4 +33,10 @@
     display: flex;
     justify-content: center;
     flex-direction: column;
+    background-color: #ecedef;
+    max-width: 500px;
+    margin: auto;
+    padding: 25px 25px;
+    border-radius: 4px;
+    width: 100%;
 }

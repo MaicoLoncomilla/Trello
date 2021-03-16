@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { url } from '../../utils/url';
 import emptyAvatar from '../../assets/emptyAvatar.png';
+import { url } from '../../utils/url';
 
 import sSection from '../../styles/section.module.css';
 

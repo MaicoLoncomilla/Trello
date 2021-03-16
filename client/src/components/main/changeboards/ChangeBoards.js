@@ -17,7 +17,10 @@ export default function ChangeBoards() {
           <span>Boards</span>
         </div>
         :
-        <SideBarBoards setSideBar={setSideBar} sideBar={sideBar} />}
+        <SideBarBoards
+          setSideBar={setSideBar}
+          sideBar={sideBar}
+        />}
     </>
   )
 }

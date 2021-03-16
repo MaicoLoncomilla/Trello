@@ -1,13 +1,15 @@
 import axios from 'axios';
 import actions from './actions';
 import { url } from '../utils/url';
+import Swal from 'sweetalert2';
+
 const { SPINNER } = actions
 
 const header = {
-    headers: { 'x-access-token': localStorage.getItem('token')}
+    headers: { 'x-access-token': localStorage.getItem('token') }
 }
 const actionCreator = {
-    
+
     USER: "USER",
     login: function (data) {
         return dispatch => {
@@ -15,14 +17,14 @@ const actionCreator = {
             this._dispatchPromiseToken(promise, false, dispatch)
         }
     },
-    loginWithToken: function(token){
-       return dispatch => {
-           const promise = axios.get(`${url}/user/${token}`)
-           this._dispatchPromise(promise, this.USER, dispatch)
-       } 
+    loginWithToken: function (token) {
+        return dispatch => {
+            const promise = axios.get(`${url}/user/${token}`)
+            this._dispatchPromise(promise, this.USER, dispatch)
+        }
     },
 
-    getUser: function(data) {
+    getUser: function (data) {
         return dispatch => {
             const promise = axios.get(`${url}/user/${data}`)
             this._dispatchPromise(promise, this.USER, dispatch)
@@ -35,7 +37,7 @@ const actionCreator = {
             this._dispatchPromiseToken(promise, this.USER, dispatch)
         }
     },
-    addImgUser: function(data, id) {
+    addImgUser: function (data, id) {
         return dispatch => {
             const promise = axios.post(`${url}/image/${id}`, data, header)
             this._dispatchPromise(promise, this.USER, dispatch)
@@ -43,176 +45,191 @@ const actionCreator = {
     },
 
     DASHBOARD: 'DASHBOARD',
-    getDashboard: function(id){
+    getDashboard: function (id) {
         return dispatch => {
             const promise = axios.get(`${url}/dashboard/${id}`, header)
             this._dispatchPromise(promise, this.USER, dispatch)
         }
     },
 
-    newDashboard: function(data){
+    newDashboard: function (data) {
         return () => {
             axios.post(`${url}/dashboard/`, data, header)
         }
     },
 
-    modifyDashboard: function(data){
-        return dispatch =>{
-            const promise = axios.put(`${url}/dashboard/`, data, header)
-            this._dispatchPromise(promise, this.USER, dispatch)
+    modifyDashboard: function (data) {
+        return () => {
+            axios.put(`${url}/dashboard/`, data, header)
         }
     },
 
-    deleteDashboard: function({uuid, idUser}){
+    deleteDashboard: function ({ uuid, idUser }) {
         return dispatch => {
             const promise = axios.delete(`${url}/dashboard/${uuid}/${idUser}`, header)
             this._dispatchPromise(promise, false, dispatch)
         }
     },
 
-    addMembers: function(data) {
+    addMembers: function (data) {
         return dispatch => {
             const promise = axios.post(`${url}/dashboard/addMembers/`, data, header)
             this._dispatchPromise(promise, this.USER, dispatch, 'addMembers')
         }
     },
-    
+
     COLUMN: 'COLUMN',
-    newColumn: function(data) {
+    newColumn: function (data) {
         return () => {
             axios.post(`${url}/column/`, data, header)
         }
     },
-    getColumn: function(id){
+    getColumn: function (id) {
         return dispatch => {
             const promise = axios.get(`${url}/column/${id}`)
             this._dispatchPromise(promise, this.COLUMN, dispatch, 'getColumn')
         }
     },
 
-    modifyColumn: function(data) {
+    modifyColumn: function (data) {
         return () => {
             axios.put(`${url}/column/`, data, header)
         }
     },
-    deleteColumn: function({ uuid }){
+    deleteColumn: function ({ uuid }) {
         return () => {
             axios.delete(`${url}/column/${uuid}`, header)
         }
     },
-    reorderTaskInColumn: function(data){
+    reorderTaskInColumn: function (data) {
         return () => {
             axios.put(`${url}/column/reordertask/`, data, header)
         }
     },
 
-    reorderColumnPriority: function(data) {
+    reorderColumnPriority: function (data) {
         return () => {
             axios.put(`${url}/column/reorderColumnPriority`, data, header)
         }
     },
     // -------------- Task -----------------
-    newTask: function(data){
+    newTask: function (data) {
         return () => {
             axios.post(`${url}/task/`, data, header)
         }
     },
 
-    modifyTask: function(data){
+    modifyTask: function (data) {
         return () => {
             axios.put(`${url}/task/`, data, header)
         }
     },
 
-    deleteTask: function({ uuid }) {
+    deleteTask: function ({ uuid }) {
         return () => {
             axios.delete(`${url}/task/${uuid}`, header)
         }
     },
 
-    reorderTask: function(data) {
+    reorderTask: function (data) {
         return () => {
             axios.put(`${url}/task/reorder/`, data, header)
         }
     },
 
-    addMemberInTask: function(data){
+    addMemberInTask: function (data) {
         return () => {
             axios.post(`${url}/task/addMember/`, data, header)
         }
     },
 
-    removeMemberInTask: function(data){
+    removeMemberInTask: function (data) {
         return () => {
             axios.put(`${url}/task/removeMemberInTask/`, data, header)
         }
     },
 
-    addCoverImage: function(formData, data) {
+    addCoverImage: function (formData, data) {
         return dispatch => {
             const promise = axios.post(`${url}/imageTask/addCoverTask/${data.uuid}/${data.dashboardUuid}`, formData, header)
             this._dispatchPromise(promise, this.COLUMN, dispatch)
         }
     },
-    removeCoverImage: function(uuid) {
+    removeCoverImage: function (uuid) {
         return () => {
             axios.delete(`${url}/imageTask/${uuid}`, header)
         }
     },
 
     // -------------- Commentary -----------------
-    createComment: function(data){
+    createComment: function (data) {
         return () => {
             axios.post(`${url}/comment/`, data, header)
         }
     },
 
-    modifyComment: function(data){
+    modifyComment: function (data) {
         return () => {
             axios.put(`${url}/comment/`, data, header)
         }
     },
 
-    deleteComment: function({ uuid }){
+    deleteComment: function ({ uuid }) {
         return () => {
             axios.delete(`${url}/comment/${uuid}`, header)
         }
     },
-    
-    _dispatchPromise: function(promise, type, dispatch, text){
+
+    _dispatchPromise: function (promise, type, dispatch, text) {
         return promise
-        .then(({data}) => {
-            // console.log(data)
-            if(text) {
-                dispatch({ type: SPINNER, payload: false})
-            }
-            dispatch({type: type, payload: data})
-        })
-        .catch(err => {
-            if(text){
-                dispatch({ type: SPINNER, payload: false})
-            }
-            if(err.response){
-                alert(`Error! \n ${err.response.data}`);
-            }else{
-                alert(`Error! ${err}`);
-            }
-        })
+            .then(({ data }) => {
+                // console.log(data)
+                if (text) {
+                    dispatch({ type: SPINNER, payload: false })
+                }
+                dispatch({ type: type, payload: data })
+            })
+            .catch(err => {
+                if (text) {
+                    dispatch({ type: SPINNER, payload: false })
+                }
+                if (err.response) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: `Error! \n ${err.response.data}`,
+                    })
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: `Error! ${err}`,
+                    })
+                }
+            })
     },
 
-    _dispatchPromiseToken: function(promise, type, dispatch){
-        return promise 
-        .then(({data}) => {
-            dispatch({ type: this.USER, payload: data.user })
-            localStorage.setItem('token', data.token)
-        })
-        .catch(err => {
-            if(err.response){
-                alert(`Error! \n Status: ${err.response.status} \n ${err.response.data}`);
-            }else{
-                alert(`Error! ${err}`);
-            }
-        })
+    _dispatchPromiseToken: function (promise, type, dispatch) {
+        return promise
+            .then(({ data }) => {
+                dispatch({ type: this.USER, payload: data.user })
+                localStorage.setItem('token', data.token)
+            })
+            .catch(err => {
+                if (err.response) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: `Error! \n ${err.response.data}`,
+                    })
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: `Error! ${err}`,
+                    })
+                }
+            })
     }
 }
 

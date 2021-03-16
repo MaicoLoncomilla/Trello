@@ -9,6 +9,7 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 
 import sContainer from '../../../../../styles/container.module.css'
 import sButton from '../../../../../styles/button.module.css'
+import { ToastTimer } from '../../../../../utils/alerts/Alert';
 
 export default function TitleColumn({ title, uuid, index }) {
     const [ activeInput, setActiveInput ] = useState(false);
@@ -34,23 +35,25 @@ export default function TitleColumn({ title, uuid, index }) {
     let inputRef = useRef();
     useEffect(() => {
         let handler = (e) => {
-            if(inputRef.current.contains(e.target)){
+            if (inputRef.current.contains(e.target)) {
                 setActiveInput(true)
                 setDispatchInput(true)
             }
-            if(!inputRef.current.contains(e.target)) {
+            if (!inputRef.current.contains(e.target)) {
                 setActiveInput(false)
-                if(!titleColumn.title) return alert('Column Need a title')
-                if(dispatchInput && title !== titleColumn.title) {
+                if (!titleColumn.title) return ToastTimer.fire('Deny!',
+                    "Column Need a title",
+                    "info")
+                if (dispatchInput && title !== titleColumn.title) {
                     column[index].title = titleColumn.title
-                    dispatch({ type: COLUMN, payload: Object.values(column)})
-                    
+                    dispatch({ type: COLUMN, payload: Object.values(column) })
+
                     dispatch(api.modifyColumn(titleColumn))
                     setDispatchInput(false)
                 }
 
             }
-        } 
+        }
         document.addEventListener('mousedown', handler);
         return () => {
             document.removeEventListener('mousedown', handler)

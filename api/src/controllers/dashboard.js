@@ -1,18 +1,17 @@
-const { Dashboard, User, Column, Task, Image, UserRol, Comment } = require('../db');
-const { login } = require('./user');
+const { Dashboard, User, Image } = require('../db');
 const user = require('./user')
 
 module.exports = {
 
-    create: function(title, description, idUser, uuid) {
+    create: function(title, idUser, uuid, dashboardPriority) {
         return Promise.all([
             User.findOne({
                 where: { id: idUser}
             }),
             Dashboard.create({
                 title: title,
-                description: description,
-                uuid: uuid
+                uuid: uuid,
+                dashboardPriority: dashboardPriority
             })
         ]) 
         .then(([user, dashboard]) => user.addDashboard(dashboard, { through: { state: 'owner' }}))
@@ -25,22 +24,16 @@ module.exports = {
         ])
             .then(([user, dashboard]) => {
                 if (!user) throw 'User not found'
-                dashboard.addUser(user, { through: { state: 'owner' } })
+                return dashboard.addUser(user, { through: { state: 'owner' } })
             })
-            .then(() => {
-                return User.findOne({
-                    where: { id: idUser },
-                    attributes: ['email', 'password']
-                })
-            })
-            .then(({ dataValues }) => user.login(dataValues.email, dataValues.password))
+            .then(() => user.getById(idUser))
     },
 
-    modify: function (uuid, title, description, idUser) {
+    modify: function (uuid, title, idUser) {
         return Dashboard.findOne({
             where: { uuid: uuid }
         })
-            .then(dashboard => dashboard.update({ title, description }))
+            .then(dashboard => dashboard.update({ title }))
             .then(() => user.getById(idUser))
     },
 

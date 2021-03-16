@@ -2,8 +2,9 @@ import React from 'react';
 import { Draggable } from 'react-beautiful-dnd';
 import { useDispatch } from 'react-redux';
 
-import Task from './Task';
 import actions from '../../../../redux/actions';
+import Task from './Task';
+
 import sContainer from '../../../../styles/container.module.css';
 
 export default function TaskDraggable({ task }) {

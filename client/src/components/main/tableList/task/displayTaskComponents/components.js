@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { url } from '../../../../../utils/url';
-import api from '../../../../../redux/action-creator';
-import actions from '../../../../../redux/actions';
-import dataURLtoFile from '../../../../../utils/functions/dataURLtoFile';
-import useClickOutside from '../../../../../utils/functions/useClickOutside';
 import { Button, ButtonComment } from '../../../../../utils/components/Button';
-import { H3 } from '../../../../../utils/components/Titles';
+import useClickOutside from '../../../../../utils/functions/useClickOutside';
+import dataURLtoFile from '../../../../../utils/functions/dataURLtoFile';
 import UserAvatar from '../../../../../utils/components/UserAvatar';
 import { TextArea } from '../../../../../utils/components/Input';
 import FormColumn from '../../columns/components/FormColumn';
+import { H3 } from '../../../../../utils/components/Titles';
+import api from '../../../../../redux/action-creator';
+import actions from '../../../../../redux/actions';
+import { url } from '../../../../../utils/url';
 
 import CloseIcon from '@material-ui/icons/Close';
 

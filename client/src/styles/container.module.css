@@ -77,6 +77,10 @@
 .contaienerMembersChangeBoards span {
     margin-left: 5px;
 }
+.contaienerMembersChangeBoards:hover {
+    background-color: var(--ColorTitleColumn);
+    color: #fff;
+}
 
 .sideBarBoards {
     position: absolute;
@@ -303,7 +307,7 @@
 .container{
     max-width: 1200px;
     width: 100%;
-    min-width: 500px;
+    min-width: 320px;
     margin:  0 auto;
     display: flex;
     flex-direction: column;
@@ -383,15 +387,17 @@
 .containerLogin {
     display: flex;
     flex-direction: column;
-    background-color: var(--backgroundColumn);
-    -webkit-box-shadow: inset 0px 0px 15px 3px var(--backgroundColorBoxShadow);
-    -moz-box-shadow: inset 0px 0px 15px 3px var(--backgroundColorBoxShadow);
-    box-shadow: inset 0px 0px 15px 3px var(--backgroundColorBoxShadow);
-    padding: 10px 15px;
-    border-radius: 8px;
-    max-width: 550px;
+    background-color: var(--backgroundLogin);
+    height: 100vh;
     width: 100%;
+    position: relative;
+    padding: 10px;
+}
+.containerMainLogin {
+    display: flex;
+    flex-direction: column;
     margin: auto;
+    width: 100%;
 }
 .containerIconInput{
     display: flex;
@@ -401,9 +407,18 @@
     -webkit-box-shadow: 0px 0px 3px 2px var(--backgroundColorBoxShadow);
     -moz-box-shadow: 0px 0px 3px 2px var(--backgroundColorBoxShadow);
     box-shadow: 0px 0px 3px 2px var(--backgroundColorBoxShadow);
-    margin: 10px 0;
+    margin-bottom: 30px;
     padding: 5px 15px;
     border-radius: 3px;
+}
+.containerSpanLink {
+    display: flex;
+    align-items: center;
+    margin: auto;
+    margin-top: 10px;
+}
+.containerSpanLink span {
+    color: #a0cff5;
 }
 
 /* --------------- Componente DisplayTask --------------- */

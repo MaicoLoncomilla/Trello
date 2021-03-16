@@ -1,16 +1,20 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import api from '../../../redux/action-creator';
 import { Link, Redirect } from 'react-router-dom';
 
+import { ButtonSubmit } from '../../../utils/components/Button';
+import { ToastTimer } from '../../../utils/alerts/Alert';
 import { Input } from '../../../utils/components/Input';
+import { H2 } from '../../../utils/components/Titles';
+import api from '../../../redux/action-creator';
 
-import MailOutlineIcon from '@material-ui/icons/MailOutline';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import PersonOutlineOutlinedIcon from '@material-ui/icons/PersonOutlineOutlined';
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import MailOutlineIcon from '@material-ui/icons/MailOutline';
 
 import sContainer from '../../../styles/container.module.css';
 import sButton from '../../../styles/button.module.css';
+import sForm from '../../../styles/form.module.css';
 
 export default function Register() {
 
@@ -24,23 +28,28 @@ export default function Register() {
     const onHandleCreateUser = (e) => {
         e.preventDefault();
         if (!state.firstName || !state.lastName || !state.email || !state.password || !state.repeatPassword) {
-            return alert('error')
+            return ToastTimer.fire('Deny!',
+                "Complete the form",
+                "info")
         } else if (!/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(state.email)) {
-            return alert('Error lo ingresado no es un Email')
+            return ToastTimer.fire('Deny!',
+            "Invalid email address",
+            "error")
         }
         dispatch(api.register(state))
     }
 
-    const containerInput = (placeholder, type, name) => {
+    const containerInput = (el, index) => {
         return (
-            <div className={sContainer.containerIconInput}>
-                { type === "email" && <MailOutlineIcon />}
-                { type === "password" && <LockOutlinedIcon />}
+            <div className={sContainer.containerIconInput} key={index}>
+                { el.type === "text" && <PersonOutlineOutlinedIcon style={{ color: "#54adec" }}/>}
+                { el.type === "email" && <MailOutlineIcon style={{ color: "#54adec" }}/>}
+                { el.type === "password" && <LockOutlinedIcon style={{ color: "#54adec" }}/>}
                 <Input
                     s={"inputsLogin"}
-                    placeholder={placeholder}
-                    type={type}
-                    name={name}
+                    placeholder={el.placeholder}
+                    type={el.type}
+                    name={el.name}
                     onChangeText={onChangeText}
                 />
             </div>
@@ -49,41 +58,45 @@ export default function Register() {
     return (
         <>
             {user.id && <Redirect to="/" />}
-            <form onSubmit={(e) => onHandleCreateUser(e)}
-                className={sContainer.containerLogin}>
-                <div className={sContainer.containerIconInput}>
-                    <PersonOutlineOutlinedIcon />
-                    <Input
-                        s={"inputsLogin"}
-                        placeholder={"First Name"}
-                        type={"text"}
-                        name={"firstName"}
-                        onChangeText={onChangeText}
-                    />
-                    <Input
-                        s={"inputsLogin"}
-                        placeholder={"Last Name"}
-                        type={"text"}
-                        name={"lastName"}
-                        onChangeText={onChangeText}
-                    />
-                </div>
-                {containerInput("Email", "email", "email")}
-                {containerInput("Password", "password", "password")}
-                {containerInput("Repeat Password", "password", "repeatPassword")}
+            <div className={sContainer.containerLogin}>
+                <div className={sContainer.containerMainLogin}>
+                    <form onSubmit={(e) => onHandleCreateUser(e)} className={sForm.formLogin}>
+                        <H2 title={"Create Your Account"} s={"titleh2Login"}/>
+                        { arrayInput?.map((el, index) => containerInput(el, index))}
 
-                <button
-                    style={{ margin: '15px 0' }}
-                    className={sButton.buttonBlue}
-                    type="submit">Sign Up
-                </button>
-                <Link
-                    style={{ textAlign: 'center' }}
-                    to="/login"
-                    className={sButton.link}>
-                    Do you have an account?
-                </Link>
-            </form>
+                        <ButtonSubmit label={"Register"} s={"buttonBlueLogin"} />
+                    </form>
+                    <div className={sContainer.containerSpanLink}>
+                        <span>Already have an account?</span>
+                        <Link
+                            className={sButton.linkLogin}
+                            to="/login">Sign In
+                        </Link>
+                    </div>
+                </div>
+            </div>
         </>
     )
 }
+
+const arrayInput = [{
+    placeholder: "First Name",
+    type: "text",
+    name: "firstName"
+},{
+    placeholder: "Last Name",
+    type: "text",
+    name: "lastName"
+}, {
+    placeholder: "Email",
+    type: "email",
+    name: "email"
+},{
+    placeholder: "Password",
+    type: "password",
+    name: "password"
+}, {
+    placeholder: "Repeat Password",
+    type: "password",
+    name: "repeatPassword"
+}]

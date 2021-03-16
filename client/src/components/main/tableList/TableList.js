@@ -3,8 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 
 import api from '../../../redux/action-creator';
-import onDragEnd from './onDragEnd';
 import Columns from './columns/Columns';
+import onDragEnd from './onDragEnd';
 
 import sContainer from '../../../styles/container.module.css';
 
@@ -17,12 +17,10 @@ export default function TableList() {
     const dispatch = useDispatch()
 
     useEffect(() => {
-        if (user.id) {
+        if (user.id && !dashboard) {
             let id = dashboard ? dashboard.uuid : user.dashboards[0].uuid
             dispatch(api.getColumn(id))
-            if (!dashboard) {
-                dispatch({ type: DASHBOARD, payload: user.dashboards[0] })
-            }
+            dispatch({ type: DASHBOARD, payload: user.dashboards[0] })
         }
     }, [dispatch, user, DASHBOARD, dashboard])
 

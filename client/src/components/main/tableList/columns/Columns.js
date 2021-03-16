@@ -1,18 +1,18 @@
 import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
+import { useDispatch, useSelector } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
 
-import api from '../../../../redux/action-creator';
 import useClickOutside from '../../../../utils/functions/useClickOutside';
+import { ButtonComment } from '../../../../utils/components/Button';
+import { ToastTimer } from '../../../../utils/alerts/Alert';
+import TitleColumn from './components/TitleColumn';
+import api from '../../../../redux/action-creator';
+import TaskDraggable from '../task/TaskDraggable';
+import FormColumn from './components/FormColumn';
 
 import sContainer from '../../../../styles/container.module.css';
-
 import AddIcon from '@material-ui/icons/Add';
-import TitleColumn from './components/TitleColumn';
-import { ButtonComment } from '../../../../utils/components/Button';
-import FormColumn from './components/FormColumn';
-import TaskDraggable from '../task/TaskDraggable';
 
 export default function Columns({ title, task, index, uuid }) {
 
@@ -25,7 +25,10 @@ export default function Columns({ title, task, index, uuid }) {
         e.preventDefault()
 
         if (!state.title) {
-            return alert('You need a title')
+            setActiveFormColumn(false)
+            return ToastTimer.fire('Deny!',
+                "You need a title",
+                "info")
         }
 
         let newState = {

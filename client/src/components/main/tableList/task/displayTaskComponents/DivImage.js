@@ -1,9 +1,9 @@
 import React from 'react';
 
-import { url } from '../../../../../utils/url';
-import api from '../../../../../redux/action-creator';
 import { ButtonComment } from '../../../../../utils/components/Button';
 import { useDispatch, useSelector } from 'react-redux';
+import api from '../../../../../redux/action-creator';
+import { url } from '../../../../../utils/url';
 
 import sContainer from '../../../../../styles/container.module.css';
 import sButton from '../../../../../styles/button.module.css';

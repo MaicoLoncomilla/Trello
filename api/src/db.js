@@ -2,6 +2,7 @@ require('dotenv').config();
 const { Sequelize } = require('sequelize');
 const fs = require('fs');
 const path = require('path');
+const crypto = require('crypto');
 const { DB_USER, DB_PASSWORD, DB_HOST, DB_NAME } = process.env;
 
 const sequelize = new Sequelize(DB_NAME, DB_USER, DB_PASSWORD, {
@@ -68,6 +69,33 @@ User.belongsToMany(Task, { through: 'Member' })
 // Task 1 <-----> 1 Image
 Task.hasOne(ImageTask)
 ImageTask.belongsTo(Task)
+
+
+User.generateSalt = function () {
+  return crypto.randomBytes(16).toString("base64");
+};
+
+User.encryptPassword = function (plainText, salt) {
+  return crypto
+    .createHash("RSA-SHA256")
+    .update(plainText)
+    .update(salt)
+    .digest("hex");
+};
+
+const setSaltAndPassword = (user) => {
+  if (user.changed("password")) {
+    user.salt = User.generateSalt();
+    user.password = User.encryptPassword(user.password(), user.salt());
+  }
+};
+
+User.beforeCreate(setSaltAndPassword);
+User.beforeUpdate(setSaltAndPassword);
+
+User.prototype.correctPassword = function (enteredPassword) {
+  return User.encryptPassword(enteredPassword, this.salt()) === this.password();
+};
 
 module.exports = {
   ...sequelize.models,

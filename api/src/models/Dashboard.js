@@ -5,13 +5,12 @@ module.exports = (sequelize) => {
         title: {
             type: DataTypes.STRING,
         },
-        description: {
-            type: DataTypes.STRING,
-        },
         uuid: {
             type: DataTypes.STRING,
             primaryKey: true,
         },
-        
+        dashboardPriority: {
+            type: DataTypes.INTEGER
+        }
     })
 }

@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import api from '../../../redux/action-creator';
 import dataURLtoFile from '../../../utils/functions/dataURLtoFile';
 import UserAvatar from '../../../utils/components/UserAvatar';
 import PhotoCameraIcon from '@material-ui/icons/PhotoCamera';
+import api from '../../../redux/action-creator';
 
 import sContainer from '../../../styles/container.module.css';
 import sText from '../../../styles/text.module.css';

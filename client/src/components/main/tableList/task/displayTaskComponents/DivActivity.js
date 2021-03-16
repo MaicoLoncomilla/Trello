@@ -3,8 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
 
 import useClickOutside from '../../../../../utils/functions/useClickOutside';
-import api from '../../../../../redux/action-creator';
 import { Comments, FormEditAddComment } from './components';
+import api from '../../../../../redux/action-creator';
 
 import FormatListBulletedIcon from '@material-ui/icons/FormatListBulleted';
 

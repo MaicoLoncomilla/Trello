@@ -1,9 +1,9 @@
 import React from 'react';
 
-import { TextArea } from '../../../../utils/components/Input';
 import UserAvatar from '../../../../utils/components/UserAvatar';
-import { url } from '../../../../utils/url';
+import { TextArea } from '../../../../utils/components/Input';
 import NotesIcon from '@material-ui/icons/Notes';
+import { url } from '../../../../utils/url';
 
 import sContainer from '../../../../styles/container.module.css';
 import sButton from '../../../../styles/button.module.css';

@@ -86,10 +86,12 @@ export default function Modify() {
                 <div className={sSection.containerButtonModifyTask}>
                     <button
                         className={sButton.buttonGreen}
-                        onClick={() => onHandleSaveChange()}>Save Changes</button>
+                        onClick={() => onHandleSaveChange()}>Save Changes
+                    </button>
                     <button
                         className={sButton.buttonCloseActive}
-                        onClick={() => onHandleDelete()}>Delete Proyect</button>
+                        onClick={() => onHandleDelete()}>Delete Proyect
+                    </button>
                 </div>
             </div>
         </section>

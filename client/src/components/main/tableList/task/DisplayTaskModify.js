@@ -1,17 +1,17 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
+import { ListCover, ListMembers } from './displayTaskComponents/components';
 import useClickOutside from '../../../../utils/functions/useClickOutside';
-import actions from '../../../../redux/actions';
 import { DivCloseIconAbsolute } from '../../../../utils/components/Div';
 import DivTitleColumn from './displayTaskComponents/DivTitleColumn';
-import DivImage from './displayTaskComponents/DivImage';
-import DivMembers from './displayTaskComponents/DivMembers';
 import DivDescription from './displayTaskComponents/DivDescription';
 import DivActivity from './displayTaskComponents/DivActivity';
+import DivMembers from './displayTaskComponents/DivMembers';
 import AddToCard from './displayTaskComponents/AddToCard';
+import DivImage from './displayTaskComponents/DivImage';
 import Actions from './displayTaskComponents/Actions';
-import { ListCover, ListMembers } from './displayTaskComponents/components';
+import actions from '../../../../redux/actions';
 
 import sSection from '../../../../styles/section.module.css';
 

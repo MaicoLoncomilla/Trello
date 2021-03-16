@@ -1,8 +1,9 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 
-import actions from '../../../../../redux/actions';
 import { Button } from '../../../../../utils/components/Button';
 import { H3 } from '../../../../../utils/components/Titles';
+import actions from '../../../../../redux/actions';
 
 import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
 // import LocalOfferOutlinedIcon from '@material-ui/icons/LocalOfferOutlined';
@@ -10,7 +11,6 @@ import PaymentOutlinedIcon from '@material-ui/icons/PaymentOutlined';
 // import ImageOutlinedIcon from '@material-ui/icons/ImageOutlined';
 
 import sButton from '../../../../../styles/button.module.css';
-import { useDispatch } from 'react-redux';
 
 export default function AddToCard(){
   const { LISTADDTOCARD } = actions
